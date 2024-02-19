@@ -5,8 +5,9 @@ import { AxiosResponse } from 'axios'
 interface IFilterGetDeputadosParams {
   pagina: string
   itens: string
-  siglaUf?: string
   nome?: string
+  siglaUf?: string
+  siglaPartido?: string
 }
 
 interface IGetDeputadosReturn {

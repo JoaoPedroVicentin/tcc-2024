@@ -19,20 +19,23 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
+import { PARTIDOS } from '@/constants/partidos'
 
 export default function Deputados() {
   const [pageIndex, setPageIndex] = useState<number>(1)
   const [searchName, setSearchName] = useState<string>()
   const [siglaUf, setSiglaUf] = useState<string>()
+  const [partido, setPartido] = useState<string>()
 
   const { data: deputados, isLoading } = useQuery({
-    queryKey: ['deputados', pageIndex, searchName, siglaUf],
+    queryKey: ['deputados', pageIndex, searchName, siglaUf, partido],
     queryFn: () =>
       getDeputados({
         itens: '10',
         pagina: String(pageIndex),
         nome: searchName,
         siglaUf,
+        siglaPartido: partido,
       }),
   })
 
@@ -74,6 +77,24 @@ export default function Deputados() {
                 return (
                   <SelectItem key={index} value={estado.sigla}>
                     {estado.nome}
+                  </SelectItem>
+                )
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        <Select onValueChange={(e) => setPartido(e)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Pesquisar por partidos" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Estados</SelectLabel>
+              {PARTIDOS.map((partido, index) => {
+                return (
+                  <SelectItem key={index} value={partido.sigla}>
+                    {`${partido.sigla} - ${partido.nome}`}
                   </SelectItem>
                 )
               })}
