@@ -68,7 +68,7 @@ const Previous = ({
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <span>Anterior</span>
   </Link>
 )
 Previous.displayName = 'Previous'
@@ -80,7 +80,7 @@ const Next = ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     className={cn('gap-1 pr-2.5', className)}
     {...props}
   >
-    <span>Next</span>
+    <span>Próximo</span>
     <ChevronRight className="h-4 w-4" />
   </Link>
 )
