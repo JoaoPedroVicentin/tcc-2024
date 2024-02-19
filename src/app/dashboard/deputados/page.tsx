@@ -6,24 +6,84 @@ import * as Table from '@/components/ui/table'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Info } from '@phosphor-icons/react'
-import * as Pagination from '@/components/ui/pagination'
+import { VALIDATIONS_REGEX } from '@/utils/regex'
+import PaginationList from '@/components/paginationList'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { SIGLAS_UF } from '@/constants/siglasUf'
 
 export default function Deputados() {
   const [pageIndex, setPageIndex] = useState<number>(1)
+  const [searchName, setSearchName] = useState<string>()
+  const [siglaUf, setSiglaUf] = useState<string>()
 
   const { data: deputados, isLoading } = useQuery({
-    queryKey: ['deputados', pageIndex],
-    queryFn: () => getDeputados({ itens: '10', pagina: String(pageIndex) }),
+    queryKey: ['deputados', pageIndex, searchName, siglaUf],
+    queryFn: () =>
+      getDeputados({
+        itens: '10',
+        pagina: String(pageIndex),
+        nome: searchName,
+        siglaUf,
+      }),
   })
+
+  function handleSearchName(value: string) {
+    const isValid = VALIDATIONS_REGEX.MIN_3_CHARACTERES.test(value)
+
+    if (isValid) {
+      setSearchName(value)
+    } else if (value === '') {
+      setSearchName(undefined)
+    }
+  }
+
+  const lastPage = deputados?.data.links
+    .find((link) => link.rel === 'last')
+    ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
     <div className="h-full">
-      <div className="mb-12">
+      <div className="mb-6">
         <h1 className="text-5xl font-light">Deputados</h1>
       </div>
 
+      <div className="grid-cols-4 mb-4 grid gap-6">
+        <Input
+          type="email"
+          id="email"
+          placeholder="Pesquisar por nome"
+          onChange={(e) => handleSearchName(e.target.value)}
+        />
+        <Select onValueChange={(e) => setSiglaUf(e)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Pesquisar por estado" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Estados</SelectLabel>
+              {SIGLAS_UF.map((estado, index) => {
+                return (
+                  <SelectItem key={index} value={estado.sigla}>
+                    {estado.nome}
+                  </SelectItem>
+                )
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
       <Table.Root>
-        <Table.Header className="border-theme-gray-100 border-b-2 text-base">
+        <Table.Header className="border-b-2 border-theme-gray-100 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Email</Table.Head>
@@ -57,7 +117,7 @@ export default function Deputados() {
               deputados.data.dados.map((deputado, index) => (
                 <Table.Row
                   key={index}
-                  className="hover:bg-theme-gray-100 items-center text-base hover:text-white"
+                  className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
                   <Table.Cell className="flex items-center gap-4">
                     <Image
@@ -79,39 +139,13 @@ export default function Deputados() {
               ))}
         </Table.Body>
         <Table.Caption>
-          <Pagination.Root className="flex-1">
-            <Pagination.Content>
-              <Pagination.Item>
-                <Pagination.Previous
-                  href="#"
-                  className="cursor-not-allowed"
-                  onClick={() => setPageIndex(pageIndex - 1)}
-                />
-              </Pagination.Item>
-              {pageIndex > 1 && (
-                <Pagination.Item>
-                  <Pagination.Link href="#">{pageIndex - 1}</Pagination.Link>
-                </Pagination.Item>
-              )}
-              <Pagination.Item>
-                <Pagination.Link href="#" isActive>
-                  {pageIndex}
-                </Pagination.Link>
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Link href="#">{pageIndex + 1}</Pagination.Link>
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Ellipsis />
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Next
-                  href="#"
-                  onClick={() => setPageIndex(pageIndex + 1)}
-                />
-              </Pagination.Item>
-            </Pagination.Content>
-          </Pagination.Root>
+          {lastPage && (
+            <PaginationList
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+              lastPage={Number(lastPage[1])}
+            />
+          )}
         </Table.Caption>
         <Table.Caption>Listagem dos deputados federais</Table.Caption>
       </Table.Root>
