@@ -5,6 +5,8 @@ import { AxiosResponse } from 'axios'
 interface IFilterGetDeputadosParams {
   pagina: string
   itens: string
+  siglaUf?: string
+  nome?: string
 }
 
 interface IGetDeputadosReturn {
@@ -25,15 +27,11 @@ interface IGetDeputadosReturn {
   }[]
 }
 
-export async function getDeputados({
-  itens,
-  pagina,
-}: IFilterGetDeputadosParams): Promise<AxiosResponse<IGetDeputadosReturn>> {
+export async function getDeputados(
+  filter: IFilterGetDeputadosParams,
+): Promise<AxiosResponse<IGetDeputadosReturn>> {
   const response = await api.get(apiRoutes.deputados, {
-    params: {
-      itens,
-      pagina,
-    },
+    params: filter,
   })
 
   return {
