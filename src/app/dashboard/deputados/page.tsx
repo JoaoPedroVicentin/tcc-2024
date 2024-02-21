@@ -66,25 +66,35 @@ export default function Deputados() {
           placeholder="Pesquisar por nome"
           onChange={(e) => handleSearchName(e.target.value)}
         />
-        <Select onValueChange={(e) => setSiglaUf(e)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Pesquisar por estado" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Estados</SelectLabel>
-              {SIGLAS_UF.map((estado, index) => {
-                return (
-                  <SelectItem key={index} value={estado.sigla}>
-                    {estado.nome}
-                  </SelectItem>
-                )
-              })}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <div>
+          <Select
+            onValueChange={(e) => setSiglaUf(e)}
+            defaultValue={siglaUf}
+            value={siglaUf}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por estado" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Estados</SelectLabel>
+                {SIGLAS_UF.map((estado, index) => {
+                  return (
+                    <SelectItem key={index} value={estado.sigla}>
+                      {estado.nome}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Select onValueChange={(e) => setPartido(e)}>
+        <Select
+          onValueChange={(e) => setPartido(e)}
+          defaultValue={partido}
+          value={partido}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Pesquisar por partidos" />
           </SelectTrigger>
