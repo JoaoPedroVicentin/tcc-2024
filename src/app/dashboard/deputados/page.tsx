@@ -20,33 +20,54 @@ import {
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
 import { PARTIDOS } from '@/constants/partidos'
+import { IFilterGetDeputadosParams } from '@/httpsRequests/interface/filterGetDeputadosParams.interface'
 
 export default function Deputados() {
-  const [pageIndex, setPageIndex] = useState<number>(1)
-  const [searchName, setSearchName] = useState<string>()
-  const [siglaUf, setSiglaUf] = useState<string>()
-  const [partido, setPartido] = useState<string>()
+  const defaultFilters: IFilterGetDeputadosParams = {
+    nome: '',
+    siglaUf: '',
+    siglaPartido: '',
+    pagina: '1',
+    itens: '10',
+  }
+
+  const [filters, setFilters] =
+    useState<IFilterGetDeputadosParams>(defaultFilters)
+
+  const { pagina, siglaUf } = filters
 
   const { data: deputados, isLoading } = useQuery({
-    queryKey: ['deputados', pageIndex, searchName, siglaUf, partido],
-    queryFn: () =>
-      getDeputados({
-        itens: '10',
-        pagina: String(pageIndex),
-        nome: searchName,
-        siglaUf,
-        siglaPartido: partido,
-      }),
+    queryKey: ['deputados', filters],
+    queryFn: () => getDeputados(filters),
   })
 
-  function handleSearchName(value: string) {
+  function handlenNome(value: string) {
     const isValid = VALIDATIONS_REGEX.MIN_3_CHARACTERES.test(value)
 
     if (isValid) {
-      setSearchName(value)
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        nome: value,
+      }))
     } else if (value === '') {
-      setSearchName(undefined)
+      setFilters((prevState) => ({
+        ...prevState,
+        nome: value,
+      }))
     }
+  }
+
+  function handleSetSiglaUf(value: string) {
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      siglaUf: value,
+    }))
+  }
+
+  function handleCleanFilters() {
+    setFilters(defaultFilters)
   }
 
   const lastPage = deputados?.data.links
@@ -64,20 +85,17 @@ export default function Deputados() {
           type="email"
           id="email"
           placeholder="Pesquisar por nome"
-          onChange={(e) => handleSearchName(e.target.value)}
+          onChange={(e) => handlenNome(e.target.value)}
         />
         <div>
-          <Select
-            onValueChange={(e) => setSiglaUf(e)}
-            defaultValue={siglaUf}
-            value={siglaUf}
-          >
+          <Select onValueChange={(e) => handleSetSiglaUf(e)} value={siglaUf}>
             <SelectTrigger>
               <SelectValue placeholder="Pesquisar por estado" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Estados</SelectLabel>
+                <SelectItem value="null">Sem estado</SelectItem>
                 {SIGLAS_UF.map((estado, index) => {
                   return (
                     <SelectItem key={index} value={estado.sigla}>
@@ -91,16 +109,16 @@ export default function Deputados() {
         </div>
 
         <Select
-          onValueChange={(e) => setPartido(e)}
-          defaultValue={partido}
-          value={partido}
+          onValueChange={(e) =>
+            setFilters((prevState) => ({ ...prevState, siglaPartido: e }))
+          }
         >
           <SelectTrigger>
             <SelectValue placeholder="Pesquisar por partidos" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Estados</SelectLabel>
+              <SelectLabel>Partidos</SelectLabel>
               {PARTIDOS.map((partido, index) => {
                 return (
                   <SelectItem key={index} value={partido.sigla}>
@@ -111,6 +129,10 @@ export default function Deputados() {
             </SelectGroup>
           </SelectContent>
         </Select>
+
+        <button type="button" onClick={handleCleanFilters}>
+          Limpar filtro
+        </button>
       </div>
 
       <Table.Root>
@@ -172,8 +194,13 @@ export default function Deputados() {
         <Table.Caption>
           {lastPage && (
             <PaginationList
-              pageIndex={pageIndex}
-              setPageIndex={setPageIndex}
+              pageIndex={Number(pagina)}
+              setPageIndex={(index) =>
+                setFilters((prevState) => ({
+                  ...prevState,
+                  pagina: String(index),
+                }))
+              }
               lastPage={Number(lastPage[1])}
             />
           )}

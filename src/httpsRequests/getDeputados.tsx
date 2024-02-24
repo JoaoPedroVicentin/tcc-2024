@@ -1,32 +1,8 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-
-interface IFilterGetDeputadosParams {
-  pagina: string
-  itens: string
-  nome?: string
-  siglaUf?: string
-  siglaPartido?: string
-}
-
-interface IGetDeputadosReturn {
-  dados: {
-    id: number
-    uri: string
-    nome: string
-    siglaPartido: string
-    uriPartido: string
-    siglaUf: string
-    idLegislatura: number
-    urlFoto: string
-    email: string
-  }[]
-  links: {
-    rel: 'self' | 'next' | 'first' | 'last'
-    href: string
-  }[]
-}
+import { IFilterGetDeputadosParams } from './interface/filterGetDeputadosParams.interface'
+import { IGetDeputadosReturn } from './interface/getDeputadosReturn.interface'
 
 export async function getDeputados(
   filter: IFilterGetDeputadosParams,
