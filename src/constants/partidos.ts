@@ -115,7 +115,7 @@ export const PARTIDOS = [
   },
   {
     id: 38009,
-    sigla: 'UNIÃO',
+    sigla: 'UNIAO',
     nome: 'União Brasil',
     uri: 'https://dadosabertos.camara.leg.br/api/v2/partidos/38009',
   },

@@ -34,14 +34,14 @@ export default function Deputados() {
   const [filters, setFilters] =
     useState<IFilterGetDeputadosParams>(defaultFilters)
 
-  const { pagina, siglaUf } = filters
+  const { pagina, siglaUf, siglaPartido } = filters
 
   const { data: deputados, isLoading } = useQuery({
     queryKey: ['deputados', filters],
     queryFn: () => getDeputados(filters),
   })
 
-  function handlenNome(value: string) {
+  function handleSetNome(value: string) {
     const isValid = VALIDATIONS_REGEX.MIN_3_CHARACTERES.test(value)
 
     if (isValid) {
@@ -59,15 +59,35 @@ export default function Deputados() {
   }
 
   function handleSetSiglaUf(value: string) {
-    setFilters((prevState) => ({
-      ...prevState,
-      pagina: '1',
-      siglaUf: value,
-    }))
+    if (value === 'null') {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        siglaUf: '',
+      }))
+    } else {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        siglaUf: value,
+      }))
+    }
   }
 
-  function handleCleanFilters() {
-    setFilters(defaultFilters)
+  function handleSetPartido(value: string) {
+    if (value === 'null') {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        siglaPartido: '',
+      }))
+    } else {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        siglaPartido: value,
+      }))
+    }
   }
 
   const lastPage = deputados?.data.links
@@ -82,20 +102,19 @@ export default function Deputados() {
 
       <div className="grid-cols-4 mb-4 grid gap-6">
         <Input
-          type="email"
-          id="email"
+          type="text"
           placeholder="Pesquisar por nome"
-          onChange={(e) => handlenNome(e.target.value)}
+          onChange={(e) => handleSetNome(e.target.value)}
         />
         <div>
-          <Select onValueChange={(e) => handleSetSiglaUf(e)} value={siglaUf}>
+          <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
             <SelectTrigger>
               <SelectValue placeholder="Pesquisar por estado" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Estados</SelectLabel>
-                <SelectItem value="null">Sem estado</SelectItem>
+                <SelectItem value="null">Sem Filtro</SelectItem>
                 {SIGLAS_UF.map((estado, index) => {
                   return (
                     <SelectItem key={index} value={estado.sigla}>
@@ -108,17 +127,14 @@ export default function Deputados() {
           </Select>
         </div>
 
-        <Select
-          onValueChange={(e) =>
-            setFilters((prevState) => ({ ...prevState, siglaPartido: e }))
-          }
-        >
+        <Select onValueChange={handleSetPartido} value={siglaPartido}>
           <SelectTrigger>
             <SelectValue placeholder="Pesquisar por partidos" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Partidos</SelectLabel>
+              <SelectItem value="null">Sem Filtro</SelectItem>
               {PARTIDOS.map((partido, index) => {
                 return (
                   <SelectItem key={index} value={partido.sigla}>
@@ -129,10 +145,6 @@ export default function Deputados() {
             </SelectGroup>
           </SelectContent>
         </Select>
-
-        <button type="button" onClick={handleCleanFilters}>
-          Limpar filtro
-        </button>
       </div>
 
       <Table.Root>
