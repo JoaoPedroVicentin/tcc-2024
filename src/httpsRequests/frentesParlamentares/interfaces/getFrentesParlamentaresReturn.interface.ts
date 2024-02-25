@@ -1,3 +1,5 @@
+import { ILinksReturn } from '@/interfaces/linksReturn.interface'
+
 export interface IGetFrentesParlamentaresReturn {
   dados: {
     id: number
@@ -5,8 +7,5 @@ export interface IGetFrentesParlamentaresReturn {
     titulo: string
     uri: string
   }[]
-  links: {
-    rel: 'self' | 'next' | 'first' | 'last'
-    href: string
-  }[]
+  links: ILinksReturn[]
 }

@@ -1,3 +1,5 @@
+import { ILinksReturn } from '@/interfaces/linksReturn.interface'
+
 export interface IGetDeputadosReturn {
   dados: {
     id: number
@@ -10,8 +12,5 @@ export interface IGetDeputadosReturn {
     urlFoto: string
     email: string
   }[]
-  links: {
-    rel: 'self' | 'next' | 'first' | 'last'
-    href: string
-  }[]
+  links: ILinksReturn[]
 }

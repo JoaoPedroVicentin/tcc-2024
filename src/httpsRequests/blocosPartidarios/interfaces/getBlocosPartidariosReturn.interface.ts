@@ -1,3 +1,5 @@
+import { ILinksReturn } from '@/interfaces/linksReturn.interface'
+
 export interface IGetBlocosPartidariosReturn {
   dados: {
     id: number
@@ -5,8 +7,5 @@ export interface IGetBlocosPartidariosReturn {
     nome: string
     uri: string
   }[]
-  links: {
-    rel: 'self' | 'next' | 'first' | 'last'
-    href: string
-  }[]
+  links: ILinksReturn[]
 }
