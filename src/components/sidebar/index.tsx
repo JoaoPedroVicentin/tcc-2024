@@ -31,7 +31,11 @@ export default function Sidebar() {
           />
           <NavItem title="Proposições" link="#" icon={Files} />
           <NavItem title="Eventos" link="#" icon={Calendar} />
-          <NavItem title="Partidos" link="#" icon={Flag} />
+          <NavItem
+            title="Partidos"
+            link={internalRoutes.partidos}
+            icon={Flag}
+          />
           <NavItem title="Frentes Parlamentares" link="#" icon={UsersThree} />
           <NavItem title="Blocos Partidários" link="#" icon={UsersFour} />
           <NavItem title="Votações" link="#" icon={Ticket} />

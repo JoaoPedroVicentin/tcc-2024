@@ -16,13 +16,12 @@ export default function NavItem({ link, title, icon: Icon }: INavItemProps) {
   const linkIsActive = path.includes(link)
 
   return (
-    <li
+    <Link
+      href={link}
       className={`flex cursor-pointer items-end gap-4 px-4 py-3 transition duration-150 ease-in-out hover:bg-theme-green-200 ${linkIsActive && 'border-l-8 border-theme-black bg-theme-green-200'}`}
     >
       <Icon size={26} weight="fill" />
-      <Link href={link} className="truncate">
-        {title}
-      </Link>
-    </li>
+      <span className="truncate">{title}</span>
+    </Link>
   )
 }
