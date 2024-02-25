@@ -1,5 +1,5 @@
 'use client'
-import { getDeputados } from '@/httpsRequests/getDeputados'
+import { getDeputados } from '@/httpsRequests/deputados/getDeputados'
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import * as Table from '@/components/ui/table'
@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
 import { PARTIDOS } from '@/constants/partidos'
-import { IFilterGetDeputadosParams } from '@/httpsRequests/interface/filterGetDeputadosParams.interface'
+import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/interfaces/filterGetDeputadosParams.interface'
 
 export default function Deputados() {
   const defaultFilters: IFilterGetDeputadosParams = {

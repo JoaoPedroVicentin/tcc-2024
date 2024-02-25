@@ -1,8 +1,8 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-import { IFilterGetDeputadosParams } from './interface/filterGetDeputadosParams.interface'
-import { IGetDeputadosReturn } from './interface/getDeputadosReturn.interface'
+import { IFilterGetDeputadosParams } from './interfaces/filterGetDeputadosParams.interface'
+import { IGetDeputadosReturn } from './interfaces/getDeputadosReturn.interface'
 
 export async function getDeputados(
   filter: IFilterGetDeputadosParams,
