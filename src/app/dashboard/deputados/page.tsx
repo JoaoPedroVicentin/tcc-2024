@@ -113,8 +113,8 @@ export default function Deputados() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Estados</SelectLabel>
                 <SelectItem value="null">Sem Filtro</SelectItem>
+                <SelectLabel>Estados</SelectLabel>
                 {SIGLAS_UF.map((estado, index) => {
                   return (
                     <SelectItem key={index} value={estado.sigla}>
@@ -133,8 +133,8 @@ export default function Deputados() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Partidos</SelectLabel>
               <SelectItem value="null">Sem Filtro</SelectItem>
+              <SelectLabel>Partidos</SelectLabel>
               {PARTIDOS.map((partido, index) => {
                 return (
                   <SelectItem key={index} value={partido.sigla}>
