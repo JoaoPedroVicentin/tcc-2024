@@ -6,40 +6,39 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Info } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
-import { IFilterGetPartidosParams } from '@/httpsRequests/partidos/interfaces/filterGetPartidosParams.interface'
-import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
+import { IFilterGetFrentesParlamentaresParams } from '@/httpsRequests/frentesParlamentares/interfaces/filterGetFrentesParlamentaresParams.interface'
+import { getFrentesParlamentares } from '@/httpsRequests/frentesParlamentares'
 
-export default function Partidos() {
-  const defaultFilters: IFilterGetPartidosParams = {
+export default function FrentesParlamentares() {
+  const defaultFilters: IFilterGetFrentesParlamentaresParams = {
     pagina: '1',
     itens: '10',
   }
 
   const [filters, setFilters] =
-    useState<IFilterGetPartidosParams>(defaultFilters)
+    useState<IFilterGetFrentesParlamentaresParams>(defaultFilters)
 
   const { pagina } = filters
 
-  const { data: partidos, isLoading } = useQuery({
-    queryKey: ['partidos', filters],
-    queryFn: () => getPartidos(filters),
+  const { data: frentes, isLoading } = useQuery({
+    queryKey: ['frentesParlamentares', filters],
+    queryFn: () => getFrentesParlamentares(filters),
   })
 
-  const lastPage = partidos?.data.links
+  const lastPage = frentes?.data.links
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
     <div className="h-full">
       <div className="mb-6">
-        <h1 className="text-5xl font-light">Partidos</h1>
+        <h1 className="text-5xl font-light">Frentes Parlamentares</h1>
       </div>
 
       <Table.Root>
         <Table.Header className="border-b-2 border-theme-gray-100 text-base">
           <Table.Row>
-            <Table.Head>Nome</Table.Head>
-            <Table.Head>Sigla</Table.Head>
+            <Table.Head>Título</Table.Head>
             <Table.Head>Ver página</Table.Head>
           </Table.Row>
         </Table.Header>
@@ -53,19 +52,15 @@ export default function Partidos() {
                   <Table.Cell>
                     <Skeleton className="h-14 flex-1" />
                   </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
                 </Table.Row>
               ))
-            : partidos &&
-              partidos.data.dados.map((partido, index) => (
+            : frentes &&
+              frentes.data.dados.map((partido, index) => (
                 <Table.Row
                   key={index}
                   className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
-                  <Table.Cell>{partido.nome}</Table.Cell>
-                  <Table.Cell>{partido.sigla}</Table.Cell>
+                  <Table.Cell>{partido.titulo}</Table.Cell>
                   <Table.Cell>
                     <Info size={20} weight="duotone" />
                   </Table.Cell>
@@ -86,7 +81,7 @@ export default function Partidos() {
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem dos Partidos</Table.Caption>
+        <Table.Caption>Listagem das Frentes Parlamentares</Table.Caption>
       </Table.Root>
     </div>
   )

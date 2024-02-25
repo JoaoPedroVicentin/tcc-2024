@@ -2,7 +2,7 @@ import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
 import { IGetPartidosReturn } from './interfaces/getPartidosReturn.interface'
-import { IFilterGetPartidosParams } from './interfaces/filterGetDeputadosParams.interface'
+import { IFilterGetPartidosParams } from './interfaces/filterGetPartidosParams.interface'
 
 export async function getPartidos(
   filter: IFilterGetPartidosParams,
