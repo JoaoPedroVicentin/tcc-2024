@@ -1,6 +1,7 @@
 export const internalRoutes = {
-  deputados: '/dashboard/deputados',
-  partidos: '/dashboard/partidos',
-  frentesParlamentares: '/dashboard/frentes-parlamentares',
-  blocosPartidarios: '/dashboard/blocos-partidarios',
+  deputados: '/deputados',
+  partidos: '/partidos',
+  partidosById: (id: number) => `/partidos/${id}`,
+  frentesParlamentares: '/frentes-parlamentares',
+  blocosPartidarios: '/blocos-partidarios',
 }

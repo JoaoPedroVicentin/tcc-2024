@@ -100,7 +100,7 @@ export default function Deputados() {
         <h1 className="text-5xl font-light">Deputados</h1>
       </div>
 
-      <div className="grid-cols-4 mb-4 grid gap-6">
+      <div className="mb-4 grid grid-cols-4 gap-6">
         <Input
           type="text"
           placeholder="Pesquisar por nome"
