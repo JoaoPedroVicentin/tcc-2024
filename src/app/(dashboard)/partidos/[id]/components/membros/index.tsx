@@ -37,7 +37,7 @@ export default function MembrosPartido({
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div className="h-full">
+    <div>
       <div className="my-5">
         <h1 className="text-2xl font-normal">Membros</h1>
       </div>

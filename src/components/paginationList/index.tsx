@@ -19,12 +19,11 @@ export default function PaginationList({
           <>
             <Pagination.Item>
               <Pagination.Previous
-                href="#"
                 onClick={() => setPageIndex(pageIndex - 1)}
               />
             </Pagination.Item>
             <Pagination.Item>
-              <Pagination.Link href="#" onClick={() => setPageIndex(1)}>
+              <Pagination.Link onClick={() => setPageIndex(1)}>
                 {1}
               </Pagination.Link>
             </Pagination.Item>
@@ -36,27 +35,19 @@ export default function PaginationList({
               <Pagination.Ellipsis />
             </Pagination.Item>
             <Pagination.Item>
-              <Pagination.Link
-                href="#"
-                onClick={() => setPageIndex(pageIndex - 1)}
-              >
+              <Pagination.Link onClick={() => setPageIndex(pageIndex - 1)}>
                 {pageIndex - 1}
               </Pagination.Link>
             </Pagination.Item>
           </>
         )}
         <Pagination.Item>
-          <Pagination.Link href="#" isActive>
-            {pageIndex}
-          </Pagination.Link>
+          <Pagination.Link isActive>{pageIndex}</Pagination.Link>
         </Pagination.Item>
         {pageIndex + 1 < lastPage && (
           <>
             <Pagination.Item>
-              <Pagination.Link
-                href="#"
-                onClick={() => setPageIndex(pageIndex + 1)}
-              >
+              <Pagination.Link onClick={() => setPageIndex(pageIndex + 1)}>
                 {pageIndex + 1}
               </Pagination.Link>
             </Pagination.Item>
@@ -67,17 +58,14 @@ export default function PaginationList({
         )}
         {lastPage && pageIndex < lastPage && (
           <Pagination.Item>
-            <Pagination.Link href="#" onClick={() => setPageIndex(lastPage)}>
+            <Pagination.Link onClick={() => setPageIndex(lastPage)}>
               {lastPage}
             </Pagination.Link>
           </Pagination.Item>
         )}
         {pageIndex < lastPage && (
           <Pagination.Item>
-            <Pagination.Next
-              href="#"
-              onClick={() => setPageIndex(pageIndex + 1)}
-            />
+            <Pagination.Next onClick={() => setPageIndex(pageIndex + 1)} />
           </Pagination.Item>
         )}
       </Pagination.Content>
