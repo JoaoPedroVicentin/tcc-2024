@@ -6,8 +6,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Info } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
-import { IFilterGetFrentesParlamentaresParams } from '@/httpsRequests/frentesParlamentares/interfaces/filterGetFrentesParlamentaresParams.interface'
-import { getFrentesParlamentares } from '@/httpsRequests/frentesParlamentares'
+import { IFilterGetFrentesParlamentaresParams } from '@/httpsRequests/frentesParlamentares/getFrentesParlamentares/interfaces/filterGetFrentesParlamentaresParams.interface'
+import { getFrentesParlamentares } from '@/httpsRequests/frentesParlamentares/getFrentesParlamentares'
+import Link from 'next/link'
+import { internalRoutes } from '@/configs/internalRoutes'
 
 export default function FrentesParlamentares() {
   const defaultFilters: IFilterGetFrentesParlamentaresParams = {
@@ -55,14 +57,18 @@ export default function FrentesParlamentares() {
                 </Table.Row>
               ))
             : frentes &&
-              frentes.data.dados.map((partido, index) => (
+              frentes.data.dados.map((frente, index) => (
                 <Table.Row
                   key={index}
                   className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
-                  <Table.Cell>{partido.titulo}</Table.Cell>
+                  <Table.Cell>{frente.titulo}</Table.Cell>
                   <Table.Cell>
-                    <Info size={20} weight="duotone" />
+                    <Link
+                      href={internalRoutes.frenteParlamentarById(frente.id)}
+                    >
+                      <Info size={20} weight="duotone" />
+                    </Link>
                   </Table.Cell>
                 </Table.Row>
               ))}

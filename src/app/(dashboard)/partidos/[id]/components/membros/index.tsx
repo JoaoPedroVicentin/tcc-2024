@@ -6,7 +6,7 @@ import * as Table from '@/components/ui/table'
 import React, { useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import Image from 'next/image'
-import { Info } from '@phosphor-icons/react'
+import { Info, UserList } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 
 export default function MembrosPartido({
@@ -38,7 +38,8 @@ export default function MembrosPartido({
 
   return (
     <div>
-      <div className="my-5">
+      <div className="p-base my-5 flex items-center gap-2 bg-zinc-100 text-black">
+        <UserList size={26} weight="fill" />
         <h1 className="text-2xl font-normal">Membros</h1>
       </div>
 

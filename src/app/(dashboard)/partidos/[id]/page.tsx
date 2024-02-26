@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import MembrosPartido from './components/membros'
 import Image from 'next/image'
-import { Info } from '@phosphor-icons/react'
+import { CrownSimple, Info } from '@phosphor-icons/react'
 
 export default function PartidoById({ params: { id } }: IRouteByIdProps) {
   const { data: partido, isLoading } = useQuery({
@@ -23,7 +23,8 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
         </div>
 
         <div>
-          <div className="my-5">
+          <div className="p-base my-5 flex items-center gap-2 bg-zinc-100 text-black">
+            <CrownSimple size={26} weight="fill" />
             <h1 className="text-2xl font-normal">Líder</h1>
           </div>
 
@@ -39,7 +40,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
               <p className="text-xl">{partido.data.dados.status.lider.uf}</p>
               <button
                 type="button"
-                className="flex w-fit items-center justify-center gap-2 bg-black px-4 py-2 font-bold text-white transition hover:bg-theme-green-200 hover:text-black"
+                className="p-base flex w-fit items-center justify-center gap-2 bg-black font-bold text-white transition hover:bg-theme-green-200 hover:text-black"
               >
                 <Info size={20} weight="bold" />
                 Saber mais
