@@ -1,0 +1,92 @@
+export const LEGISLATURAS = [
+  {
+    id: '57',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/57',
+    dataInicio: '2023-02-01',
+    dataFim: '2027-01-31',
+  },
+  {
+    id: '56',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/56',
+    dataInicio: '2019-02-01',
+    dataFim: '2023-01-31',
+  },
+  {
+    id: '55',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/55',
+    dataInicio: '2015-02-01',
+    dataFim: '2019-01-31',
+  },
+  {
+    id: '54',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/54',
+    dataInicio: '2011-02-01',
+    dataFim: '2015-01-31',
+  },
+  {
+    id: '53',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/53',
+    dataInicio: '2007-02-01',
+    dataFim: '2011-01-31',
+  },
+  {
+    id: '52',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/52',
+    dataInicio: '2003-02-01',
+    dataFim: '2007-01-31',
+  },
+  {
+    id: '51',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/51',
+    dataInicio: '1999-02-01',
+    dataFim: '2003-01-31',
+  },
+  {
+    id: '50',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/50',
+    dataInicio: '1995-02-01',
+    dataFim: '1999-01-31',
+  },
+  {
+    id: '49',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/49',
+    dataInicio: '1991-02-01',
+    dataFim: '1995-01-31',
+  },
+  {
+    id: '48',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/48',
+    dataInicio: '1987-02-01',
+    dataFim: '1991-01-31',
+  },
+  {
+    id: '47',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/47',
+    dataInicio: '1983-02-01',
+    dataFim: '1987-01-31',
+  },
+  {
+    id: '46',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/46',
+    dataInicio: '1979-02-01',
+    dataFim: '1983-01-31',
+  },
+  {
+    id: '45',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/45',
+    dataInicio: '1975-02-01',
+    dataFim: '1979-01-31',
+  },
+  {
+    id: '44',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/44',
+    dataInicio: '1971-02-01',
+    dataFim: '1975-01-31',
+  },
+  {
+    id: '43',
+    uri: 'https://dadosabertos.camara.leg.br/api/v2/legislaturas/43',
+    dataInicio: '1967-02-01',
+    dataFim: '1971-01-31',
+  },
+]

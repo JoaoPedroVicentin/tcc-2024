@@ -4,4 +4,5 @@ export interface IFilterGetDeputadosParams {
   nome?: string
   siglaUf?: string
   siglaPartido?: string
+  idLegislatura?: string
 }

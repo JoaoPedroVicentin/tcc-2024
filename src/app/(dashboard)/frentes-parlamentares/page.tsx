@@ -10,17 +10,28 @@ import { IFilterGetFrentesParlamentaresParams } from '@/httpsRequests/frentesPar
 import { getFrentesParlamentares } from '@/httpsRequests/frentesParlamentares/getFrentesParlamentares'
 import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { LEGISLATURAS } from '@/constants/legislaturas'
 
 export default function FrentesParlamentares() {
   const defaultFilters: IFilterGetFrentesParlamentaresParams = {
     pagina: '1',
     itens: '10',
+    idLegislatura: '57',
   }
 
   const [filters, setFilters] =
     useState<IFilterGetFrentesParlamentaresParams>(defaultFilters)
 
-  const { pagina } = filters
+  const { pagina, idLegislatura } = filters
 
   const { data: frentes, isLoading } = useQuery({
     queryKey: ['frentesParlamentares', filters],
@@ -31,12 +42,47 @@ export default function FrentesParlamentares() {
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
+  function handleSetLegislatura(value: string) {
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      idLegislatura: value,
+    }))
+  }
+
   return (
     <div className="h-full">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Frentes Parlamentares</h1>
       </div>
 
+      <div className="mb-4 grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Legislatura</label>
+          <Select onValueChange={handleSetLegislatura} value={idLegislatura}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por legislatura" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Legislaturas</SelectLabel>
+                {LEGISLATURAS.slice(0, 2).map((legislatura, index) => {
+                  const startDate = new Date(
+                    legislatura.dataInicio,
+                  ).getFullYear()
+                  const endDate = new Date(legislatura.dataFim).getFullYear()
+
+                  return (
+                    <SelectItem key={index} value={legislatura.id}>
+                      {startDate} - {endDate}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <Table.Root>
         <Table.Header className="border-b-2 border-theme-gray-100 text-base">
           <Table.Row>

@@ -8,17 +8,28 @@ import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import { IFilterGetBlocosPartidariosParams } from '@/httpsRequests/blocosPartidarios/interfaces/filterGetBlocosPartidariosParams.interface'
 import { getBlocosPartidarios } from '@/httpsRequests/blocosPartidarios'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { LEGISLATURAS } from '@/constants/legislaturas'
 
 export default function BlocosPartidarios() {
   const defaultFilters: IFilterGetBlocosPartidariosParams = {
     pagina: '1',
     itens: '10',
+    idLegislatura: '57',
   }
 
   const [filters, setFilters] =
     useState<IFilterGetBlocosPartidariosParams>(defaultFilters)
 
-  const { pagina } = filters
+  const { pagina, idLegislatura } = filters
 
   const { data: blocos, isLoading } = useQuery({
     queryKey: ['blocosPartidarios', filters],
@@ -29,10 +40,49 @@ export default function BlocosPartidarios() {
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
+  function handleSetLegislatura(value: string) {
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      idLegislatura: value,
+    }))
+  }
+
   return (
     <div className="h-full">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Blocos Partidários</h1>
+      </div>
+
+      <div className="mb-4 grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Legislatura</label>
+          <Select
+            onValueChange={handleSetLegislatura}
+            value={String(idLegislatura)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por legislatura" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Legislaturas</SelectLabel>
+                {LEGISLATURAS.slice(0, 2).map((legislatura, index) => {
+                  const startDate = new Date(
+                    legislatura.dataInicio,
+                  ).getFullYear()
+                  const endDate = new Date(legislatura.dataFim).getFullYear()
+
+                  return (
+                    <SelectItem key={index} value={legislatura.id}>
+                      {startDate} - {endDate}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <Table.Root>
