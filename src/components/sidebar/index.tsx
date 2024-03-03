@@ -29,7 +29,11 @@ export default function Sidebar() {
             link={internalRoutes.deputados}
             icon={Users}
           />
-          <NavItem title="Proposições" link="#" icon={Files} />
+          <NavItem
+            title="Proposições"
+            link={internalRoutes.proposicoes}
+            icon={Files}
+          />
           <NavItem title="Eventos" link="#" icon={Calendar} />
           <NavItem
             title="Partidos"

@@ -1,12 +1,12 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-import { IGetPartidoByIdReturn } from './interface/getPartidoByIdReturn.interface'
+import { IGetProposicaoByIdReturn } from './interface/getProposicaoByIdReturn.interface'
 
-export async function getPartidoById(
+export async function getProposicaoById(
   id: number,
-): Promise<AxiosResponse<IGetPartidoByIdReturn>> {
-  const response = await api.get(apiRoutes.partidoById(id))
+): Promise<AxiosResponse<IGetProposicaoByIdReturn>> {
+  const response = await api.get(apiRoutes.proposicaoById(id))
 
   return {
     data: response.data,

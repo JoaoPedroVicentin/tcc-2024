@@ -1,4 +1,6 @@
-export const TIPOS_PROPOSICAO = [
+import { IConstantsData } from '@/interfaces/constantsData.interface'
+
+export const TIPOS_PROPOSICAO: IConstantsData[] = [
   {
     cod: '129',
     sigla: 'CON',
