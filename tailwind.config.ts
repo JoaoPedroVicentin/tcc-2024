@@ -9,6 +9,10 @@ const config = {
       app: 'minmax(18rem, 20rem) 1fr',
       form: 'minmax(7.5rem, 17.5rem), minmax(25rem, 1fr), minmax(0, 15rem)',
       4: 'repeat(4, minmax(0, 1fr))',
+      5: 'repeat(4, minmax(0, 5fr))',
+      6: 'repeat(4, minmax(0, 6fr))',
+      7: 'repeat(4, minmax(0, 7fr))',
+      8: 'repeat(4, minmax(0, 8fr))',
     },
     container: {
       center: true,

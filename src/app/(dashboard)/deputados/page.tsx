@@ -19,9 +19,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
-import { PARTIDOS } from '@/constants/partidos'
 import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/interfaces/filterGetDeputadosParams.interface'
 import { LEGISLATURAS } from '@/constants/legislaturas'
+import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
 
 export default function Deputados() {
   const defaultFilters: IFilterGetDeputadosParams = {
@@ -38,10 +38,17 @@ export default function Deputados() {
 
   const { pagina, siglaUf, siglaPartido, idLegislatura } = filters
 
-  const { data: deputados, isLoading } = useQuery({
+  const { data: deputados, isLoading: isLoadingDeputados } = useQuery({
     queryKey: ['deputados', filters],
     queryFn: () => getDeputados(filters),
   })
+
+  const { data: partidos, isLoading: isLoadingPartidos } = useQuery({
+    queryKey: ['partidos', filters],
+    queryFn: () => getPartidos({ idLegislatura }),
+  })
+
+  const isLoading = !!(isLoadingDeputados || isLoadingPartidos)
 
   function handleSetNome(value: string) {
     const isValid = VALIDATIONS_REGEX.MIN_3_CHARACTERES.test(value)
@@ -110,85 +117,88 @@ export default function Deputados() {
         <h1 className="text-5xl font-light">Deputados</h1>
       </div>
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Legislatura</label>
-          <Select onValueChange={handleSetLegislatura} value={idLegislatura}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por legislatura" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Legislaturas</SelectLabel>
-                {LEGISLATURAS.slice(0, 2).map((legislatura, index) => {
-                  const startDate = new Date(
-                    legislatura.dataInicio,
-                  ).getFullYear()
-                  const endDate = new Date(legislatura.dataFim).getFullYear()
+      {!isLoading && partidos && (
+        <div className="mb-4 grid grid-cols-4 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Legislatura</label>
+            <Select onValueChange={handleSetLegislatura} value={idLegislatura}>
+              <SelectTrigger>
+                <SelectValue placeholder="Pesquisar por legislatura" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Legislaturas</SelectLabel>
+                  {LEGISLATURAS.slice(0, 2).map((legislatura, index) => {
+                    const startDate = new Date(
+                      legislatura.dataInicio,
+                    ).getFullYear()
+                    const endDate = new Date(legislatura.dataFim).getFullYear()
 
-                  return (
-                    <SelectItem key={index} value={legislatura.id}>
-                      {startDate} - {endDate}
-                    </SelectItem>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Nome</label>
-          <Input
-            type="text"
-            placeholder="Pesquisar por nome"
-            onChange={(e) => handleSetNome(e.target.value)}
-          />
-        </div>
+                    return (
+                      <SelectItem key={index} value={legislatura.id}>
+                        {startDate} - {endDate}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Partido</label>
-          <Select onValueChange={handleSetPartido} value={siglaPartido}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por partidos" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="null">Sem Filtro</SelectItem>
-                <SelectLabel>Partidos</SelectLabel>
-                {PARTIDOS.map((partido, index) => {
-                  return (
-                    <SelectItem key={index} value={partido.sigla}>
-                      {`${partido.sigla} - ${partido.nome}`}
-                    </SelectItem>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Nome</label>
+            <Input
+              type="text"
+              placeholder="Pesquisar por nome"
+              onChange={(e) => handleSetNome(e.target.value)}
+            />
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Estado</label>
-          <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por estado" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="null">Sem Filtro</SelectItem>
-                <SelectLabel>Estados</SelectLabel>
-                {SIGLAS_UF.map((estado, index) => {
-                  return (
-                    <SelectItem key={index} value={estado.sigla}>
-                      {estado.nome}
-                    </SelectItem>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Partido</label>
+            <Select onValueChange={handleSetPartido} value={siglaPartido}>
+              <SelectTrigger>
+                <SelectValue placeholder="Pesquisar por partidos" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="null">Sem Filtro</SelectItem>
+                  <SelectLabel>Partidos</SelectLabel>
+                  {partidos.data.dados.map((partido, index) => {
+                    return (
+                      <SelectItem key={index} value={partido.sigla}>
+                        {`${partido.sigla} - ${partido.nome}`}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Estado</label>
+            <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
+              <SelectTrigger>
+                <SelectValue placeholder="Pesquisar por estado" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="null">Sem Filtro</SelectItem>
+                  <SelectLabel>Estados</SelectLabel>
+                  {SIGLAS_UF.map((estado, index) => {
+                    return (
+                      <SelectItem key={index} value={estado.sigla}>
+                        {estado.nome}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </div>
+      )}
 
       <Table.Root>
         <Table.Header className="border-b-2 border-theme-gray-100 text-base">
