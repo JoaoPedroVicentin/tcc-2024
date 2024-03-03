@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Info } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import { IFilterGetBlocosPartidariosParams } from '@/httpsRequests/blocosPartidarios/interfaces/filterGetBlocosPartidariosParams.interface'
@@ -67,7 +66,7 @@ export default function BlocosPartidarios() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Legislaturas</SelectLabel>
-                {LEGISLATURAS.slice(0, 2).map((legislatura, index) => {
+                {LEGISLATURAS.slice(0, 4).map((legislatura, index) => {
                   const startDate = new Date(
                     legislatura.dataInicio,
                   ).getFullYear()
@@ -89,16 +88,12 @@ export default function BlocosPartidarios() {
         <Table.Header className="border-b-2 border-theme-gray-100 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
-            <Table.Head>Ver página</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {isLoading
             ? Array.from({ length: 10 }, (_, index) => (
                 <Table.Row key={index}>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
                   <Table.Cell>
                     <Skeleton className="h-14 flex-1" />
                   </Table.Cell>
@@ -111,9 +106,6 @@ export default function BlocosPartidarios() {
                   className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
                   <Table.Cell>{partido.nome}</Table.Cell>
-                  <Table.Cell>
-                    <Info size={20} weight="duotone" />
-                  </Table.Cell>
                 </Table.Row>
               ))}
         </Table.Body>
