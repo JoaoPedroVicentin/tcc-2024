@@ -63,7 +63,7 @@ export default function Proposicoes() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        siglaPartido: value,
+        codSituacao: value,
       }))
     }
   }
