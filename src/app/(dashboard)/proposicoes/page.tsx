@@ -22,6 +22,7 @@ import { getProposicoes } from '@/httpsRequests/proposicoes/getProposicoes'
 import { SITUACOES_PROPOSICAO } from '@/constants/proposicoes/situacoesProposicao'
 import { TIPOS_PROPOSICAO } from '@/constants/proposicoes/tiposProposicao'
 import { IConstantsData } from '@/interfaces/constantsData.interface'
+import { TEMA_PROPOSICAO } from '@/constants/proposicoes/temaProposicao'
 
 export default function Proposicoes() {
   const defaultFilters: IFilterGetProposicoesParams = {
@@ -33,7 +34,7 @@ export default function Proposicoes() {
   const [filters, setFilters] =
     useState<IFilterGetProposicoesParams>(defaultFilters)
 
-  const { pagina, ano, codSituacao, siglaTipo } = filters
+  const { pagina, ano, codSituacao, siglaTipo, codTema } = filters
 
   const { data: proposicoes, isLoading } = useQuery({
     queryKey: ['proposicoes', filters],
@@ -80,6 +81,22 @@ export default function Proposicoes() {
         ...prevState,
         pagina: '1',
         siglaTipo: value,
+      }))
+    }
+  }
+
+  function handleSetTema(value: string) {
+    if (value === 'null') {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        codTema: '',
+      }))
+    } else {
+      setFilters((prevState) => ({
+        ...prevState,
+        pagina: '1',
+        codTema: value,
       }))
     }
   }
@@ -189,6 +206,28 @@ export default function Proposicoes() {
             </SelectContent>
           </Select>
         </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Tema</label>
+          <Select onValueChange={handleSetTema} value={codTema}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por tema" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="null">Sem Filtro</SelectItem>
+                <SelectLabel>Tema</SelectLabel>
+                {TEMA_PROPOSICAO.map((tema, index) => {
+                  return (
+                    <SelectItem key={index} value={tema.cod}>
+                      {tema.nome}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <Table.Root>
@@ -221,8 +260,7 @@ export default function Proposicoes() {
                   className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
                   <Table.Cell>
-                    {proposicao.siglaTipo}
-                    {proposicao.numero}/{proposicao.ano}
+                    {proposicao.siglaTipo} {proposicao.numero}/{proposicao.ano}
                   </Table.Cell>
                   <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
                     {proposicao.ementa}
@@ -249,7 +287,14 @@ export default function Proposicoes() {
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem das Proposições</Table.Caption>
+
+        {!isLoading && proposicoes && proposicoes.data.dados.length <= 0 ? (
+          <Table.Caption>
+            <Table.DataEmpty />
+          </Table.Caption>
+        ) : (
+          <Table.Caption>Listagem das Proposições</Table.Caption>
+        )}
       </Table.Root>
     </div>
   )

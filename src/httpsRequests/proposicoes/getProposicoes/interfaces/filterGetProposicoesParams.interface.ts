@@ -13,4 +13,5 @@ export interface IFilterGetProposicoesParams {
   dataApresentacaoInicio?: string
   dataApresentacaoFim?: string
   codSituacao?: string
+  codTema?: string
 }

@@ -55,7 +55,7 @@ export default function FrenteParlamentarById({
         {frente.data.dados.urlDocumento && (
           <Link
             href={frente.data.dados.urlDocumento}
-            className="p-base flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 font-bold text-black transition hover:border-theme-black"
+            className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
           >
             <FileText size={20} weight="bold" />
             Ver documento
@@ -64,7 +64,7 @@ export default function FrenteParlamentarById({
 
         {frente.data.dados.coordenador && (
           <div className="flex flex-col gap-2">
-            <div className="p-base mb-5 flex  items-center gap-2 bg-zinc-100 text-black">
+            <div className="mb-5 flex items-center  gap-2 bg-zinc-100 p-base text-black">
               <Person size={26} weight="fill" />
               <h1 className="text-2xl font-normal">Coordenador</h1>
             </div>
@@ -84,7 +84,7 @@ export default function FrenteParlamentarById({
                 </p>
                 <button
                   type="button"
-                  className="p-base flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 font-bold text-black transition hover:border-theme-black"
+                  className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
                 >
                   <Info size={20} weight="bold" />
                   Saber mais
@@ -97,7 +97,7 @@ export default function FrenteParlamentarById({
         {frente.data.dados.situacao && (
           <div>
             <div className="flex flex-col gap-2">
-              <div className="p-base mb-5 flex items-center gap-2 bg-zinc-100 text-black">
+              <div className="mb-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
                 <Steps size={26} weight="fill" />
                 <h1 className="text-2xl font-normal">Situação</h1>
               </div>
@@ -106,7 +106,7 @@ export default function FrenteParlamentarById({
                   return (
                     <div
                       key={index}
-                      className="p-base flex flex-col gap-2 bg-zinc-50"
+                      className="flex flex-col gap-2 bg-zinc-50 p-base"
                     >
                       <p className="text-lg">{validParts[index + 1]}</p>
                       <p>{parte}</p>
@@ -118,27 +118,26 @@ export default function FrenteParlamentarById({
           </div>
         )}
 
-        {frente.data.dados.email ||
-          (frente.data.dados.telefone && (
-            <div>
-              <div className="p-base mb-5 flex items-center gap-2 bg-zinc-100 text-black">
-                <PhoneDisconnect size={26} weight="fill" />
-                <h1 className="text-2xl font-normal">Contato</h1>
-              </div>
-              {frente.data.dados.telefone && (
-                <div className="p-base flex items-center gap-2">
-                  <Phone size={24} weight="fill" />
-                  <p className="text-lg">{frente.data.dados.telefone}</p>
-                </div>
-              )}
-              {frente.data.dados.email && (
-                <div className="p-base flex items-center gap-2">
-                  <EnvelopeSimple size={24} weight="fill" />
-                  <p className="text-lg">{frente.data.dados.email}</p>
-                </div>
-              )}
+        {!!(frente.data.dados.email || frente.data.dados.telefone) && (
+          <div>
+            <div className="mb-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
+              <PhoneDisconnect size={26} weight="fill" />
+              <h1 className="text-2xl font-normal">Contato</h1>
             </div>
-          ))}
+            {frente.data.dados.telefone && (
+              <div className="flex items-center gap-2 p-base">
+                <Phone size={24} weight="fill" />
+                <p className="text-lg">{frente.data.dados.telefone}</p>
+              </div>
+            )}
+            {frente.data.dados.email && (
+              <div className="flex items-center gap-2 p-base">
+                <EnvelopeSimple size={24} weight="fill" />
+                <p className="text-lg">{frente.data.dados.email}</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     )
   }

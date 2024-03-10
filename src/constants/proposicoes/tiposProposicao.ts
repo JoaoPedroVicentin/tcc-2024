@@ -2251,7 +2251,7 @@ export const TIPOS_PROPOSICAO: IConstantsData[] = [
     cod: '814',
     sigla: 'CRVITAEDOC',
     nome: 'Curriculum Vitae/Outro Documento',
-    descricao: null,
+    descricao: '',
   },
   {
     cod: '822',
@@ -2267,13 +2267,11 @@ export const TIPOS_PROPOSICAO: IConstantsData[] = [
     cod: '830',
     sigla: 'PR/CNMP',
     nome: 'Parecer do Conselho Nacional do Ministério Público',
-    descricao: null,
   },
   {
     cod: '831',
     sigla: 'PR/CNJ',
     nome: 'Parecer do Conselho Nacional de Justiça',
-    descricao: null,
   },
   {
     cod: '832',

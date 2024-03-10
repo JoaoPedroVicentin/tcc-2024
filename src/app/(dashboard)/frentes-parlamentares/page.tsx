@@ -133,7 +133,13 @@ export default function FrentesParlamentares() {
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem das Frentes Parlamentares</Table.Caption>
+        {!isLoading && frentes && frentes.data.dados.length <= 0 ? (
+          <Table.Caption>
+            <Table.DataEmpty />
+          </Table.Caption>
+        ) : (
+          <Table.Caption>Listagem das Frentes Parlamentares</Table.Caption>
+        )}
       </Table.Root>
     </div>
   )

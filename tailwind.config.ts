@@ -34,7 +34,7 @@ const config = {
           green: {
             50: '#DCEAA8',
             100: '#C5EEAE',
-            200: '#D5FF29',
+            200: '#C6ED37',
           },
         },
         border: 'hsl(var(--border))',

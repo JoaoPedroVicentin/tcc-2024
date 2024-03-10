@@ -137,7 +137,13 @@ export default function Partidos() {
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem dos Partidos</Table.Caption>
+        {!isLoading && partidos && partidos.data.dados.length <= 0 ? (
+          <Table.Caption>
+            <Table.DataEmpty />
+          </Table.Caption>
+        ) : (
+          <Table.Caption>Listagem dos Partidos</Table.Caption>
+        )}
       </Table.Root>
     </div>
   )
