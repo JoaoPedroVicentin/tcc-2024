@@ -123,7 +123,13 @@ export default function BlocosPartidarios() {
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem dos Blocos Partidários</Table.Caption>
+        {!isLoading && blocos && blocos.data.dados.length <= 0 ? (
+          <Table.Caption>
+            <Table.DataEmpty />
+          </Table.Caption>
+        ) : (
+          <Table.Caption>Listagem dos Blocos Partidários</Table.Caption>
+        )}
       </Table.Root>
     </div>
   )

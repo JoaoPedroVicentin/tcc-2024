@@ -7,4 +7,6 @@ export const internalRoutes = {
   frentesParlamentares: '/frentes-parlamentares',
   frenteParlamentarById: (id: number) => `/frentes-parlamentares/${id}`,
   blocosPartidarios: '/blocos-partidarios',
+  eventos: '/eventos',
+  eventoById: (id: number) => `/eventos/${id}`,
 }

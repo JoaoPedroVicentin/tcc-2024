@@ -6,5 +6,7 @@ export const apiRoutes = {
   frenteParlamentarById: (id: number) => `/frentes/${id}`,
   proposicoes: '/proposicoes',
   proposicaoById: (id: number) => `/proposicoes/${id}`,
+  eventos: '/eventos',
+  eventoById: (id: number) => `/eventos/${id}`,
   blocosPartidarios: '/blocos',
 }

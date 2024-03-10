@@ -34,7 +34,11 @@ export default function Sidebar() {
             link={internalRoutes.proposicoes}
             icon={Files}
           />
-          <NavItem title="Eventos" link="#" icon={Calendar} />
+          <NavItem
+            title="Eventos"
+            link={internalRoutes.eventos}
+            icon={Calendar}
+          />
           <NavItem
             title="Partidos"
             link={internalRoutes.partidos}
