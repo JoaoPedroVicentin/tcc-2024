@@ -1,9 +1,7 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
-
-import dataEmpty from '../../../public/images/data-empty.svg'
+import DataTableEmpty from '../svgs/DataTableEmpty'
 
 const Root = React.forwardRef<
   HTMLTableElement,
@@ -109,24 +107,21 @@ const Caption = React.forwardRef<
 Caption.displayName = 'Caption'
 
 const DataEmpty = React.forwardRef<
-  HTMLImageElement,
-  React.HTMLAttributes<HTMLImageElement>
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto ">
-    <Image
-      src={dataEmpty}
-      ref={ref}
-      width={300}
-      height={200}
-      className={cn(className)}
-      alt="data empty"
-      {...props}
-    />
-    <p className="text-xl font-medium">
+  <div
+    className={`relative flex w-full flex-col items-center gap-1 overflow-auto ${className}`}
+    ref={ref}
+    {...props}
+  >
+    <DataTableEmpty />
+    <p className="text-lg font-medium">
       Não foi possível encontrar nenhum dado disponível.
     </p>
   </div>
 ))
+
 DataEmpty.displayName = 'DataEmpty'
 
 export { Root, Header, Body, Footer, Head, Row, Cell, Caption, DataEmpty }
