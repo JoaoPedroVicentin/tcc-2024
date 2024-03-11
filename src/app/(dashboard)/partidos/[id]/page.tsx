@@ -22,7 +22,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
           </h1>
         </div>
 
-        <div className="p-base my-5 flex items-center gap-2 bg-zinc-100 text-black">
+        <div className="my-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
           <CrownSimple size={26} weight="fill" />
           <h1 className="text-2xl font-normal">Líder</h1>
         </div>
@@ -42,7 +42,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
             </p>
             <button
               type="button"
-              className="p-base flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 font-bold text-black transition hover:border-theme-black"
+              className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
             >
               <Info size={20} weight="bold" />
               Saber mais

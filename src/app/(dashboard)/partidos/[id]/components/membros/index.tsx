@@ -38,7 +38,7 @@ export default function MembrosPartido({
 
   return (
     <div>
-      <div className="p-base my-5 flex items-center gap-2 bg-zinc-100 text-black">
+      <div className="my-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
         <UserList size={26} weight="fill" />
         <h1 className="text-2xl font-normal">Membros</h1>
       </div>
