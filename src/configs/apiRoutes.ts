@@ -9,4 +9,6 @@ export const apiRoutes = {
   eventos: '/eventos',
   eventoById: (id: number) => `/eventos/${id}`,
   blocosPartidarios: '/blocos',
+  votacoes: '/votacoes',
+  votacaoById: (id: number) => `/votacoes/${id}`,
 }

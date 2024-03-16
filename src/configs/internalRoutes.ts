@@ -9,4 +9,6 @@ export const internalRoutes = {
   blocosPartidarios: '/blocos-partidarios',
   eventos: '/eventos',
   eventoById: (id: number) => `/eventos/${id}`,
+  votacoes: '/votacoes',
+  votacaoById: (id: string) => `/votacoes/${id}`,
 }
