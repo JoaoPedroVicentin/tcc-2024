@@ -58,7 +58,7 @@ export default function Proposicoes() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        codSituacao: '',
+        codSituacao: undefined,
       }))
     } else {
       setFilters((prevState) => ({
@@ -74,7 +74,7 @@ export default function Proposicoes() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        siglaTipo: '',
+        siglaTipo: undefined,
       }))
     } else {
       setFilters((prevState) => ({
@@ -90,7 +90,7 @@ export default function Proposicoes() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        codTema: '',
+        codTema: undefined,
       }))
     } else {
       setFilters((prevState) => ({

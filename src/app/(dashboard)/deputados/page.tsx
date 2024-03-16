@@ -35,7 +35,7 @@ export default function Deputados() {
   const [filters, setFilters] =
     useState<IFilterGetDeputadosParams>(defaultFilters)
 
-  const { pagina, siglaUf, siglaPartido, idLegislatura } = filters
+  const { pagina, siglaUf, siglaPartido } = filters
 
   const { data: deputados, isLoading: isLoadingDeputados } = useQuery({
     queryKey: ['deputados', filters],
@@ -44,7 +44,7 @@ export default function Deputados() {
 
   const { data: partidos, isLoading: isLoadingPartidos } = useQuery({
     queryKey: ['partidos', filters],
-    queryFn: () => getPartidos({ idLegislatura }),
+    queryFn: () => getPartidos({ itens: '100' }),
   })
 
   const isLoading = !!(isLoadingDeputados || isLoadingPartidos)
@@ -71,7 +71,7 @@ export default function Deputados() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        siglaUf: '',
+        siglaUf: undefined,
       }))
     } else {
       setFilters((prevState) => ({
@@ -87,7 +87,7 @@ export default function Deputados() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        siglaPartido: '',
+        siglaPartido: undefined,
       }))
     } else {
       setFilters((prevState) => ({
@@ -131,7 +131,12 @@ export default function Deputados() {
                 {partidos &&
                   partidos.data.dados.map((partido, index) => {
                     return (
-                      <SelectItem key={index} value={partido.sigla}>
+                      <SelectItem
+                        key={index}
+                        value={partido.sigla
+                          .normalize('NFD')
+                          .replace(VALIDATIONS_REGEX.REMOVE_ACCENTS, '')}
+                      >
                         {`${partido.sigla} - ${partido.nome}`}
                       </SelectItem>
                     )

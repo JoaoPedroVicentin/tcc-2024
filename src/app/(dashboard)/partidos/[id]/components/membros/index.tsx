@@ -17,7 +17,9 @@ export default function MembrosPartido({
   const defaultFilters: IFilterGetDeputadosParams = {
     nome: '',
     siglaUf: '',
-    siglaPartido,
+    siglaPartido: siglaPartido
+      .normalize('NFD')
+      .replace(VALIDATIONS_REGEX.REMOVE_ACCENTS, ''),
     pagina: '1',
     itens: '10',
   }

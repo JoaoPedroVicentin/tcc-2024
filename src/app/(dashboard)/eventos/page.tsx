@@ -48,7 +48,7 @@ export default function Eventos() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        codTipoEvento: '',
+        codTipoEvento: undefined,
       }))
     } else {
       setFilters((prevState) => ({
@@ -64,7 +64,7 @@ export default function Eventos() {
       setFilters((prevState) => ({
         ...prevState,
         pagina: '1',
-        codSituacao: '',
+        codSituacao: undefined,
       }))
     } else {
       setFilters((prevState) => ({
