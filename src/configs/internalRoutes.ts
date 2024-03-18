@@ -11,4 +11,6 @@ export const internalRoutes = {
   eventoById: (id: number) => `/eventos/${id}`,
   votacoes: '/votacoes',
   votacaoById: (id: string) => `/votacoes/${id}`,
+  orgaos: '/orgaos',
+  orgaoById: (id: number) => `/orgaos/${id}`,
 }

@@ -11,4 +11,6 @@ export const apiRoutes = {
   blocosPartidarios: '/blocos',
   votacoes: '/votacoes',
   votacaoById: (id: number) => `/votacoes/${id}`,
+  orgaos: '/orgaos',
+  orgaoById: (id: number) => `/orgaos/${id}`,
 }

@@ -7,6 +7,7 @@ import {
   Chats,
   Files,
   Flag,
+  Gavel,
   Ticket,
   Users,
   UsersFour,
@@ -59,6 +60,7 @@ export default function Sidebar() {
             link={internalRoutes.votacoes}
             icon={Ticket}
           />
+          <NavItem title="Órgãos" link={internalRoutes.orgaos} icon={Gavel} />
           <NavItem title="Fórum" link="#" icon={Chats} />
         </ul>
       </nav>

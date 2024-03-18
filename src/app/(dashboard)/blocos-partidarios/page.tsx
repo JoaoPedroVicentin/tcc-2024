@@ -100,12 +100,12 @@ export default function BlocosPartidarios() {
                 </Table.Row>
               ))
             : blocos &&
-              blocos.data.dados.map((partido, index) => (
+              blocos.data.dados.map((bloco, index) => (
                 <Table.Row
                   key={index}
                   className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
                 >
-                  <Table.Cell>{partido.nome}</Table.Cell>
+                  <Table.Cell>{bloco.nome}</Table.Cell>
                 </Table.Row>
               ))}
         </Table.Body>
