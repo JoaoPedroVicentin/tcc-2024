@@ -19,8 +19,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
-import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/interfaces/filterGetDeputadosParams.interface'
+import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
 import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
+import Link from 'next/link'
 
 export default function Deputados() {
   const defaultFilters: IFilterGetDeputadosParams = {
@@ -222,7 +223,9 @@ export default function Deputados() {
                   <Table.Cell>{deputado.siglaPartido}</Table.Cell>
                   <Table.Cell>{deputado.siglaUf}</Table.Cell>
                   <Table.Cell>
-                    <Info size={20} weight="duotone" />
+                    <Link href="#">
+                      <Info size={20} weight="duotone" />
+                    </Link>
                   </Table.Cell>
                 </Table.Row>
               ))}

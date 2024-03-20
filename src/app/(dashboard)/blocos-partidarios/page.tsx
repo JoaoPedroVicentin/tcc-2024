@@ -5,8 +5,7 @@ import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
-import { IFilterGetBlocosPartidariosParams } from '@/httpsRequests/blocosPartidarios/interfaces/filterGetBlocosPartidariosParams.interface'
-import { getBlocosPartidarios } from '@/httpsRequests/blocosPartidarios'
+import { getBlocosPartidarios } from '@/httpsRequests/blocosPartidarios/getBlocosPartidarios'
 import {
   Select,
   SelectContent,
@@ -17,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { LEGISLATURAS } from '@/constants/legislaturas'
+import { IFilterGetBlocosPartidariosParams } from '@/httpsRequests/blocosPartidarios/getBlocosPartidarios/interfaces/filterGetBlocosPartidariosParams.interface'
 
 export default function BlocosPartidarios() {
   const defaultFilters: IFilterGetBlocosPartidariosParams = {

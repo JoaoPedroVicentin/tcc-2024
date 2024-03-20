@@ -144,7 +144,7 @@ export default function Proposicoes() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Legislaturas</SelectLabel>
+                <SelectLabel>Ano</SelectLabel>
                 {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
                   return (
                     <SelectItem key={index} value={String(ano)}>

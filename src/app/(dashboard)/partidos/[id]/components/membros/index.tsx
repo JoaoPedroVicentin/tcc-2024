@@ -1,6 +1,6 @@
 import PaginationList from '@/components/paginationList'
 import { getDeputados } from '@/httpsRequests/deputados/getDeputados'
-import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/interfaces/filterGetDeputadosParams.interface'
+import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
 import { useQuery } from '@tanstack/react-query'
 import * as Table from '@/components/ui/table'
 import React, { useState } from 'react'
