@@ -11,7 +11,7 @@ export interface IGetDespesasDeputadoReturn {
     dataDocumento: string
     numDocumento: string
     valorDocumento: number
-    urlDocumento: null | string
+    urlDocumento: string | null
     nomeFornecedor: string
     cnpjCpfFornecedor: string
     valorLiquido: number

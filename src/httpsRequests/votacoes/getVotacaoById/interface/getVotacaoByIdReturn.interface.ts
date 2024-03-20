@@ -13,12 +13,12 @@ export interface IGetVotacaoByIdReturn {
     idEvento: number
     descricao: string
     aprovacao: number
-    descUltimaAberturaVotacao: null | string
-    dataHoraUltimaAberturaVotacao: null | string
+    descUltimaAberturaVotacao: string | null
+    dataHoraUltimaAberturaVotacao: string | null
     ultimaApresentacaoProposicao: {
-      dataHoraRegistro: null | string
+      dataHoraRegistro: string | null
       descricao: string
-      uriProposicaoCitada: null | string
+      uriProposicaoCitada: string | null
     }
     efeitosRegistrados: {
       dataHoraResultado: string

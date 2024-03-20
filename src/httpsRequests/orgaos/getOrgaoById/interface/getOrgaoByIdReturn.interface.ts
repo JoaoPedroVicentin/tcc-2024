@@ -10,14 +10,14 @@ export interface IGetOrgaoByIdReturn {
     codTipoOrgao: number
     tipoOrgao: string
     nomePublicacao: string
-    nomeResumido: null | string
-    dataInicio: null | string
-    dataInstalacao: null | string
-    dataFim: null | string
-    dataFimOriginal: null | string
+    nomeResumido: string | null
+    dataInicio: string | null
+    dataInstalacao: string | null
+    dataFim: string | null
+    dataFimOriginal: string | null
     casa: string
-    sala: null | string
-    urlWebsite: null | string
+    sala: string | null
+    urlWebsite: string | null
   }[]
   links: ILinksReturn[]
 }
