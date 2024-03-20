@@ -1,24 +1,5 @@
 import { ILinksReturn } from '@/interfaces/linksReturn.interface'
 
-interface Orgao {
-  id: number
-  uri: string
-  sigla: string
-  nome: string
-  apelido: string
-  codTipoOrgao: number
-  tipoOrgao: string
-  nomePublicacao: string
-  nomeResumido?: string
-}
-
-interface LocalCamara {
-  nome: string
-  predio?: string
-  sala?: string
-  andar?: string
-}
-
 export interface IGetEventosReturn {
   dados: {
     id: number
@@ -29,8 +10,23 @@ export interface IGetEventosReturn {
     descricaoTipo: string
     descricao: string
     localExterno?: string
-    orgaos: Orgao[]
-    localCamara: LocalCamara
+    orgaos: {
+      id: number
+      uri: string
+      sigla: string
+      nome: string
+      apelido: string
+      codTipoOrgao: number
+      tipoOrgao: string
+      nomePublicacao: string
+      nomeResumido?: string
+    }[]
+    localCamara: {
+      nome: string
+      predio?: string
+      sala?: string
+      andar?: string
+    }
     urlRegistro: string
   }[]
   links: ILinksReturn[]

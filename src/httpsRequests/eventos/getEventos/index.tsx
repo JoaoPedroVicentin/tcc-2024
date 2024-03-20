@@ -1,8 +1,8 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-import { IFilterGetEventosParams } from './interface/filterGetEventosParams.interface'
-import { IGetEventosReturn } from './interface/getEventosReturn.interface'
+import { IFilterGetEventosParams } from './interfaces/filterGetEventosParams.interface'
+import { IGetEventosReturn } from './interfaces/getEventosReturn.interface'
 
 export async function getEventos(
   filter: IFilterGetEventosParams,

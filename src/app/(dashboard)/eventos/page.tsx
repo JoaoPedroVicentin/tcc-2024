@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IFilterGetEventosParams } from '@/httpsRequests/eventos/getEventos/interface/filterGetEventosParams.interface'
+import { IFilterGetEventosParams } from '@/httpsRequests/eventos/getEventos/interfaces/filterGetEventosParams.interface'
 import { getEventos } from '@/httpsRequests/eventos/getEventos'
 import { SITUACOES_EVENTO } from '@/constants/eventos/situacoesEvento'
 import { TIPOS_EVENTO } from '@/constants/eventos/tiposEvento'
