@@ -171,7 +171,7 @@ export default function Deputados() {
       </div>
 
       <Table.Root>
-        <Table.Header className="border-b-2 border-theme-gray-100 text-base">
+        <Table.Header className="border-theme-black-50 border-b-2 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Email</Table.Head>
@@ -205,7 +205,7 @@ export default function Deputados() {
               deputados.data.dados.map((deputado, index) => (
                 <Table.Row
                   key={index}
-                  className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
+                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
                 >
                   <Table.Cell className="flex items-center gap-4">
                     <Image
@@ -213,7 +213,7 @@ export default function Deputados() {
                       alt={deputado.nome}
                       width={35}
                       height={35}
-                      className="h-10 w-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-md object-cover"
                     />
                     {deputado.nome}
                   </Table.Cell>

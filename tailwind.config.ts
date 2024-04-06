@@ -24,17 +24,19 @@ const config = {
     extend: {
       colors: {
         theme: {
-          white: '#ECECEB',
-          black: '#020202',
-          brown: '#8A733F',
+          white: {
+            50: '#FDFDFD',
+          },
+          black: {
+            50: '#21201F',
+          },
           gray: {
-            50: '#A6A6A6',
-            100: '#21201F',
+            50: '#EBEDE6',
+            100: '#E4E4E7',
           },
           green: {
-            50: '#DCEAA8',
-            100: '#C5EEAE',
-            200: '#C6ED37',
+            50: '#EDF4D3',
+            100: '#C6ED37',
           },
         },
         border: 'hsl(var(--border))',

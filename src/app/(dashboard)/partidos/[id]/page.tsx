@@ -29,6 +29,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
 
         <div className="flex items-end gap-2">
           <Image
+            className="rounded-md"
             src={partido.data.dados.status.lider.urlFoto}
             width={100}
             height={75}
@@ -42,7 +43,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
             </p>
             <button
               type="button"
-              className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
+              className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
             >
               <Info size={20} weight="bold" />
               Saber mais

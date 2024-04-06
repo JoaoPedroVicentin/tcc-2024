@@ -55,7 +55,7 @@ export default function FrenteParlamentarById({
         {frente.data.dados.urlDocumento && (
           <Link
             href={frente.data.dados.urlDocumento}
-            className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
+            className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
           >
             <FileText size={20} weight="bold" />
             Ver documento
@@ -71,6 +71,7 @@ export default function FrenteParlamentarById({
 
             <div className="flex items-end gap-2">
               <Image
+                className="rounded-md"
                 src={frente.data.dados.coordenador.urlFoto}
                 width={100}
                 height={75}
@@ -84,7 +85,7 @@ export default function FrenteParlamentarById({
                 </p>
                 <button
                   type="button"
-                  className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-200 bg-theme-green-200 p-base font-bold text-black transition hover:border-theme-black"
+                  className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
                 >
                   <Info size={20} weight="bold" />
                   Saber mais
@@ -101,7 +102,7 @@ export default function FrenteParlamentarById({
                 <Steps size={26} weight="fill" />
                 <h1 className="text-2xl font-normal">Situação</h1>
               </div>
-              {validParts.map((parte, index) => {
+              {validParts.reverse().map((parte, index) => {
                 if (index % 2 === 0) {
                   return (
                     <div

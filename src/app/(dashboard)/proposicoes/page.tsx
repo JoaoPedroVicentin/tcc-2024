@@ -231,7 +231,7 @@ export default function Proposicoes() {
       </div>
 
       <Table.Root>
-        <Table.Header className="border-b-2 border-theme-gray-100 text-base">
+        <Table.Header className="border-theme-black-50 border-b-2 text-base">
           <Table.Row>
             <Table.Head>Proposição</Table.Head>
             <Table.Head>Ementa</Table.Head>
@@ -257,7 +257,7 @@ export default function Proposicoes() {
               proposicoes.data.dados.map((proposicao, index) => (
                 <Table.Row
                   key={index}
-                  className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
+                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
                 >
                   <Table.Cell>
                     {proposicao.siglaTipo} {proposicao.numero}/{proposicao.ano}

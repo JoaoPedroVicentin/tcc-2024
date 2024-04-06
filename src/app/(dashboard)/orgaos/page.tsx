@@ -104,7 +104,7 @@ export default function Orgaos() {
       </div>
 
       <Table.Root>
-        <Table.Header className="border-b-2 border-theme-gray-100 text-base">
+        <Table.Header className="border-theme-black-50 border-b-2 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Sigla</Table.Head>
@@ -138,7 +138,7 @@ export default function Orgaos() {
               orgaos.data.dados.map((orgao, index) => (
                 <Table.Row
                   key={index}
-                  className="items-center text-base hover:bg-theme-gray-100 hover:text-white"
+                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
                 >
                   <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
                     {orgao.nomeResumido ? orgao.nomeResumido : orgao.nome}

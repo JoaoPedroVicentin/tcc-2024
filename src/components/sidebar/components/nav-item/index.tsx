@@ -18,7 +18,7 @@ export default function NavItem({ link, title, icon: Icon }: INavItemProps) {
   return (
     <Link
       href={link}
-      className={`flex cursor-pointer items-end gap-4 px-4 py-3 transition duration-150 ease-in-out hover:bg-theme-green-200 ${linkIsActive && 'border-l-8 border-theme-black bg-theme-green-200'}`}
+      className={`flex cursor-pointer items-end gap-4 px-4 py-3 transition duration-150 ease-in-out hover:bg-theme-green-100 ${linkIsActive && 'border-theme-black-50 border-l-8 bg-theme-green-100'}`}
     >
       <Icon size={26} weight="fill" />
       <span className="truncate">{title}</span>
