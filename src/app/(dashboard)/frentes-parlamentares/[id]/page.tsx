@@ -13,8 +13,10 @@ import {
   PhoneDisconnect,
   Steps,
 } from '@phosphor-icons/react'
-import Link from 'next/link'
 import Image from 'next/image'
+import { Button } from '@/components/button'
+import { LinkButton } from '@/components/link'
+import Title from '@/components/title'
 
 export default function FrenteParlamentarById({
   params: { id },
@@ -53,21 +55,17 @@ export default function FrenteParlamentarById({
         </div>
 
         {frente.data.dados.urlDocumento && (
-          <Link
+          <LinkButton
             href={frente.data.dados.urlDocumento}
-            className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
-          >
-            <FileText size={20} weight="bold" />
-            Ver documento
-          </Link>
+            leftIcon={FileText}
+            text="Ver documento"
+            variant="alternative"
+          />
         )}
 
         {frente.data.dados.coordenador && (
           <div className="flex flex-col gap-2">
-            <div className="mb-5 flex items-center  gap-2 bg-zinc-100 p-base text-black">
-              <Person size={26} weight="fill" />
-              <h1 className="text-2xl font-normal">Coordenador</h1>
-            </div>
+            <Title text="Coordenador" icon={Person} />
 
             <div className="flex items-end gap-2">
               <Image
@@ -83,13 +81,7 @@ export default function FrenteParlamentarById({
                   {frente.data.dados.coordenador.siglaPartido} -{' '}
                   {frente.data.dados.coordenador.siglaUf}
                 </p>
-                <button
-                  type="button"
-                  className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
-                >
-                  <Info size={20} weight="bold" />
-                  Saber mais
-                </button>
+                <Button leftIcon={Info} text="Saber mais" variant="default" />
               </div>
             </div>
           </div>
@@ -98,10 +90,7 @@ export default function FrenteParlamentarById({
         {frente.data.dados.situacao && (
           <div>
             <div className="flex flex-col gap-2">
-              <div className="mb-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
-                <Steps size={26} weight="fill" />
-                <h1 className="text-2xl font-normal">Situação</h1>
-              </div>
+              <Title text="Coordenador" icon={Steps} />
               {validParts.reverse().map((parte, index) => {
                 if (index % 2 === 0) {
                   return (
@@ -120,19 +109,16 @@ export default function FrenteParlamentarById({
         )}
 
         {!!(frente.data.dados.email || frente.data.dados.telefone) && (
-          <div>
-            <div className="mb-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
-              <PhoneDisconnect size={26} weight="fill" />
-              <h1 className="text-2xl font-normal">Contato</h1>
-            </div>
+          <div className="flex flex-col gap-4">
+            <Title text="Contato" icon={PhoneDisconnect} />
             {frente.data.dados.telefone && (
-              <div className="flex items-center gap-2 p-base">
+              <div className="flex items-center gap-2">
                 <Phone size={24} weight="fill" />
                 <p className="text-lg">{frente.data.dados.telefone}</p>
               </div>
             )}
             {frente.data.dados.email && (
-              <div className="flex items-center gap-2 p-base">
+              <div className="flex items-center gap-2">
                 <EnvelopeSimple size={24} weight="fill" />
                 <p className="text-lg">{frente.data.dados.email}</p>
               </div>

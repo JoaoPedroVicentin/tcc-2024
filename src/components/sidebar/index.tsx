@@ -17,7 +17,7 @@ import { internalRoutes } from '@/configs/internalRoutes'
 
 export default function Sidebar() {
   return (
-    <aside className="fixed left-0 right-0 top-0 z-20 flex flex-col gap-6 overflow-hidden border-b border-zinc-200 bg-white p-4 data-[state=open]:bottom-0 lg:bottom-0 lg:right-auto lg:h-auto lg:w-72 lg:overflow-auto lg:border-b-0 lg:border-r lg:px-5 lg:py-8">
+    <aside className="lg:p-sidebar fixed left-0 right-0 top-0 z-20 flex flex-col gap-6 overflow-hidden border-b border-zinc-200 bg-white p-4 data-[state=open]:bottom-0 lg:bottom-0 lg:right-auto lg:h-auto lg:w-72 lg:overflow-auto lg:border-b-0 lg:border-r">
       <div className="flex items-end gap-4 px-4">
         <Logo />
         <p className="text-lg font-bold">Dados Abertos</p>

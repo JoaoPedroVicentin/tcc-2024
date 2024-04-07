@@ -6,7 +6,7 @@ const config = {
   prefix: '',
   theme: {
     gridTemplateColumns: {
-      app: 'minmax(18rem, 20rem) 1fr',
+      app: 'minmax(18rem, 18rem) 1fr',
       form: 'minmax(7.5rem, 17.5rem), minmax(25rem, 1fr), minmax(0, 15rem)',
       4: 'repeat(4, minmax(0, 1fr))',
       5: 'repeat(4, minmax(0, 5fr))',
@@ -75,6 +75,9 @@ const config = {
       },
       padding: {
         base: '0.5rem 1rem',
+        section: '3.25rem 2.75rem',
+        button: '0.5rem 0.75rem',
+        sidebar: '3.25rem 1.25rem',
       },
       borderRadius: {
         lg: 'var(--radius)',
