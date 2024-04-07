@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import * as Table from '@/components/ui/table'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import { Input } from '@/components/ui/input'
@@ -22,6 +22,7 @@ import { SIGLAS_UF } from '@/constants/siglasUf'
 import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
 import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
 import Link from 'next/link'
+import { internalRoutes } from '@/configs/internalRoutes'
 
 export default function Deputados() {
   const defaultFilters: IFilterGetDeputadosParams = {
@@ -104,7 +105,7 @@ export default function Deputados() {
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div className="h-full">
+    <div className="h-full p-section">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Deputados</h1>
       </div>
@@ -171,7 +172,7 @@ export default function Deputados() {
       </div>
 
       <Table.Root>
-        <Table.Header className="border-theme-black-50 border-b-2 text-base">
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Email</Table.Head>
@@ -205,7 +206,7 @@ export default function Deputados() {
               deputados.data.dados.map((deputado, index) => (
                 <Table.Row
                   key={index}
-                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
                 >
                   <Table.Cell className="flex items-center gap-4">
                     <Image
@@ -223,8 +224,8 @@ export default function Deputados() {
                   <Table.Cell>{deputado.siglaPartido}</Table.Cell>
                   <Table.Cell>{deputado.siglaUf}</Table.Cell>
                   <Table.Cell>
-                    <Link href="#">
-                      <Info size={20} weight="duotone" />
+                    <Link href={internalRoutes.deputadoById(deputado.id)}>
+                      <ArrowSquareOut size={24} />
                     </Link>
                   </Table.Cell>
                 </Table.Row>

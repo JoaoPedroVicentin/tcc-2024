@@ -1,5 +1,6 @@
 export const internalRoutes = {
   deputados: '/deputados',
+  deputadoById: (id: number) => `/deputados/${id}`,
   proposicoes: '/proposicoes',
   proposicaoById: (id: number) => `/proposicoes/${id}`,
   partidos: '/partidos',

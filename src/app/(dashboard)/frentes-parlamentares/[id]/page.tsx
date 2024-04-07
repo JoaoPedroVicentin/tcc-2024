@@ -17,12 +17,13 @@ import Image from 'next/image'
 import { Button } from '@/components/button'
 import { LinkButton } from '@/components/link'
 import Title from '@/components/title'
+import InfoComponent from '@/components/info'
 
 export default function FrenteParlamentarById({
   params: { id },
 }: IRouteByIdProps) {
   const { data: frente, isLoading } = useQuery({
-    queryKey: ['frentesParlamentaresById', id],
+    queryKey: ['frenteParlamentarById', id],
     queryFn: () => getFrenteParlamentarById(id),
   })
 
@@ -112,16 +113,18 @@ export default function FrenteParlamentarById({
           <div className="flex flex-col gap-4">
             <Title text="Contato" icon={PhoneDisconnect} />
             {frente.data.dados.telefone && (
-              <div className="flex items-center gap-2">
-                <Phone size={24} weight="fill" />
-                <p className="text-lg">{frente.data.dados.telefone}</p>
-              </div>
+              <InfoComponent
+                icon={Phone}
+                label="Telefone"
+                value={frente.data.dados.telefone}
+              />
             )}
             {frente.data.dados.email && (
-              <div className="flex items-center gap-2">
-                <EnvelopeSimple size={24} weight="fill" />
-                <p className="text-lg">{frente.data.dados.email}</p>
-              </div>
+              <InfoComponent
+                icon={EnvelopeSimple}
+                label="Email"
+                value={frente.data.dados.email}
+              />
             )}
           </div>
         )}

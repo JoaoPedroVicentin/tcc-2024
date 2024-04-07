@@ -9,10 +9,10 @@ const config = {
       app: 'minmax(18rem, 18rem) 1fr',
       form: 'minmax(7.5rem, 17.5rem), minmax(25rem, 1fr), minmax(0, 15rem)',
       4: 'repeat(4, minmax(0, 1fr))',
-      5: 'repeat(4, minmax(0, 5fr))',
-      6: 'repeat(4, minmax(0, 6fr))',
-      7: 'repeat(4, minmax(0, 7fr))',
-      8: 'repeat(4, minmax(0, 8fr))',
+      5: 'repeat(5, minmax(0, 1fr))',
+      6: 'repeat(6, minmax(0, 1fr))',
+      7: 'repeat(7, minmax(0, 1fr))',
+      8: 'repeat(8, minmax(0, 1fr))',
     },
     container: {
       center: true,
@@ -25,7 +25,7 @@ const config = {
       colors: {
         theme: {
           white: {
-            50: '#FDFDFD',
+            50: '#FCFCFC',
           },
           black: {
             50: '#21201F',
@@ -75,7 +75,7 @@ const config = {
       },
       padding: {
         base: '0.5rem 1rem',
-        section: '3.25rem 2.75rem',
+        section: '3.25rem 3.75rem',
         button: '0.5rem 0.75rem',
         sidebar: '3.25rem 1.25rem',
       },
