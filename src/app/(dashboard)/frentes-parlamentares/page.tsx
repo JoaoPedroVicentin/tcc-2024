@@ -51,7 +51,7 @@ export default function FrentesParlamentares() {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full p-section">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Frentes Parlamentares</h1>
       </div>

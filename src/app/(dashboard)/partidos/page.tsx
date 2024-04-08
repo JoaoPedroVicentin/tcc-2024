@@ -51,7 +51,7 @@ export default function Partidos() {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full p-section">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Partidos</h1>
       </div>
@@ -85,7 +85,7 @@ export default function Partidos() {
       </div>
 
       <Table.Root>
-        <Table.Header className="border-theme-black-50 border-b-2 text-base">
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Sigla</Table.Head>
@@ -111,7 +111,7 @@ export default function Partidos() {
               partidos.data.dados.map((partido, index) => (
                 <Table.Row
                   key={index}
-                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
                 >
                   <Table.Cell>{partido.nome}</Table.Cell>
                   <Table.Cell>{partido.sigla}</Table.Cell>

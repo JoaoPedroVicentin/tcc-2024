@@ -15,7 +15,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
 
   if (!isLoading && partido)
     return (
-      <div className="flex h-full flex-col gap-5">
+      <div className="flex h-full flex-col gap-5 p-section">
         <div>
           <h1 className="text-5xl font-light">
             {partido.data.dados.nome} - {partido.data.dados.sigla}
@@ -43,7 +43,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
             </p>
             <button
               type="button"
-              className="hover:border-theme-black-50 flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition"
+              className="flex w-fit items-center justify-center gap-2 border-2 border-theme-green-100 bg-theme-green-100 p-base font-bold text-black transition hover:border-theme-black-50"
             >
               <Info size={20} weight="bold" />
               Saber mais

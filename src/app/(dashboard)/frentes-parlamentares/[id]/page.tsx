@@ -50,7 +50,7 @@ export default function FrenteParlamentarById({
       return true
     })
     return (
-      <div className="flex h-full flex-col gap-10">
+      <div className="flex h-full flex-col gap-10 p-section">
         <div>
           <h1 className="text-5xl font-light">{frente.data.dados.titulo}</h1>
         </div>
@@ -59,7 +59,7 @@ export default function FrenteParlamentarById({
           <LinkButton
             href={frente.data.dados.urlDocumento}
             leftIcon={FileText}
-            text="Ver documento"
+            text="Documento"
             variant="alternative"
           />
         )}

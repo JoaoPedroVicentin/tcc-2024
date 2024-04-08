@@ -33,7 +33,7 @@ export default function Votacoes() {
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div className="h-full">
+    <div className="h-full p-section">
       <div className="mb-6">
         <h1 className="text-5xl font-light">Votações</h1>
       </div>
@@ -41,7 +41,7 @@ export default function Votacoes() {
       <div className="mb-4 grid grid-cols-4 gap-6"></div>
 
       <Table.Root>
-        <Table.Header className="border-theme-black-50 border-b-2 text-base">
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Proposição</Table.Head>
             <Table.Head>Descrição</Table.Head>
@@ -75,7 +75,7 @@ export default function Votacoes() {
               votacoes.data.dados.map((votacao, index) => (
                 <Table.Row
                   key={index}
-                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
                 >
                   <Table.Cell>
                     {votacao.proposicaoObjeto

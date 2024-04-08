@@ -105,154 +105,156 @@ export default function Deputados() {
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Deputados</h1>
-      </div>
+    <main className="h-full p-section">
+      <div className="mx-auto max-w-screen-2xl">
+        <header className="mb-6">
+          <h1 className="text-5xl font-light">Deputados</h1>
+        </header>
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Nome</label>
-          <Input
-            type="text"
-            placeholder="Pesquisar por nome"
-            onChange={(e) => handleSetNome(e.target.value)}
-          />
-        </div>
+        <section className="mb-4 grid grid-cols-4 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Nome</label>
+            <Input
+              type="text"
+              placeholder="Pesquisar por nome"
+              onChange={(e) => handleSetNome(e.target.value)}
+            />
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Partido</label>
-          <Select onValueChange={handleSetPartido} value={siglaPartido}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por partidos" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="null">Sem Filtro</SelectItem>
-                <SelectLabel>Partidos</SelectLabel>
-                {partidos &&
-                  partidos.data.dados.map((partido, index) => {
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Partido</label>
+            <Select onValueChange={handleSetPartido} value={siglaPartido}>
+              <SelectTrigger>
+                <SelectValue placeholder="Pesquisar por partidos" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="null">Sem Filtro</SelectItem>
+                  <SelectLabel>Partidos</SelectLabel>
+                  {partidos &&
+                    partidos.data.dados.map((partido, index) => {
+                      return (
+                        <SelectItem
+                          key={index}
+                          value={partido.sigla
+                            .normalize('NFD')
+                            .replace(VALIDATIONS_REGEX.REMOVE_ACCENTS, '')}
+                        >
+                          {`${partido.sigla} - ${partido.nome}`}
+                        </SelectItem>
+                      )
+                    })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Estado</label>
+            <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
+              <SelectTrigger>
+                <SelectValue placeholder="Pesquisar por estado" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="null">Sem Filtro</SelectItem>
+                  <SelectLabel>Estados</SelectLabel>
+                  {SIGLAS_UF.map((estado, index) => {
                     return (
-                      <SelectItem
-                        key={index}
-                        value={partido.sigla
-                          .normalize('NFD')
-                          .replace(VALIDATIONS_REGEX.REMOVE_ACCENTS, '')}
-                      >
-                        {`${partido.sigla} - ${partido.nome}`}
+                      <SelectItem key={index} value={estado.sigla}>
+                        {estado.nome}
                       </SelectItem>
                     )
                   })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </section>
 
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Estado</label>
-          <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por estado" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="null">Sem Filtro</SelectItem>
-                <SelectLabel>Estados</SelectLabel>
-                {SIGLAS_UF.map((estado, index) => {
-                  return (
-                    <SelectItem key={index} value={estado.sigla}>
-                      {estado.nome}
-                    </SelectItem>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <Table.Root>
-        <Table.Header className="border-b-2 border-theme-black-50 text-base">
-          <Table.Row>
-            <Table.Head>Nome</Table.Head>
-            <Table.Head>Email</Table.Head>
-            <Table.Head>Partido</Table.Head>
-            <Table.Head>UF</Table.Head>
-            <Table.Head>Ver página</Table.Head>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {isLoading
-            ? Array.from({ length: 10 }, (_, index) => (
-                <Table.Row key={index}>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
-                  </Table.Cell>
-                </Table.Row>
-              ))
-            : deputados &&
-              deputados.data.dados.map((deputado, index) => (
-                <Table.Row
-                  key={index}
-                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                >
-                  <Table.Cell className="flex items-center gap-4">
-                    <Image
-                      src={deputado.urlFoto}
-                      alt={deputado.nome}
-                      width={35}
-                      height={35}
-                      className="h-10 w-10 rounded-md object-cover"
-                    />
-                    {deputado.nome}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {deputado.email ? deputado.email : '---'}
-                  </Table.Cell>
-                  <Table.Cell>{deputado.siglaPartido}</Table.Cell>
-                  <Table.Cell>{deputado.siglaUf}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={internalRoutes.deputadoById(deputado.id)}>
-                      <ArrowSquareOut size={24} />
-                    </Link>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-        </Table.Body>
-        <Table.Caption>
-          {lastPage && (
-            <PaginationList
-              pageIndex={Number(pagina)}
-              setPageIndex={(index) =>
-                setFilters((prevState) => ({
-                  ...prevState,
-                  pagina: String(index),
-                }))
-              }
-              lastPage={Number(lastPage[1])}
-            />
-          )}
-        </Table.Caption>
-        {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
+        <Table.Root>
+          <Table.Header className="border-b-2 border-theme-black-50 text-base">
+            <Table.Row>
+              <Table.Head>Nome</Table.Head>
+              <Table.Head>Email</Table.Head>
+              <Table.Head>Partido</Table.Head>
+              <Table.Head>UF</Table.Head>
+              <Table.Head>Ver página</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {isLoading
+              ? Array.from({ length: 10 }, (_, index) => (
+                  <Table.Row key={index}>
+                    <Table.Cell>
+                      <Skeleton className="h-14 flex-1" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-14 flex-1" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-14 flex-1" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-14 flex-1" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-14 flex-1" />
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              : deputados &&
+                deputados.data.dados.map((deputado, index) => (
+                  <Table.Row
+                    key={index}
+                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                  >
+                    <Table.Cell className="flex items-center gap-4">
+                      <Image
+                        src={deputado.urlFoto}
+                        alt={deputado.nome}
+                        width={35}
+                        height={35}
+                        className="h-10 w-10 rounded-md object-cover"
+                      />
+                      {deputado.nome}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {deputado.email ? deputado.email : '---'}
+                    </Table.Cell>
+                    <Table.Cell>{deputado.siglaPartido}</Table.Cell>
+                    <Table.Cell>{deputado.siglaUf}</Table.Cell>
+                    <Table.Cell>
+                      <Link href={internalRoutes.deputadoById(deputado.id)}>
+                        <ArrowSquareOut size={24} />
+                      </Link>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+          </Table.Body>
           <Table.Caption>
-            <Table.DataEmpty />
+            {lastPage && (
+              <PaginationList
+                pageIndex={Number(pagina)}
+                setPageIndex={(index) =>
+                  setFilters((prevState) => ({
+                    ...prevState,
+                    pagina: String(index),
+                  }))
+                }
+                lastPage={Number(lastPage[1])}
+              />
+            )}
           </Table.Caption>
-        ) : (
-          <Table.Caption>Listagem dos Deputados</Table.Caption>
-        )}
-      </Table.Root>
-    </div>
+          {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
+            <Table.Caption>
+              <Table.DataEmpty />
+            </Table.Caption>
+          ) : (
+            <Table.Caption>Listagem dos Deputados</Table.Caption>
+          )}
+        </Table.Root>
+      </div>
+    </main>
   )
 }
