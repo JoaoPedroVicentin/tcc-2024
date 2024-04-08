@@ -46,7 +46,7 @@ export default function MembrosPartido({
       </div>
 
       <Table.Root>
-        <Table.Header className="border-theme-black-50 border-b-2 text-base">
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Email</Table.Head>
@@ -80,7 +80,7 @@ export default function MembrosPartido({
               deputados.data.dados.map((deputado, index) => (
                 <Table.Row
                   key={index}
-                  className="hover:bg-theme-black-50 items-center text-base hover:text-white"
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
                 >
                   <Table.Cell className="flex items-center gap-4">
                     <Image
