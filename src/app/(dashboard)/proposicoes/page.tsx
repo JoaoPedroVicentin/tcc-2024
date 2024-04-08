@@ -23,6 +23,7 @@ import { SITUACOES_PROPOSICAO } from '@/constants/proposicoes/situacoesProposica
 import { TIPOS_PROPOSICAO } from '@/constants/proposicoes/tiposProposicao'
 import { IConstantsData } from '@/interfaces/constantsData.interface'
 import { TEMA_PROPOSICAO } from '@/constants/proposicoes/temaProposicao'
+import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
 
 export default function Proposicoes() {
   const defaultFilters: IFilterGetProposicoesParams = {
@@ -116,17 +117,6 @@ export default function Proposicoes() {
     }, [constantsData])
 
     return filteredTiposProposicao
-  }
-
-  function yearsBetweenCurrentYearAnd2019(): number[] {
-    const currentYear = new Date().getFullYear()
-    const years: number[] = []
-
-    for (let year = currentYear; year >= 2019; year--) {
-      years.push(year)
-    }
-
-    return years
   }
 
   return (

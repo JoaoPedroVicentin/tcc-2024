@@ -1,8 +1,8 @@
 export interface IFilterGetDespesasDeputadoParams {
+  ano: string
+  mes?: string
   pagina?: string
   itens?: string
   idLegislatura?: number
-  ano?: string
-  mes?: string
   cnpjCpfFornecedor?: string
 }

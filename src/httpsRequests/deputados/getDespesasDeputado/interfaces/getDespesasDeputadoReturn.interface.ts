@@ -20,5 +20,5 @@ export interface IGetDespesasDeputadoReturn {
     codLote: number
     parcela: number
   }[]
-  links: ILinksReturn
+  links: ILinksReturn[]
 }
