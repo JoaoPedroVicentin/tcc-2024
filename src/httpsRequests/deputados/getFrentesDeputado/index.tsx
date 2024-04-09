@@ -5,11 +5,8 @@ import { IGetFrentesDeputadoReturn } from './interface/getFrentesDeputadoReturn.
 
 export async function getFrentesDeputado(
   id: number,
-  filter: IGetFrentesDeputadoReturn,
 ): Promise<AxiosResponse<IGetFrentesDeputadoReturn>> {
-  const response = await api.get(apiRoutes.frentesDeputado(id), {
-    params: filter,
-  })
+  const response = await api.get(apiRoutes.frentesDeputado(id))
 
   return {
     data: response.data,

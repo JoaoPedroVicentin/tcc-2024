@@ -73,6 +73,9 @@ const config = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      minHeight: {
+        section: '45rem',
+      },
       padding: {
         base: '0.5rem 1rem',
         section: '3.25rem 3.75rem',

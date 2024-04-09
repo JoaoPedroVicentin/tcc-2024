@@ -27,7 +27,7 @@ import { format } from 'date-fns'
 export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetDespesasDeputadoParams = {
     pagina: '1',
-    itens: '100',
+    itens: '10',
     ano: '2024',
     mes: '1',
   }
@@ -77,7 +77,7 @@ export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
       <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
         <Title text="Despesas" icon={HandCoins} />
 
-        <div className="mb-4 grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-4 gap-6">
           <div className="flex flex-col gap-2">
             <label className="font-semibold">Ano</label>
             <Select onValueChange={handleSetAno} value={ano}>
@@ -178,10 +178,7 @@ export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
                     <Table.Cell>{despesa.nomeFornecedor}</Table.Cell>
                     <Table.Cell>
                       {despesa.urlDocumento ? (
-                        <Link
-                          href={despesa.urlDocumento}
-                          className="bg-red-400"
-                        >
+                        <Link href={despesa.urlDocumento}>
                           <FileMagnifyingGlass size={24} weight="fill" />
                         </Link>
                       ) : (
@@ -191,31 +188,33 @@ export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
                   </Table.Row>
                 ))}
           </Table.Body>
-          <Table.Caption>
-            {lastPage && (
-              <PaginationList
-                pageIndex={Number(pagina)}
-                setPageIndex={(index) =>
-                  setFilters((prevState) => ({
-                    ...prevState,
-                    pagina: String(index),
-                  }))
-                }
-                lastPage={Number(lastPage[1])}
-              />
-            )}
-          </Table.Caption>
-
           {!isLoading && despesas && despesas.data.dados.length <= 0 ? (
             <Table.Caption>
               <Table.DataEmpty />
             </Table.Caption>
           ) : (
-            <Table.Caption>
-              Listagem das despesas{' '}
-              {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
-              {deputado.ultimoStatus.nomeEleitoral}
-            </Table.Caption>
+            <Table.Footer>
+              <Table.Caption>
+                {lastPage && (
+                  <PaginationList
+                    pageIndex={Number(pagina)}
+                    setPageIndex={(index) =>
+                      setFilters((prevState) => ({
+                        ...prevState,
+                        pagina: String(index),
+                      }))
+                    }
+                    lastPage={Number(lastPage[1])}
+                  />
+                )}
+              </Table.Caption>
+
+              <Table.Caption>
+                Listagem das despesas{' '}
+                {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
+                {deputado.ultimoStatus.nomeEleitoral}
+              </Table.Caption>
+            </Table.Footer>
           )}
         </Table.Root>
       </div>

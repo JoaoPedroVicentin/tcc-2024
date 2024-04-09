@@ -52,9 +52,9 @@ export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
       <section className="border-b border-theme-gray-100 bg-theme-white-50 p-section">
         <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
           <Title text="Resumo" icon={Info} />
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-4">
             <Title text="Sobre" />
-            <div className="grid grid-cols-5 gap-1">
+            <div className="grid grid-cols-5 gap-4">
               <InfoComponent
                 icon={IdentificationCard}
                 label="Nome civil"
@@ -85,9 +85,9 @@ export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
             </div>
           </div>
           {hasContact && (
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-4">
               <Title text="Contato" />
-              <div className="grid grid-cols-5">
+              <div className="grid grid-cols-5 gap-4">
                 {gabineteInfo !== 'Gabinete' && (
                   <InfoComponent
                     label="Gabinete"

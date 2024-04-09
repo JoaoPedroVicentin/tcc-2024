@@ -6,8 +6,11 @@ import * as Table from '@/components/ui/table'
 import React, { useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import Image from 'next/image'
-import { Info, UserList } from '@phosphor-icons/react'
+import { ArrowSquareOut, UserList } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
+import Link from 'next/link'
+import { internalRoutes } from '@/configs/internalRoutes'
+import Title from '@/components/title'
 
 export default function MembrosPartido({
   siglaPartido,
@@ -39,11 +42,8 @@ export default function MembrosPartido({
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div>
-      <div className="my-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
-        <UserList size={26} weight="fill" />
-        <h1 className="text-2xl font-normal">Membros</h1>
-      </div>
+    <>
+      <Title text="Membros" icon={UserList} />
 
       <Table.Root>
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
@@ -96,7 +96,9 @@ export default function MembrosPartido({
                   <Table.Cell>{deputado.siglaPartido}</Table.Cell>
                   <Table.Cell>{deputado.siglaUf}</Table.Cell>
                   <Table.Cell>
-                    <Info size={20} weight="duotone" />
+                    <Link href={internalRoutes.deputadoById(deputado.id)}>
+                      <ArrowSquareOut size={24} />
+                    </Link>
                   </Table.Cell>
                 </Table.Row>
               ))}
@@ -117,6 +119,6 @@ export default function MembrosPartido({
         </Table.Caption>
         <Table.Caption>Listagem dos deputados federais</Table.Caption>
       </Table.Root>
-    </div>
+    </>
   )
 }

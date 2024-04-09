@@ -6,6 +6,7 @@ import React from 'react'
 import MembrosPartido from './components/membros'
 import Image from 'next/image'
 import { CrownSimple, Info } from '@phosphor-icons/react'
+import Title from '@/components/title'
 
 export default function PartidoById({ params: { id } }: IRouteByIdProps) {
   const { data: partido, isLoading } = useQuery({
@@ -22,10 +23,7 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
           </h1>
         </div>
 
-        <div className="my-5 flex items-center gap-2 bg-zinc-100 p-base text-black">
-          <CrownSimple size={26} weight="fill" />
-          <h1 className="text-2xl font-normal">Líder</h1>
-        </div>
+        <Title text="Líder" icon={CrownSimple} />
 
         <div className="flex items-end gap-2">
           <Image

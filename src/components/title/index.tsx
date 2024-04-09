@@ -2,7 +2,7 @@ import { ITitleProps } from './interface/titleProps.interface'
 
 export default function Title({ text, icon: Icon }: ITitleProps) {
   return (
-    <div className="mb-5 flex w-fit items-center gap-2.5 text-black">
+    <div className="flex w-fit items-center gap-2.5 text-black">
       {Icon && (
         <div className="border-b-4 border-theme-green-100 pb-2">
           <Icon size={32} weight="fill" />
