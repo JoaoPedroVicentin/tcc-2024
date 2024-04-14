@@ -232,28 +232,32 @@ export default function Deputados() {
                   </Table.Row>
                 ))}
           </Table.Body>
-          {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
-            <Table.Caption>
-              <Table.DataEmpty />
-            </Table.Caption>
-          ) : (
-            <Table.Footer>
-              <Table.Caption>
-                {lastPage && (
-                  <PaginationList
-                    pageIndex={Number(pagina)}
-                    setPageIndex={(index) =>
-                      setFilters((prevState) => ({
-                        ...prevState,
-                        pagina: String(index),
-                      }))
-                    }
-                    lastPage={Number(lastPage[1])}
-                  />
-                )}
-              </Table.Caption>
-              <Table.Caption>Listagem dos Deputados</Table.Caption>
-            </Table.Footer>
+          {!isLoading && (
+            <>
+              {deputados && deputados.data.dados.length <= 0 ? (
+                <Table.Caption>
+                  <Table.DataEmpty />
+                </Table.Caption>
+              ) : (
+                <Table.Footer>
+                  <Table.Caption>
+                    {lastPage && (
+                      <PaginationList
+                        pageIndex={Number(pagina)}
+                        setPageIndex={(index) =>
+                          setFilters((prevState) => ({
+                            ...prevState,
+                            pagina: String(index),
+                          }))
+                        }
+                        lastPage={Number(lastPage[1])}
+                      />
+                    )}
+                  </Table.Caption>
+                  <Table.Caption>Listagem dos Deputados</Table.Caption>
+                </Table.Footer>
+              )}
+            </>
           )}
         </Table.Root>
       </div>

@@ -7,9 +7,9 @@ import {
   YoutubeLogo,
 } from '@phosphor-icons/react'
 import Image from 'next/image'
-import { IHeaderDeputadoProps } from './interface/headerDeputadoProps.interface'
+import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.interface'
 
-export function HeaderDeputado({ deputado }: IHeaderDeputadoProps) {
+export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
   const {
     ultimoStatus: { urlFoto, nome, nomeEleitoral, siglaPartido, siglaUf },
     redeSocial,

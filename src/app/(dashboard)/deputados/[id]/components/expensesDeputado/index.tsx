@@ -24,7 +24,7 @@ import PaginationList from '@/components/paginationList'
 import Link from 'next/link'
 import { format } from 'date-fns'
 
-export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
+export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetDespesasDeputadoParams = {
     pagina: '1',
     itens: '10',
@@ -188,33 +188,37 @@ export function ExpensesDeputados({ deputado }: IDeputadoSectionProps) {
                   </Table.Row>
                 ))}
           </Table.Body>
-          {!isLoading && despesas && despesas.data.dados.length <= 0 ? (
-            <Table.Caption>
-              <Table.DataEmpty />
-            </Table.Caption>
-          ) : (
-            <Table.Footer>
-              <Table.Caption>
-                {lastPage && (
-                  <PaginationList
-                    pageIndex={Number(pagina)}
-                    setPageIndex={(index) =>
-                      setFilters((prevState) => ({
-                        ...prevState,
-                        pagina: String(index),
-                      }))
-                    }
-                    lastPage={Number(lastPage[1])}
-                  />
-                )}
-              </Table.Caption>
+          {!isLoading && (
+            <>
+              {despesas && despesas.data.dados.length <= 0 ? (
+                <Table.Caption>
+                  <Table.DataEmpty />
+                </Table.Caption>
+              ) : (
+                <Table.Footer>
+                  <Table.Caption>
+                    {lastPage && (
+                      <PaginationList
+                        pageIndex={Number(pagina)}
+                        setPageIndex={(index) =>
+                          setFilters((prevState) => ({
+                            ...prevState,
+                            pagina: String(index),
+                          }))
+                        }
+                        lastPage={Number(lastPage[1])}
+                      />
+                    )}
+                  </Table.Caption>
 
-              <Table.Caption>
-                Listagem das despesas{' '}
-                {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
-                {deputado.ultimoStatus.nomeEleitoral}
-              </Table.Caption>
-            </Table.Footer>
+                  <Table.Caption>
+                    Listagem das despesas{' '}
+                    {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
+                    {deputado.ultimoStatus.nomeEleitoral}
+                  </Table.Caption>
+                </Table.Footer>
+              )}
+            </>
           )}
         </Table.Root>
       </div>

@@ -64,7 +64,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
   return (
     <section className="border-b border-theme-gray-100 p-section">
       <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-        <Title text="Despesas" icon={UsersThree} />
+        <Title text="Frentes parlamentares" icon={UsersThree} />
 
         <div className="grid grid-cols-4 gap-6">
           <div className="flex flex-col gap-2">
@@ -117,6 +117,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                   </Table.Row>
                 ))
               : frentesPages &&
+                frentesPages[page] &&
                 frentesPages[page].map((frente, index) => (
                   <Table.Row
                     key={index}
@@ -133,32 +134,36 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                   </Table.Row>
                 ))}
           </Table.Body>
-          {!isLoading && frentes && frentes.data.dados.length <= 0 ? (
-            <Table.Caption>
-              <Table.DataEmpty />
-            </Table.Caption>
-          ) : (
-            <Table.Footer>
-              {frentesPages && (
+          {!isLoading && (
+            <>
+              {frentesPages && !frentesPages[page] ? (
                 <Table.Caption>
-                  <PaginationList
-                    pageIndex={page}
-                    setPageIndex={(index) =>
-                      setFilters((prevState) => ({
-                        ...prevState,
-                        page: index,
-                      }))
-                    }
-                    lastPage={frentesPages.length - 1}
-                  />
+                  <Table.DataEmpty />
                 </Table.Caption>
+              ) : (
+                <Table.Footer>
+                  {frentesPages && (
+                    <Table.Caption>
+                      <PaginationList
+                        pageIndex={page}
+                        setPageIndex={(index) =>
+                          setFilters((prevState) => ({
+                            ...prevState,
+                            page: index,
+                          }))
+                        }
+                        lastPage={frentesPages.length - 1}
+                      />
+                    </Table.Caption>
+                  )}
+                  <Table.Caption>
+                    Listagem das Frentes Parlamentares{' '}
+                    {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
+                    {deputado.ultimoStatus.nomeEleitoral}
+                  </Table.Caption>
+                </Table.Footer>
               )}
-              <Table.Caption>
-                Listagem das Frentes Parlamentares{' '}
-                {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
-                {deputado.ultimoStatus.nomeEleitoral}
-              </Table.Caption>
-            </Table.Footer>
+            </>
           )}
         </Table.Root>
       </div>
