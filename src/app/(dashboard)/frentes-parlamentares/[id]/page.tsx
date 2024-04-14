@@ -18,6 +18,7 @@ import { Button } from '@/components/button'
 import { LinkButton } from '@/components/link'
 import Title from '@/components/title'
 import InfoComponent from '@/components/info'
+import { hasNonNullFields } from '@/utils/haxNonNullFields'
 
 export default function FrenteParlamentarById({
   params: { id },
@@ -49,6 +50,10 @@ export default function FrenteParlamentarById({
       }
       return true
     })
+
+    const { coordenador } = frente.data.dados
+    const coordenadorValido = hasNonNullFields(coordenador)
+
     return (
       <div className="flex h-full flex-col gap-10 p-section">
         <div>
@@ -64,24 +69,27 @@ export default function FrenteParlamentarById({
           />
         )}
 
-        {frente.data.dados.coordenador && (
+        {coordenadorValido && (
           <div className="flex flex-col gap-2">
             <Title text="Coordenador" icon={Person} />
 
             <div className="flex items-end gap-2">
-              <Image
-                className="rounded-md"
-                src={frente.data.dados.coordenador.urlFoto}
-                width={100}
-                height={75}
-                alt={frente.data.dados.coordenador.nome}
-              />
+              {coordenador.urlFoto && coordenador.nome && (
+                <Image
+                  className="rounded-md"
+                  src={coordenador.urlFoto}
+                  width={100}
+                  height={75}
+                  alt={coordenador.nome}
+                />
+              )}
               <div className="flex h-full w-fit flex-col justify-between gap-2">
-                <p className="text-xl">{frente.data.dados.coordenador.nome}</p>
-                <p className="text-xl">
-                  {frente.data.dados.coordenador.siglaPartido} -{' '}
-                  {frente.data.dados.coordenador.siglaUf}
-                </p>
+                <p className="text-xl">{coordenador.nome}</p>
+                {coordenador.siglaPartido && coordenador.siglaUf && (
+                  <p className="text-xl">
+                    {coordenador.siglaPartido} - {coordenador.siglaUf}
+                  </p>
+                )}
                 <Button leftIcon={Info} text="Saber mais" variant="default" />
               </div>
             </div>
@@ -91,7 +99,7 @@ export default function FrenteParlamentarById({
         {frente.data.dados.situacao && (
           <div>
             <div className="flex flex-col gap-2">
-              <Title text="Coordenador" icon={Steps} />
+              <Title text="Situação" icon={Steps} />
               {validParts.reverse().map((parte, index) => {
                 if (index % 2 === 0) {
                   return (
@@ -109,7 +117,7 @@ export default function FrenteParlamentarById({
           </div>
         )}
 
-        {!!(frente.data.dados.email || frente.data.dados.telefone) && (
+        {!(frente.data.dados.email || frente.data.dados.telefone) && (
           <div className="flex flex-col gap-4">
             <Title text="Contato" icon={PhoneDisconnect} />
             {frente.data.dados.telefone && (

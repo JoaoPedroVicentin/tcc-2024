@@ -4,7 +4,7 @@ export interface IFilterGetProposicoesParams {
   siglaTipo?: string
   numero?: string
   ano?: string
-  idDeputadoAutos?: string
+  idDeputadoAutor?: string
   siglaPartidoAutor?: string
   siglaUfAutor?: string
   tramitacaoSenado?: boolean
