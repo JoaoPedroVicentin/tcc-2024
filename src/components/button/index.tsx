@@ -2,6 +2,7 @@ import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
+import { IconWeight } from '@phosphor-icons/react'
 
 export const buttonVariants = cva(
   'relative flex w-fit h-fit items-center justify-center gap-2 transition-all text-sm font-normal hover:drop-shadow-lg after:content-[""] after:absolute after:w-full after:h-0.5 after:bottom-0',
@@ -30,11 +31,20 @@ export interface ButtonProps
   rightIcon?: React.ElementType
   text?: string
   href?: string
+  weight?: IconWeight
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant, size, leftIcon: LeftIcon, rightIcon: RightIcon, text, ...props },
+    {
+      variant,
+      size,
+      leftIcon: LeftIcon,
+      rightIcon: RightIcon,
+      text,
+      weight,
+      ...props
+    },
     ref,
   ) => {
     const paddingClass = text ? 'p-button' : 'p-2'
@@ -45,9 +55,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {LeftIcon && <LeftIcon size={20} />}
+        {LeftIcon && <LeftIcon size={20} weight={weight} />}
         {text}
-        {RightIcon && <RightIcon size={20} />}
+        {RightIcon && <RightIcon size={20} weight={weight} />}
       </button>
     )
   },

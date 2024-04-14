@@ -8,6 +8,7 @@ import { AboutDeputado } from './components/aboutDeputado'
 import { ExpensesDeputado } from './components/expensesDeputado'
 import { FrentesDeputado } from './components/frentesDeputado'
 import { PrositionsDeputado } from './components/propositionsDeputado'
+import { SpeechesDeputado } from './components/speechesDeputado'
 
 export default function DeputadoById({ params: { id } }: IRouteByIdProps) {
   const { data: deputado, isLoading } = useQuery({
@@ -22,6 +23,7 @@ export default function DeputadoById({ params: { id } }: IRouteByIdProps) {
         <AboutDeputado deputado={deputado.data.dados} />
         <ExpensesDeputado deputado={deputado.data.dados} />
         <PrositionsDeputado deputado={deputado.data.dados} />
+        <SpeechesDeputado deputado={deputado.data.dados} />
         <FrentesDeputado deputado={deputado.data.dados} />
       </main>
     )

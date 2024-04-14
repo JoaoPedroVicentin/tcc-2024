@@ -117,7 +117,7 @@ export default function FrenteParlamentarById({
           </div>
         )}
 
-        {!(frente.data.dados.email || frente.data.dados.telefone) && (
+        {!!(frente.data.dados.email || frente.data.dados.telefone) && (
           <div className="flex flex-col gap-4">
             <Title text="Contato" icon={PhoneDisconnect} />
             {frente.data.dados.telefone && (
