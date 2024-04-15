@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/select'
 import * as Table from '@/components/ui/table'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
-import { FileMagnifyingGlass, Files } from '@phosphor-icons/react'
+import { ArrowSquareOut, Files } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.interface'
@@ -259,7 +259,7 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
                     </Table.Cell>
                     <Table.Cell>
                       <Link href={internalRoutes.proposicaoById(proposicao.id)}>
-                        <FileMagnifyingGlass size={24} weight="fill" />
+                        <ArrowSquareOut size={24} weight="fill" />
                       </Link>
                     </Table.Cell>
                   </Table.Row>

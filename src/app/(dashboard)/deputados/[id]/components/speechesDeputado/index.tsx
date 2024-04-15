@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import * as Table from '@/components/ui/table'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
 import { useQuery } from '@tanstack/react-query'
 import { getDiscursosDeputado } from '@/httpsRequests/deputados/getDiscursosDeputado'
@@ -17,7 +18,8 @@ import { IFilterGetDiscursosDeputadoParams } from '@/httpsRequests/deputados/get
 import { useState } from 'react'
 import { SpeechCard } from './components/speechCard'
 import { Skeleton } from '@/components/ui/skeleton'
-import * as Table from '@/components/ui/table'
+import PaginationList from '@/components/paginationList'
+import { IGetDiscursosDeputadoReturn } from '@/httpsRequests/deputados/getDiscursosDeputado/interfaces/getDiscursosDeputadoReturn.interface'
 
 export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetDiscursosDeputadoParams = {
@@ -27,6 +29,8 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
   const [filters, setFilters] =
     useState<IFilterGetDiscursosDeputadoParams>(defaultFilters)
 
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
   const { ano } = filters
 
   const { data: discursos, isLoading } = useQuery({
@@ -34,11 +38,35 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
     queryFn: () => getDiscursosDeputado(deputado.id, filters),
   })
 
+  function splitIntoSubarrays(
+    data: IGetDiscursosDeputadoReturn['dados'],
+    maxLength: number = 4,
+  ): IGetDiscursosDeputadoReturn['dados'][] {
+    const subarrays: IGetDiscursosDeputadoReturn['dados'][] = []
+    for (let i = 0; i < data.length; i += maxLength) {
+      const subarray = data.slice(i, i + maxLength)
+      subarrays.push(subarray)
+    }
+    console.log(data)
+    console.log(subarrays)
+    return subarrays
+  }
+
+  const discursosPages = discursos && splitIntoSubarrays(discursos.data.dados)
+
+  const hasDiscursos = !!(
+    !isLoading &&
+    discursosPages &&
+    discursosPages[currentPage - 1] &&
+    discursosPages[currentPage - 1].length > 0
+  )
+
   function handleSetAno(value: string) {
     setFilters((prevState) => ({
       ...prevState,
       ano: value,
     }))
+    setCurrentPage(1)
   }
 
   return (
@@ -69,12 +97,11 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
           </div>
         </div>
 
-        {isLoading ||
-        !!(!isLoading && discursos && discursos.data.dados.length > 0) ? (
+        {isLoading || hasDiscursos ? (
           <div className="grid max-h-[718px] grid-cols-4 gap-6 overflow-y-scroll pr-6">
             {!isLoading
-              ? discursos &&
-                discursos.data.dados.map((discurso, index) => (
+              ? hasDiscursos &&
+                discursosPages[currentPage - 1].map((discurso, index) => (
                   <SpeechCard
                     key={index}
                     faseEvent={discurso.faseEvento}
@@ -90,6 +117,13 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
           <Table.Caption>
             <Table.DataEmpty />
           </Table.Caption>
+        )}
+        {hasDiscursos && (
+          <PaginationList
+            pageIndex={currentPage}
+            setPageIndex={(index) => setCurrentPage(index)}
+            lastPage={discursosPages.length}
+          />
         )}
       </div>
     </section>
