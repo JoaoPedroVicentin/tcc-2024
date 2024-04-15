@@ -140,7 +140,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
 
       <Dialog.Root>
         <Dialog.Trigger>Open</Dialog.Trigger>
-        <Dialog.Content>
+        <Dialog.Content className="flex flex-col">
           <Dialog.Header>
             <Dialog.Title className="flex justify-between">
               <Title text="Discurso" icon={MicrophoneStage} />
@@ -149,8 +149,8 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
               </Dialog.Close>
             </Dialog.Title>
           </Dialog.Header>
-          <Dialog.Description className="grid-cols-modalSpeech grid gap-6">
-            <div className="flex flex-col gap-4">
+          <Dialog.Description className="grid-cols-modalSpeech grid gap-6 overflow-hidden">
+            <div className="flex h-full flex-col gap-4">
               <div className="flex items-center bg-theme-black-50 p-2 text-white">
                 <p className="font-medium">ORDEM DO DIA</p>
               </div>
@@ -158,8 +158,8 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
                 <h3 className="truncate">Encaminhamento de votação</h3>
               </div>
               <div className="h-px w-full bg-theme-gray-50" />
-              <div className="flex h-full min-h-24">
-                <p className="">
+              <div className="flex h-auto">
+                <p className="text-sm font-normal text-black">
                   Encaminhamento da votação do requerimento de retirada de pauta
                   da Medida Provisória nº 1.150, de 2022, sobre a alteração da
                   Lei nº 12.651, de 2012, com vista à regulamentação dos prazos
@@ -191,7 +191,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
                 <InfoComponent icon={Clock} label="Horário" value="18:45" />
               </div>
             </div>
-            <div className="flex h-full flex-col gap-4 overflow-y-scroll">
+            <div className="flex h-auto flex-col gap-4 overflow-y-scroll">
               <iframe
                 src="https://www.youtube.com/embed/whnli9mJLYg?si=hJ-vjHex8NeDMVas"
                 title="YouTube video player"
@@ -206,37 +206,24 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
                 variant="alternative"
                 weight="fill"
               />
-              <p className="h-full overflow-y-scroll">
-                O SR. KIM KATAGUIRI (Bloco/UNIÃO - SP. Pela ordem. Sem revisão
-                do orador.) - Sr. Presidente, quero agradecer a V.Exa.,
-                primeiro, por ter pautado este projeto já na legislatura
-                passada. Quero agradecer também ao Deputado Darci de Matos,
-                firme parceiro na luta para aprovarmos este marco legal para os
-                jogos eletrônicos no País. Quero agradecer também ao Senador
-                Flávio Arns e à Senadora Leila Barros, que contribuíram para que
-                aprovássemos esta matéria no Senado. Agora, o projeto vai à
-                sanção, depois de alguns anos de batalha para que fosse
-                aprovado. Conseguimos garantir uma diminuição na tributação de
-                todos os equipamentos necessários para o desenvolvimento de
-                jogos eletrônicos. Conseguimos garantir a todos os envolvidos no
-                desenvolvimento de jogos eletrônicos a possibilidade de se
-                cadastrarem no MEI. Portanto, haverá uma tributação
-                simplificada. Essa tecnologia, como bem colocado pelo Deputado
-                Darci de Matos, será usada em escolas, para o ensino de
-                geografia, de matemática, de história, de inglês, e também nos
-                hospitais, para o tratamento de pessoas que sofrem de
-                deficiências tanto físicas como cognitivas. Eu já tenho
-                acompanhado alguns trabalhos da Associação de Assistência à
-                Criança Deficiente  AACD e de outras entidades que têm utilizado
-                os jogos eletrônicos no sistema de saúde, até mesmo em
-                instituições públicas. Então, tivemos hoje uma grande vitória
-                para os jogadores, para os desenvolvedores, para essa indústria
-                que gera centenas de milhares de empregos diretos e indiretos e
-                que tem um potencial gigantesco de crescer ainda mais no nosso
-                País, como uma indústria nacional. Para finalizar, quero
-                agradecer a todos da Associação Brasileira das Desenvolvedoras
-                de Games  ABRAGAMES que contribuíram para a construção deste
-                texto. Obrigado, Presidente.
+              <p className="h-auto overflow-y-scroll pr-2 text-sm font-normal text-black">
+                O SR. KIM KATAGUIRI (Bloco/UNIÃO - SP) - Obrigado, Sr.
+                Presidente. Quero fazer um breve relato, o de que o setor que
+                nós estamos defendendo nesta sessão, Deputada Renata Abreu, que
+                é diretamente responsável por todo esse benefício que foi
+                causado ao nosso País, gerou mais de 200 mil empregos no ano
+                passado e dezenas de bilhões de reais, tanto no turismo
+                internacional quanto nos bares e nos restaurantes, nos hotéis,
+                nos parques. Não é nenhum favor o que o Governo Federal faz a
+                esse setor. Pelo contrário. É esse setor que presta um serviço
+                fundamental, essencial ao nosso País. Por isso, nós vamos, por
+                maioria esmagadora, derrotar esta medida provisória. (Palmas.) E
+                mais: se houver qualquer tentativa de cercear os direitos do
+                setor de se recuperar, de cercear o direito que o setor tem de
+                trabalhar, de gerar emprego e de gerar renda, eu proponho a
+                todos os colegas que paralisemos, que barremos todos os
+                trabalhos na Câmara dos Deputados, até que seja garantida a
+                manutenção do PERSE. Obrigado, Sr. Presidente.
               </p>
             </div>
           </Dialog.Description>
