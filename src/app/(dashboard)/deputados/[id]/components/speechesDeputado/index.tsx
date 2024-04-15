@@ -1,4 +1,12 @@
-import { MicrophoneStage } from '@phosphor-icons/react'
+import {
+  CalendarBlank,
+  Clock,
+  MicrophoneStage,
+  SpeakerHigh,
+  TextAlignLeft,
+  X,
+  YoutubeLogo,
+} from '@phosphor-icons/react'
 import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.interface'
 import Title from '@/components/title'
 import {
@@ -20,6 +28,9 @@ import { SpeechCard } from './components/speechCard'
 import { Skeleton } from '@/components/ui/skeleton'
 import PaginationList from '@/components/paginationList'
 import { IGetDiscursosDeputadoReturn } from '@/httpsRequests/deputados/getDiscursosDeputado/interfaces/getDiscursosDeputadoReturn.interface'
+import * as Dialog from '@/components/ui/dialog'
+import InfoComponent from '@/components/info'
+import { Button } from '@/components/button'
 
 export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetDiscursosDeputadoParams = {
@@ -126,6 +137,112 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
           />
         )}
       </div>
+
+      <Dialog.Root>
+        <Dialog.Trigger>Open</Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title className="flex justify-between">
+              <Title text="Discurso" icon={MicrophoneStage} />
+              <Dialog.Close>
+                <X size={32} />
+              </Dialog.Close>
+            </Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Description className="grid-cols-modalSpeech grid gap-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center bg-theme-black-50 p-2 text-white">
+                <p className="font-medium">ORDEM DO DIA</p>
+              </div>
+              <div>
+                <h3 className="truncate">Encaminhamento de votação</h3>
+              </div>
+              <div className="h-px w-full bg-theme-gray-50" />
+              <div className="flex h-full min-h-24">
+                <p className="">
+                  Encaminhamento da votação do requerimento de retirada de pauta
+                  da Medida Provisória nº 1.150, de 2022, sobre a alteração da
+                  Lei nº 12.651, de 2012, com vista à regulamentação dos prazos
+                  e condições de adesão ao Programa de Regularização Ambiental -
+                  PRA; e da Lei nº 11.428, de 2006.
+                </p>
+              </div>
+              <div className="h-px w-full bg-theme-gray-50" />
+              <div className="flex flex-col gap-3">
+                <Button
+                  text="Áudio"
+                  leftIcon={SpeakerHigh}
+                  variant="alternative"
+                  weight="fill"
+                />
+                <Button
+                  text="Ver documento"
+                  leftIcon={TextAlignLeft}
+                  variant="alternative"
+                  weight="bold"
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <InfoComponent
+                  icon={CalendarBlank}
+                  label="Data"
+                  value="30/03/204"
+                />
+                <InfoComponent icon={Clock} label="Horário" value="18:45" />
+              </div>
+            </div>
+            <div className="flex h-full flex-col gap-4 overflow-y-scroll">
+              <iframe
+                src="https://www.youtube.com/embed/whnli9mJLYg?si=hJ-vjHex8NeDMVas"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+              <Button
+                text="Ver no Youtube"
+                leftIcon={YoutubeLogo}
+                variant="alternative"
+                weight="fill"
+              />
+              <p className="h-full overflow-y-scroll">
+                O SR. KIM KATAGUIRI (Bloco/UNIÃO - SP. Pela ordem. Sem revisão
+                do orador.) - Sr. Presidente, quero agradecer a V.Exa.,
+                primeiro, por ter pautado este projeto já na legislatura
+                passada. Quero agradecer também ao Deputado Darci de Matos,
+                firme parceiro na luta para aprovarmos este marco legal para os
+                jogos eletrônicos no País. Quero agradecer também ao Senador
+                Flávio Arns e à Senadora Leila Barros, que contribuíram para que
+                aprovássemos esta matéria no Senado. Agora, o projeto vai à
+                sanção, depois de alguns anos de batalha para que fosse
+                aprovado. Conseguimos garantir uma diminuição na tributação de
+                todos os equipamentos necessários para o desenvolvimento de
+                jogos eletrônicos. Conseguimos garantir a todos os envolvidos no
+                desenvolvimento de jogos eletrônicos a possibilidade de se
+                cadastrarem no MEI. Portanto, haverá uma tributação
+                simplificada. Essa tecnologia, como bem colocado pelo Deputado
+                Darci de Matos, será usada em escolas, para o ensino de
+                geografia, de matemática, de história, de inglês, e também nos
+                hospitais, para o tratamento de pessoas que sofrem de
+                deficiências tanto físicas como cognitivas. Eu já tenho
+                acompanhado alguns trabalhos da Associação de Assistência à
+                Criança Deficiente  AACD e de outras entidades que têm utilizado
+                os jogos eletrônicos no sistema de saúde, até mesmo em
+                instituições públicas. Então, tivemos hoje uma grande vitória
+                para os jogadores, para os desenvolvedores, para essa indústria
+                que gera centenas de milhares de empregos diretos e indiretos e
+                que tem um potencial gigantesco de crescer ainda mais no nosso
+                País, como uma indústria nacional. Para finalizar, quero
+                agradecer a todos da Associação Brasileira das Desenvolvedoras
+                de Games  ABRAGAMES que contribuíram para a construção deste
+                texto. Obrigado, Presidente.
+              </p>
+            </div>
+          </Dialog.Description>
+        </Dialog.Content>
+        <Dialog.Overlay />
+      </Dialog.Root>
     </section>
   )
 }

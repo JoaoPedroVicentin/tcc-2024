@@ -8,6 +8,7 @@ const config = {
     gridTemplateColumns: {
       app: 'minmax(18rem, 18rem) 1fr',
       form: 'minmax(7.5rem, 17.5rem), minmax(25rem, 1fr), minmax(0, 15rem)',
+      modalSpeech: '1fr 2fr',
       2: 'repeat(2, minmax(0, 1fr))',
       3: 'repeat(3, minmax(0, 1fr))',
       4: 'repeat(4, minmax(0, 1fr))',

@@ -62,7 +62,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
   }
 
   return (
-    <section className="border-b border-theme-gray-100 p-section">
+    <section className="border-b border-theme-gray-50 bg-theme-white-50 p-section">
       <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
         <Title text="Frentes parlamentares" icon={UsersThree} />
 
