@@ -149,7 +149,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
               </Dialog.Close>
             </Dialog.Title>
           </Dialog.Header>
-          <Dialog.Description className="grid-cols-modalSpeech grid gap-6 overflow-hidden">
+          <Dialog.Description className="grid grid-cols-modalSpeech gap-6 overflow-hidden">
             <div className="flex h-full flex-col gap-4">
               <div className="flex items-center bg-theme-black-50 p-2 text-white">
                 <p className="font-medium">ORDEM DO DIA</p>
