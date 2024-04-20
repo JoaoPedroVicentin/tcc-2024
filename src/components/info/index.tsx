@@ -1,3 +1,4 @@
+import { checkString } from '@/utils/checkString'
 import { IInfoComponentProps } from './interface/infoComponentProps.interface'
 
 export default function InfoComponent({
@@ -12,7 +13,7 @@ export default function InfoComponent({
       </div>
       <div className="flex flex-col justify-between gap-0.5">
         <label>{label}</label>
-        <p>{value}</p>
+        <p>{checkString(value)}</p>
       </div>
     </div>
   )

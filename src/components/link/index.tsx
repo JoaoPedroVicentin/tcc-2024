@@ -2,6 +2,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { IconWeight } from '@phosphor-icons/react'
 
 export const buttonVariants = cva(
   'relative flex w-fit h-fit items-center justify-center gap-2 transition-all text-sm font-normal hover:drop-shadow-lg after:content-[""] after:absolute after:w-full after:h-0.5 after:bottom-0',
@@ -29,6 +30,7 @@ interface LinkButtonProps
   leftIcon?: React.ElementType
   rightIcon?: React.ElementType
   text?: string
+  weight?: IconWeight
   href: string
 }
 
@@ -42,6 +44,7 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
       rightIcon: RightIcon,
       text,
       href,
+      weight = 'fill',
       ...props
     },
     ref,
@@ -60,9 +63,9 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
         ref={ref}
         {...props}
       >
-        {LeftIcon && <LeftIcon size={20} weight="fill" />}
+        {LeftIcon && <LeftIcon size={20} weight={weight} />}
         {text}
-        {RightIcon && <RightIcon size={20} weight="fill" />}
+        {RightIcon && <RightIcon size={20} weight={weight} />}
       </Link>
     )
   },
