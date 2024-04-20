@@ -19,15 +19,15 @@ import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.inte
 import { IFilterGetDespesasDeputadoParams } from '@/httpsRequests/deputados/getDespesasDeputado/interfaces/filterGetDespesasDeputadoParams.interface'
 import { pastMonths } from '@/utils/pastMonths'
 import { Skeleton } from '@/components/ui/skeleton'
-import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import { IGetDespesasDeputadoReturn } from '@/httpsRequests/deputados/getDespesasDeputado/interfaces/getDespesasDeputadoReturn.interface'
 
 export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetDespesasDeputadoParams = {
     pagina: '1',
-    itens: '10',
+    itens: '1000',
     ano: '2024',
     mes: '1',
   }
@@ -37,14 +37,27 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
 
   const { ano, mes, pagina } = filters
 
+  const currentPage = Number(pagina) - 1
+
   const { data: despesas, isLoading } = useQuery({
-    queryKey: ['profissoesDeputadoById', deputado.id, filters],
+    queryKey: ['profissoesDeputadoById', deputado.id, ano, mes],
     queryFn: () => getDespesasDeputado(deputado.id, filters),
   })
 
-  const lastPage = despesas?.data.links
-    .find((link) => link.rel === 'last')
-    ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
+  function splitIntoSubarrays(
+    data: IGetDespesasDeputadoReturn['dados'],
+    maxLength: number = 10,
+  ): IGetDespesasDeputadoReturn['dados'][] {
+    const result: IGetDespesasDeputadoReturn['dados'][] = []
+
+    for (let i = 0; i < data.length; i += maxLength) {
+      result.push(data.slice(i, i + maxLength))
+    }
+
+    return result
+  }
+
+  const despesasPages = despesas && splitIntoSubarrays(despesas.data.dados)
 
   function handleSetAno(value: string) {
     setFilters((prevState) => ({
@@ -159,8 +172,9 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
                     </Table.Cell>
                   </Table.Row>
                 ))
-              : despesas &&
-                despesas.data.dados.map((despesa, index) => (
+              : despesasPages &&
+                despesasPages[currentPage] &&
+                despesasPages[currentPage].map((despesa, index) => (
                   <Table.Row
                     key={index}
                     className="items-center text-base hover:bg-theme-black-50 hover:text-white"
@@ -190,29 +204,28 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
           </Table.Body>
           {!isLoading && (
             <>
-              {despesas && despesas.data.dados.length <= 0 ? (
+              {despesasPages && !despesasPages[currentPage] ? (
                 <Table.Caption>
                   <Table.DataEmpty />
                 </Table.Caption>
               ) : (
                 <Table.Footer>
-                  <Table.Caption>
-                    {lastPage && (
+                  {despesasPages && (
+                    <Table.Caption>
                       <PaginationList
-                        pageIndex={Number(pagina)}
+                        pageIndex={currentPage + 1}
                         setPageIndex={(index) =>
                           setFilters((prevState) => ({
                             ...prevState,
                             pagina: String(index),
                           }))
                         }
-                        lastPage={Number(lastPage[1])}
+                        lastPage={despesasPages.length}
                       />
-                    )}
-                  </Table.Caption>
-
+                    </Table.Caption>
+                  )}
                   <Table.Caption>
-                    Listagem das despesas{' '}
+                    Listagem das Despesas{' '}
                     {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                     {deputado.ultimoStatus.nomeEleitoral}
                   </Table.Caption>

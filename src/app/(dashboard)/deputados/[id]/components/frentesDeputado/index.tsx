@@ -34,6 +34,8 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
 
   const { page, idLegislatura } = filters
 
+  const currentPage = page - 1
+
   function splitIntoSubarrays(
     data: IGetFrentesDeputadoReturn['dados'],
     maxLength: number = 10,
@@ -117,8 +119,8 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                   </Table.Row>
                 ))
               : frentesPages &&
-                frentesPages[page] &&
-                frentesPages[page].map((frente, index) => (
+                frentesPages[currentPage] &&
+                frentesPages[currentPage].map((frente, index) => (
                   <Table.Row
                     key={index}
                     className="items-center text-base hover:bg-theme-black-50 hover:text-white"
@@ -136,7 +138,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
           </Table.Body>
           {!isLoading && (
             <>
-              {frentesPages && !frentesPages[page] ? (
+              {frentesPages && !frentesPages[currentPage] ? (
                 <Table.Caption>
                   <Table.DataEmpty />
                 </Table.Caption>
@@ -152,7 +154,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                             page: index,
                           }))
                         }
-                        lastPage={frentesPages.length - 1}
+                        lastPage={frentesPages.length}
                       />
                     </Table.Caption>
                   )}
