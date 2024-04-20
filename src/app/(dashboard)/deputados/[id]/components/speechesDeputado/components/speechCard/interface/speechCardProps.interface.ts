@@ -1,9 +1,8 @@
 export interface ISpeechCardProps {
   typeSpeech: string
   summary: string
-  faseEvent: {
-    titulo: string
-    dataHoraInicio: string | null
-    dataHoraFim: string | null
-  }
+  onClick: () => void
+  titulo: string
+  data: string | null
+  horario: string | null
 }
