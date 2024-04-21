@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/select'
 import { IFilterGetProposicoesParams } from '@/httpsRequests/proposicoes/getProposicoes/interfaces/filterGetProposicoesParams.interface'
 import { getProposicoes } from '@/httpsRequests/proposicoes/getProposicoes'
-import { SITUACOES_PROPOSICAO } from '@/constants/proposicoes/situacoesProposicao'
 import { TIPOS_PROPOSICAO } from '@/constants/proposicoes/tiposProposicao'
 import { IConstantsData } from '@/interfaces/constantsData.interface'
 import { TEMA_PROPOSICAO } from '@/constants/proposicoes/temaProposicao'
@@ -35,7 +34,7 @@ export default function Proposicoes() {
   const [filters, setFilters] =
     useState<IFilterGetProposicoesParams>(defaultFilters)
 
-  const { pagina, ano, codSituacao, siglaTipo, codTema } = filters
+  const { pagina, ano, siglaTipo, codTema } = filters
 
   const { data: proposicoes, isLoading } = useQuery({
     queryKey: ['proposicoes', filters],
@@ -52,22 +51,6 @@ export default function Proposicoes() {
       pagina: '1',
       ano: value,
     }))
-  }
-
-  function handleSetSituacao(value: string) {
-    if (value === 'null') {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        codSituacao: undefined,
-      }))
-    } else {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        codSituacao: value,
-      }))
-    }
   }
 
   function handleSetTipo(value: string) {
@@ -170,28 +153,6 @@ export default function Proposicoes() {
                     }
                   },
                 )}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold">Situação</label>
-          <Select onValueChange={handleSetSituacao} value={codSituacao}>
-            <SelectTrigger>
-              <SelectValue placeholder="Pesquisar por situação" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="null">Sem Filtro</SelectItem>
-                <SelectLabel>Situação</SelectLabel>
-                {SITUACOES_PROPOSICAO.map((situacao, index) => {
-                  return (
-                    <SelectItem key={index} value={situacao.cod}>
-                      {situacao.nome}
-                    </SelectItem>
-                  )
-                })}
               </SelectGroup>
             </SelectContent>
           </Select>
