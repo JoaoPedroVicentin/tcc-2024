@@ -25,7 +25,7 @@ export function SpeechCard({
         <p className="line-clamp-6">{checkString(summary)}</p>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex w-full gap-3">
         <InfoComponent icon={CalendarBlank} label="Data" value={data} />
 
         <InfoComponent icon={Clock} label="Horário" value={horario} />
@@ -39,6 +39,7 @@ export function SpeechCard({
         weight="fill"
         type="button"
         onClick={onClick}
+        className="w-auto"
       />
     </div>
   )

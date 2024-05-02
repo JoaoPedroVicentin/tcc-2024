@@ -38,7 +38,7 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
             </Dialog.Close>
           </Dialog.Title>
         </Dialog.Header>
-        <Dialog.Description className="grid grid-cols-modalSpeech gap-6 overflow-hidden">
+        <Dialog.Description className="grid h-full grid-cols-modalSpeech gap-6 overflow-hidden">
           <div className="flex h-auto flex-col gap-4 overflow-y-scroll">
             <div className="flex items-center bg-theme-black-50 p-2 text-white">
               <p className="font-medium">{titulo}</p>
@@ -47,12 +47,17 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
               <h3 className="truncate">{tipoDiscurso}</h3>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
-            <div className="h-auto overflow-y-scroll">
+            <div className="h-full overflow-y-scroll">
               <p className="pr-2 text-sm font-normal text-black">
                 {checkString(sumario)}
               </p>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
+
+            <div className="flex flex-col gap-3">
+              <InfoComponent icon={CalendarBlank} label="Data" value={data} />
+              <InfoComponent icon={Clock} label="Horário" value={horario} />
+            </div>
             <div className="flex flex-col gap-3">
               {urlAudio && (
                 <LinkButton
@@ -70,12 +75,9 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
                   leftIcon={TextAlignLeft}
                   variant="alternative"
                   weight="bold"
+                  className="w-auto"
                 />
               )}
-            </div>
-            <div className="flex flex-col gap-3">
-              <InfoComponent icon={CalendarBlank} label="Data" value={data} />
-              <InfoComponent icon={Clock} label="Horário" value={horario} />
             </div>
           </div>
           <div className="flex h-auto flex-col gap-4 overflow-y-scroll">

@@ -7,7 +7,7 @@ export default function InfoComponent({
   icon: Icon,
 }: IInfoComponentProps) {
   return (
-    <div className="flex h-fit items-start gap-2.5">
+    <div className="flex h-fit w-full items-start gap-2.5">
       <div className="rounded border-2 border-theme-green-100 bg-theme-green-50 p-2">
         <Icon size={20} weight="fill" />
       </div>
