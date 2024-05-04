@@ -84,8 +84,8 @@ export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
                       <LinkButton
                         key={autor.uri}
                         href={internalRoutes.deputadoById(Number(idAutor[1]))}
-                        aria-disabled={!isDeputado}
                         text={autor.nome}
+                        disabled={!isDeputado}
                         rightIcon={isDeputado ? ArrowSquareOut : undefined}
                       />
                     )

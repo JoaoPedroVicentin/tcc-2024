@@ -32,6 +32,7 @@ interface LinkButtonProps
   text?: string
   weight?: IconWeight
   href: string
+  disabled?: boolean
 }
 
 const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
@@ -44,6 +45,7 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
       rightIcon: RightIcon,
       text,
       href,
+      disabled = false,
       weight = 'fill',
       ...props
     },
@@ -51,7 +53,7 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   ) => {
     const paddingClass = text ? 'p-button' : 'p-2'
 
-    return (
+    const renderLink = !disabled ? (
       <Link
         href={href}
         passHref
@@ -67,7 +69,21 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
         {text}
         {RightIcon && <RightIcon size={20} weight={weight} />}
       </Link>
+    ) : (
+      <div
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          paddingClass,
+          'cursor-not-allowed',
+        )}
+      >
+        {LeftIcon && <LeftIcon size={20} weight={weight} />}
+        {text}
+        {RightIcon && <RightIcon size={20} weight={weight} />}
+      </div>
     )
+
+    return renderLink
   },
 )
 
