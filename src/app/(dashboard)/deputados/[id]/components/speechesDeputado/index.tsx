@@ -34,6 +34,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
 
   const defaultFilters: IFilterGetDiscursosDeputadoParams = {
     ano: '2024',
+    ordem: 'DESC',
   }
 
   const [filters, setFilters] =

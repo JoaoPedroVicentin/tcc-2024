@@ -3,6 +3,7 @@ export interface IFilterGetDiscursosDeputadoParams {
   itens?: string
   idLegislatura?: string
   ano?: string
+  ordem?: 'ASC' | 'DESC'
 }
 
 export type TFilterGetDiscursosDeputadoParams =

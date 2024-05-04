@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useMemo, useState } from 'react'
 import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut, Files } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import Link from 'next/link'
@@ -23,6 +23,8 @@ import { TIPOS_PROPOSICAO } from '@/constants/proposicoes/tiposProposicao'
 import { IConstantsData } from '@/interfaces/constantsData.interface'
 import { TEMA_PROPOSICAO } from '@/constants/proposicoes/temaProposicao'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
+import { Header } from '@/components/header'
+import { WrapperList } from '@/components/wrapperList'
 
 export default function Proposicoes() {
   const defaultFilters: IFilterGetProposicoesParams = {
@@ -103,12 +105,10 @@ export default function Proposicoes() {
   }
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Proposições</h1>
-      </div>
+    <WrapperList>
+      <Header text="Proposições" icon={Files} />
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select onValueChange={handleSetAno} value={ano}>
@@ -218,7 +218,7 @@ export default function Proposicoes() {
                   </Table.Cell>
                   <Table.Cell>
                     <Link href={internalRoutes.proposicaoById(proposicao.id)}>
-                      <Info size={20} weight="duotone" />
+                      <ArrowSquareOut size={24} />
                     </Link>
                   </Table.Cell>
                 </Table.Row>
@@ -247,6 +247,6 @@ export default function Proposicoes() {
           <Table.Caption>Listagem das Proposições</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

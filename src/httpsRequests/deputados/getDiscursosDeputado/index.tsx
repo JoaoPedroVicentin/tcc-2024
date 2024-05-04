@@ -11,12 +11,13 @@ export async function getDiscursosDeputado(
   id: number,
   filter: IFilterGetDiscursosDeputadoParams,
 ): Promise<AxiosResponse<IGetDiscursosDeputadoReturn>> {
-  const { idLegislatura, ano, itens, pagina } = filter
+  const { idLegislatura, ano, itens, pagina, ordem } = filter
 
   const params: { [key: string]: TFilterGetDiscursosDeputadoParams } = {
     idLegislatura,
     itens,
     pagina,
+    ordem,
   }
 
   if (ano) {
