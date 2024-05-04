@@ -4,7 +4,13 @@ import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 
 import { cn } from '@/lib/utils'
-import { CaretDown, CaretUp, Check } from '@phosphor-icons/react'
+import {
+  CaretDown,
+  CaretUp,
+  Check,
+  MagnifyingGlass,
+} from '@phosphor-icons/react'
+import { InputProps } from './input'
 
 const Select = SelectPrimitive.Root
 
@@ -146,6 +152,26 @@ const SelectSeparator = React.forwardRef<
 ))
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
+const SelectInput = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <div className="mx-4 my-1.5 flex h-10 w-full items-center gap-1 px-4 py-1.5">
+        <MagnifyingGlass size={16} />
+        <input
+          type={type}
+          className={cn(
+            'bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+            className,
+          )}
+          ref={ref}
+          {...props}
+        />
+      </div>
+    )
+  },
+)
+SelectInput.displayName = 'SelectInput'
+
 export {
   Select,
   SelectGroup,
@@ -157,4 +183,5 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
+  SelectInput,
 }
