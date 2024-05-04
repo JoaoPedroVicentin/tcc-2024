@@ -92,13 +92,22 @@ export default function Proposicoes() {
   ): IConstantsData[] {
     const filteredTiposProposicao: IConstantsData[] = useMemo(() => {
       const siglasFound: string[] = []
-      return constantsData.filter((item) => {
+      const filteredData = constantsData.filter((item) => {
         if (item.sigla && !siglasFound.includes(item.sigla)) {
           siglasFound.push(item.sigla)
           return true
         }
         return false
       })
+
+      filteredData.sort((a, b) => {
+        if (a.sigla && b.sigla) {
+          return a.sigla.localeCompare(b.sigla)
+        }
+        return 0
+      })
+
+      return filteredData
     }, [constantsData])
 
     return filteredTiposProposicao

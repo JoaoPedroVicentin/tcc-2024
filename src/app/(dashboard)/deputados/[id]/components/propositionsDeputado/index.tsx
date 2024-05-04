@@ -220,7 +220,7 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
                     </Table.Cell>
                     <Table.Cell>
                       <Link href={internalRoutes.proposicaoById(proposicao.id)}>
-                        <ArrowSquareOut size={24} weight="fill" />
+                        <ArrowSquareOut size={24} />
                       </Link>
                     </Table.Cell>
                   </Table.Row>

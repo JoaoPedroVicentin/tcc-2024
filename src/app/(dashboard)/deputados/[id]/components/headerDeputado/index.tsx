@@ -44,7 +44,7 @@ export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
   const socialMedias = separateSocialMediaLinks(redeSocial)
 
   return (
-    <header className="border-b border-theme-gray-100 p-section">
+    <section className="border-b border-theme-gray-100 p-section">
       <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
         <Header text="Deputado" icon={User} />
         <div className="flex w-full justify-between">
@@ -93,6 +93,6 @@ export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
           </div>
         </div>
       </div>
-    </header>
+    </section>
   )
 }

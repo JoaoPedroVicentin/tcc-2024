@@ -1,7 +1,6 @@
 'use client'
 import { IRouteByIdProps } from '@/interfaces/routeByIdProps.interface'
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
 import { getDeputadoById } from '@/httpsRequests/deputados/getDeputadoById'
 import { HeaderDeputado } from './components/headerDeputado'
 import { AboutDeputado } from './components/aboutDeputado'
