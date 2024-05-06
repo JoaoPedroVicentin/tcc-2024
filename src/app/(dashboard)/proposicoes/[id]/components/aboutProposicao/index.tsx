@@ -71,7 +71,7 @@ export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
             <div className="flex flex-col gap-5">
               <Title text="Autores" />
 
-              <div className="flex gap-5">
+              <div className="flex flex-wrap gap-5">
                 {autores.data.dados.map((autor) => {
                   const idAutor = autor.uri.match(
                     VALIDATIONS_REGEX.GER_ID_FOR_URL,
