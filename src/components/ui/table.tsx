@@ -7,12 +7,13 @@ const Root = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative h-fit min-h-section w-full overflow-auto pb-20">
-    <table
-      ref={ref}
-      className={cn('w-full caption-bottom text-sm', className)}
-      {...props}
-    />
+  <div
+    className={cn(
+      'relative h-fit min-h-section w-full overflow-auto pb-20',
+      className,
+    )}
+  >
+    <table ref={ref} className="w-full caption-bottom text-sm" {...props} />
   </div>
 ))
 Root.displayName = 'Root'

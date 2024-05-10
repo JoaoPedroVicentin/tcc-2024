@@ -155,8 +155,9 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
                 ))
               : proposicoesPages &&
                 proposicoesPages[currentPage] &&
-                proposicoesPages[currentPage].map(
-                  (relatedProposicao, index) => (
+                proposicoesPages[currentPage]
+                  .reverse()
+                  .map((relatedProposicao, index) => (
                     <Table.Row
                       key={index}
                       className="items-center text-base hover:bg-theme-black-50 hover:text-white"
@@ -178,8 +179,7 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
                         </Link>
                       </Table.Cell>
                     </Table.Row>
-                  ),
-                )}
+                  ))}
           </Table.Body>
           {!isLoading && (
             <>

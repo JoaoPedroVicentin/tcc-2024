@@ -190,7 +190,7 @@ export default function Proposicoes() {
         </div>
       </div>
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Proposição</Table.Head>
