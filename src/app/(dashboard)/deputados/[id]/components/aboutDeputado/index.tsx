@@ -15,6 +15,7 @@ import { format } from 'date-fns'
 import { useQuery } from '@tanstack/react-query'
 import { getProfissoesDeputado } from '@/httpsRequests/deputados/getProfissoesDeputado'
 import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.interface'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
   const { data: profissoes, isLoading } = useQuery({
@@ -49,67 +50,61 @@ export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
 
   if (!isLoading) {
     return (
-      <section className="border-b border-theme-gray-100 bg-theme-white-50 p-section">
-        <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-          <Title text="Resumo" icon={Info} />
+      <WrapperSection className="bg-theme-white-50">
+        <Title text="Resumo" icon={Info} />
+        <div className="flex flex-col gap-4">
+          <Title text="Sobre" />
+          <div className="grid grid-cols-5 gap-4">
+            <InfoComponent
+              icon={IdentificationCard}
+              label="Nome civil"
+              value={nomeCivil}
+            />
+            <InfoComponent
+              icon={Cake}
+              label="Nascimento"
+              value={format(dataNascimento, 'dd/MM/yyyy')}
+            />
+            <InfoComponent
+              icon={MapPinLine}
+              label="Naturalidade"
+              value={`${municipioNascimento} • ${ufNascimento}`}
+            />
+            <InfoComponent
+              icon={Student}
+              label="Escolaridade"
+              value={escolaridade}
+            />
+            {deputyTeachers && (
+              <InfoComponent
+                icon={ReadCvLogo}
+                label="Profissões"
+                value={deputyTeachers}
+              />
+            )}
+          </div>
+        </div>
+        {hasContact && (
           <div className="flex flex-col gap-4">
-            <Title text="Sobre" />
+            <Title text="Contato" />
             <div className="grid grid-cols-5 gap-4">
-              <InfoComponent
-                icon={IdentificationCard}
-                label="Nome civil"
-                value={nomeCivil}
-              />
-              <InfoComponent
-                icon={Cake}
-                label="Nascimento"
-                value={format(dataNascimento, 'dd/MM/yyyy')}
-              />
-              <InfoComponent
-                icon={MapPinLine}
-                label="Naturalidade"
-                value={`${municipioNascimento} • ${ufNascimento}`}
-              />
-              <InfoComponent
-                icon={Student}
-                label="Escolaridade"
-                value={escolaridade}
-              />
-              {deputyTeachers && (
+              {gabineteInfo !== 'Gabinete' && (
                 <InfoComponent
-                  icon={ReadCvLogo}
-                  label="Profissões"
-                  value={deputyTeachers}
+                  label="Gabinete"
+                  value={gabineteInfo}
+                  icon={Building}
                 />
+              )}
+              {telefone && (
+                <InfoComponent icon={Phone} label="Telefone" value={telefone} />
+              )}
+              {email && (
+                <InfoComponent icon={Envelope} label="Email" value={email} />
               )}
             </div>
           </div>
-          {hasContact && (
-            <div className="flex flex-col gap-4">
-              <Title text="Contato" />
-              <div className="grid grid-cols-5 gap-4">
-                {gabineteInfo !== 'Gabinete' && (
-                  <InfoComponent
-                    label="Gabinete"
-                    value={gabineteInfo}
-                    icon={Building}
-                  />
-                )}
-                {telefone && (
-                  <InfoComponent
-                    icon={Phone}
-                    label="Telefone"
-                    value={telefone}
-                  />
-                )}
-                {email && (
-                  <InfoComponent icon={Envelope} label="Email" value={email} />
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+        )}
+      </WrapperSection>
     )
   }
 }

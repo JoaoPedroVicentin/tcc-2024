@@ -14,6 +14,7 @@ import { ITemaData } from '@/httpsRequests/proposicoes/getTemasProposicao/interf
 import { LinkButton } from '@/components/link'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import { internalRoutes } from '@/configs/internalRoutes'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
   const {
@@ -44,60 +45,58 @@ export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
 
   if (!isLoading) {
     return (
-      <section className="border-b border-theme-gray-100 bg-theme-white-50 p-section">
-        <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-          <div className="flex flex-col gap-5">
-            <Title text="Sobre" />
+      <WrapperSection className="bg-theme-white-50">
+        <div className="flex flex-col gap-5">
+          <Title text="Sobre" />
+          <InfoComponent
+            label="Tipo de proposição"
+            value={descricaoTipo}
+            icon={FileText}
+          />
+          <InfoComponent
+            label="Situação"
+            value={descricaoSituacao}
+            icon={Signpost}
+          />
+          {temasFormat && (
             <InfoComponent
-              label="Tipo de proposição"
-              value={descricaoTipo}
-              icon={FileText}
+              label="Temas"
+              value={concatTemas(temas.data.dados)}
+              icon={ClipboardText}
             />
-            <InfoComponent
-              label="Situação"
-              value={descricaoSituacao}
-              icon={Signpost}
-            />
-            {temasFormat && (
-              <InfoComponent
-                label="Temas"
-                value={concatTemas(temas.data.dados)}
-                icon={ClipboardText}
-              />
-            )}
-          </div>
-
-          {autores && autores.data.dados.length > 0 && (
-            <div className="flex flex-col gap-5">
-              <Title text="Autores" />
-
-              <div className="flex flex-wrap gap-5">
-                {autores.data.dados.map((autor) => {
-                  const idAutor = autor.uri.match(
-                    VALIDATIONS_REGEX.GER_ID_FOR_URL,
-                  )
-
-                  if (idAutor && idAutor[1]) {
-                    const isDeputado = autor.codTipo === 10000
-
-                    return (
-                      <LinkButton
-                        key={autor.uri}
-                        href={internalRoutes.deputadoById(Number(idAutor[1]))}
-                        text={autor.nome}
-                        disabled={!isDeputado}
-                        rightIcon={isDeputado ? ArrowSquareOut : undefined}
-                      />
-                    )
-                  } else {
-                    return null
-                  }
-                })}
-              </div>
-            </div>
           )}
         </div>
-      </section>
+
+        {autores && autores.data.dados.length > 0 && (
+          <div className="flex flex-col gap-5">
+            <Title text="Autores" />
+
+            <div className="flex flex-wrap gap-5">
+              {autores.data.dados.map((autor) => {
+                const idAutor = autor.uri.match(
+                  VALIDATIONS_REGEX.GER_ID_FOR_URL,
+                )
+
+                if (idAutor && idAutor[1]) {
+                  const isDeputado = autor.codTipo === 10000
+
+                  return (
+                    <LinkButton
+                      key={autor.uri}
+                      href={internalRoutes.deputadoById(Number(idAutor[1]))}
+                      text={autor.nome}
+                      disabled={!isDeputado}
+                      rightIcon={isDeputado ? ArrowSquareOut : undefined}
+                    />
+                  )
+                } else {
+                  return null
+                }
+              })}
+            </div>
+          </div>
+        )}
+      </WrapperSection>
     )
   }
 }

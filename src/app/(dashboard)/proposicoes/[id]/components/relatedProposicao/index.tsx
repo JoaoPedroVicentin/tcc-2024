@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IGetProposicoesReturn } from '@/httpsRequests/proposicoes/getProposicoes/interfaces/getProposicoesReturn.interface'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
   const [filters, setFilters] = useState<{
@@ -33,7 +34,7 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
   const currentPage = page - 1
 
   const { data: proposicoes, isLoading } = useQuery({
-    queryKey: ['relateedProposicao', proposicao],
+    queryKey: ['relatedProposicao', proposicao, tipo],
     queryFn: () => getRelatedProposicao(proposicao.id),
   })
 
@@ -98,120 +99,118 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
   }
 
   return (
-    <section className="border-b border-theme-gray-100 p-section">
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-        <Title text="Proposições relacionadas" icon={Files} />
+    <WrapperSection>
+      <Title text="Proposições relacionadas" icon={Files} />
 
-        <div className="grid grid-cols-4 gap-6">
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Tipo</label>
-            <Select onValueChange={handleSetTipo} value={tipo}>
-              <SelectTrigger>
-                <SelectValue placeholder="Pesquisar pelo tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="null">Sem Filtro</SelectItem>
-                  <SelectLabel>Tipo</SelectLabel>
-                  {useFilteredTiposProposicao(TIPOS_PROPOSICAO).map((tipo) => {
-                    if (tipo.cod) {
-                      return (
-                        <SelectItem key={tipo.cod} value={tipo.cod}>
-                          {tipo.sigla} - {tipo.nome}
-                        </SelectItem>
-                      )
-                    } else {
-                      return null
-                    }
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Tipo</label>
+          <Select onValueChange={handleSetTipo} value={tipo}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar pelo tipo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="null">Sem Filtro</SelectItem>
+                <SelectLabel>Tipo</SelectLabel>
+                {useFilteredTiposProposicao(TIPOS_PROPOSICAO).map((tipo) => {
+                  if (tipo.cod) {
+                    return (
+                      <SelectItem key={tipo.cod} value={tipo.cod}>
+                        {tipo.sigla} - {tipo.nome}
+                      </SelectItem>
+                    )
+                  } else {
+                    return null
+                  }
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
+      </div>
 
-        <Table.Root>
-          <Table.Header className="border-b-2 border-theme-black-50 text-base">
-            <Table.Row>
-              <Table.Head>Proposição</Table.Head>
-              <Table.Head>Ementa</Table.Head>
-              <Table.Head>Ver página</Table.Head>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {isLoading
-              ? Array.from({ length: 10 }, (_, index) => (
-                  <Table.Row key={index}>
+      <Table.Root>
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
+          <Table.Row>
+            <Table.Head>Proposição</Table.Head>
+            <Table.Head>Ementa</Table.Head>
+            <Table.Head>Ver página</Table.Head>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {isLoading
+            ? Array.from({ length: 10 }, (_, index) => (
+                <Table.Row key={index}>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                </Table.Row>
+              ))
+            : proposicoesPages &&
+              proposicoesPages[currentPage] &&
+              proposicoesPages[currentPage]
+                .reverse()
+                .map((relatedProposicao, index) => (
+                  <Table.Row
+                    key={index}
+                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                  >
                     <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
+                      {relatedProposicao.siglaTipo} {relatedProposicao.numero}/
+                      {relatedProposicao.ano}
+                    </Table.Cell>
+                    <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                      {relatedProposicao.ementa}
                     </Table.Cell>
                     <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
+                      <Link
+                        href={internalRoutes.proposicaoById(
+                          relatedProposicao.id,
+                        )}
+                      >
+                        <ArrowSquareOut size={24} />
+                      </Link>
                     </Table.Cell>
                   </Table.Row>
-                ))
-              : proposicoesPages &&
-                proposicoesPages[currentPage] &&
-                proposicoesPages[currentPage]
-                  .reverse()
-                  .map((relatedProposicao, index) => (
-                    <Table.Row
-                      key={index}
-                      className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                    >
-                      <Table.Cell>
-                        {relatedProposicao.siglaTipo} {relatedProposicao.numero}
-                        /{relatedProposicao.ano}
-                      </Table.Cell>
-                      <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
-                        {relatedProposicao.ementa}
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Link
-                          href={internalRoutes.proposicaoById(
-                            relatedProposicao.id,
-                          )}
-                        >
-                          <ArrowSquareOut size={24} />
-                        </Link>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-          </Table.Body>
-          {!isLoading && (
-            <>
-              {proposicoesPages && !proposicoesPages[currentPage] ? (
-                <Table.Caption>
-                  <Table.DataEmpty />
-                </Table.Caption>
-              ) : (
-                <Table.Footer>
-                  {proposicoesPages && (
-                    <Table.Caption>
-                      <PaginationList
-                        pageIndex={page}
-                        setPageIndex={(index) =>
-                          setFilters((prevState) => ({
-                            ...prevState,
-                            page: index,
-                          }))
-                        }
-                        lastPage={proposicoesPages.length}
-                      />
-                    </Table.Caption>
-                  )}
+                ))}
+        </Table.Body>
+        {!isLoading && (
+          <>
+            {proposicoesPages && !proposicoesPages[currentPage] ? (
+              <Table.Caption>
+                <Table.DataEmpty />
+              </Table.Caption>
+            ) : (
+              <Table.Footer>
+                {proposicoesPages && (
                   <Table.Caption>
-                    Listagem das Proposições Relacionas
+                    <PaginationList
+                      pageIndex={page}
+                      setPageIndex={(index) =>
+                        setFilters((prevState) => ({
+                          ...prevState,
+                          page: index,
+                        }))
+                      }
+                      lastPage={proposicoesPages.length}
+                    />
                   </Table.Caption>
-                </Table.Footer>
-              )}
-            </>
-          )}
-        </Table.Root>
-      </div>
-    </section>
+                )}
+                <Table.Caption>
+                  Listagem das Proposições Relacionas
+                </Table.Caption>
+              </Table.Footer>
+            )}
+          </>
+        )}
+      </Table.Root>
+    </WrapperSection>
   )
 }

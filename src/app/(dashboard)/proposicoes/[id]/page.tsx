@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { HeaderProposicao } from './components/headerProposicao'
 import { AboutProposicao } from './components/aboutProposicao'
 import { RelatedProposicao } from './components/relatedProposicao'
+import { PollsProposicao } from './components/pollsProposicao'
 
 export default function ProposicaoById({ params: { id } }: IRouteByIdProps) {
   const { data: proposicao, isLoading } = useQuery({
@@ -17,6 +18,7 @@ export default function ProposicaoById({ params: { id } }: IRouteByIdProps) {
       <main className="flex h-full flex-col">
         <HeaderProposicao proposicao={proposicao.data.dados} />
         <AboutProposicao proposicao={proposicao.data.dados} />
+        <PollsProposicao proposicao={proposicao.data.dados} />
         <RelatedProposicao proposicao={proposicao.data.dados} />
       </main>
     )

@@ -24,6 +24,7 @@ import { ModalSpeech } from './components/modalSpeech'
 import { IModalSpeechProps } from './components/modalSpeech/interface/modalSpeechProps.interface'
 import { useDisclosure } from '@/hooks/useDisclosure'
 import { format } from 'date-fns'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
   const [thisSpeech, setThisSpeech] = useState<
@@ -58,8 +59,6 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
       const subarray = data.slice(i, i + maxLength)
       subarrays.push(subarray)
     }
-    console.log(data)
-    console.log(subarrays)
     return subarrays
   }
 
@@ -81,86 +80,84 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
   }
 
   return (
-    <section className="border-b border-theme-gray-100 p-section">
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-        <Title text="Discursos" icon={MicrophoneStage} />
+    <WrapperSection>
+      <Title text="Discursos" icon={MicrophoneStage} />
 
-        <div className="grid grid-cols-4 gap-6">
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Ano</label>
-            <Select onValueChange={handleSetAno} value={ano}>
-              <SelectTrigger>
-                <SelectValue placeholder="Pesquisar por ano" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Ano</SelectLabel>
-                  {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
-                    return (
-                      <SelectItem key={index} value={String(ano)}>
-                        {ano}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {isLoading || hasDiscursos ? (
-          <div className="grid max-h-[718px] grid-cols-3 gap-6 overflow-y-scroll pr-6 2xl:grid-cols-4">
-            {!isLoading
-              ? hasDiscursos &&
-                discursosPages[currentPage - 1].map((discurso, index) => {
-                  const horario =
-                    discurso.dataHoraInicio &&
-                    format(discurso.dataHoraInicio, 'HH:mm')
-
-                  const data =
-                    discurso.dataHoraInicio &&
-                    format(discurso.dataHoraInicio, 'dd/MM/yy')
-
+      <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Ano</label>
+          <Select onValueChange={handleSetAno} value={ano}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por ano" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Ano</SelectLabel>
+                {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
                   return (
-                    <SpeechCard
-                      key={index}
-                      data={data}
-                      horario={horario}
-                      titulo={discurso.faseEvento.titulo}
-                      summary={discurso.sumario}
-                      typeSpeech={discurso.tipoDiscurso}
-                      onClick={() => {
-                        setThisSpeech({
-                          ...discurso,
-                          titulo: discurso.faseEvento.titulo,
-                          data,
-                          horario,
-                        })
-                        onOpen()
-                      }}
-                    />
+                    <SelectItem key={index} value={String(ano)}>
+                      {ano}
+                    </SelectItem>
                   )
-                })
-              : Array.from({ length: 4 }, (_, index) => (
-                  <Skeleton key={index} className="h-96 flex-1" />
-                ))}
-          </div>
-        ) : (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
-        )}
-        {hasDiscursos && (
-          <PaginationList
-            pageIndex={currentPage}
-            setPageIndex={(index) => setCurrentPage(index)}
-            lastPage={discursosPages.length}
-          />
-        )}
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
+
+      {isLoading || hasDiscursos ? (
+        <div className="grid max-h-[718px] grid-cols-3 gap-6 overflow-y-scroll pr-6 2xl:grid-cols-4">
+          {!isLoading
+            ? hasDiscursos &&
+              discursosPages[currentPage - 1].map((discurso, index) => {
+                const horario =
+                  discurso.dataHoraInicio &&
+                  format(discurso.dataHoraInicio, 'HH:mm')
+
+                const data =
+                  discurso.dataHoraInicio &&
+                  format(discurso.dataHoraInicio, 'dd/MM/yy')
+
+                return (
+                  <SpeechCard
+                    key={index}
+                    data={data}
+                    horario={horario}
+                    titulo={discurso.faseEvento.titulo}
+                    summary={discurso.sumario}
+                    typeSpeech={discurso.tipoDiscurso}
+                    onClick={() => {
+                      setThisSpeech({
+                        ...discurso,
+                        titulo: discurso.faseEvento.titulo,
+                        data,
+                        horario,
+                      })
+                      onOpen()
+                    }}
+                  />
+                )
+              })
+            : Array.from({ length: 4 }, (_, index) => (
+                <Skeleton key={index} className="h-96 flex-1" />
+              ))}
+        </div>
+      ) : (
+        <Table.Caption>
+          <Table.DataEmpty />
+        </Table.Caption>
+      )}
+      {hasDiscursos && (
+        <PaginationList
+          pageIndex={currentPage}
+          setPageIndex={(index) => setCurrentPage(index)}
+          lastPage={discursosPages.length}
+        />
+      )}
       {thisSpeech && (
         <ModalSpeech speech={thisSpeech} isOpen={isOpen} onClose={onClose} />
       )}
-    </section>
+    </WrapperSection>
   )
 }

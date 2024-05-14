@@ -12,7 +12,7 @@ import * as Table from '@/components/ui/table'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
 import { ArrowSquareOut, Files } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { IDeputadoSectionProps } from '../../interface/deputadoSectionProps.interface'
 import { Skeleton } from '@/components/ui/skeleton'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
@@ -24,6 +24,7 @@ import { internalRoutes } from '@/configs/internalRoutes'
 import { IFilterGetProposicoesParams } from '@/httpsRequests/proposicoes/getProposicoes/interfaces/filterGetProposicoesParams.interface'
 import { getProposicoes } from '@/httpsRequests/proposicoes/getProposicoes'
 import { IConstantsData } from '@/interfaces/constantsData.interface'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
   const defaultFilters: IFilterGetProposicoesParams = {
@@ -56,210 +57,179 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
   }
 
   function handleSetTipo(value: string) {
-    if (value === 'null') {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaTipo: undefined,
-      }))
-    } else {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaTipo: value,
-      }))
-    }
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      siglaTipo: value === 'null' ? undefined : value,
+    }))
   }
 
   function handleSetTema(value: string) {
-    if (value === 'null') {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        codTema: undefined,
-      }))
-    } else {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        codTema: value,
-      }))
-    }
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      codTema: value === 'null' ? undefined : value,
+    }))
   }
 
   function useFilteredTiposProposicao(
     constantsData: IConstantsData[],
   ): IConstantsData[] {
-    const filteredTiposProposicao: IConstantsData[] = useMemo(() => {
-      const siglasFound: string[] = []
-      return constantsData.filter((item) => {
-        if (item.sigla && !siglasFound.includes(item.sigla)) {
-          siglasFound.push(item.sigla)
-          return true
-        }
-        return false
-      })
-    }, [constantsData])
+    const siglasFound: string[] = []
 
-    return filteredTiposProposicao
+    return constantsData.filter((item) => {
+      if (item.sigla && !siglasFound.includes(item.sigla)) {
+        siglasFound.push(item.sigla)
+        return true
+      }
+      return false
+    })
   }
 
   return (
-    <section className="border-b border-theme-gray-100 bg-theme-white-50 p-section">
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-9">
-        <Title text="Proposições" icon={Files} />
+    <WrapperSection className="bg-theme-white-50">
+      <Title text="Proposições" icon={Files} />
 
-        <div className="grid grid-cols-4 gap-6">
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Ano</label>
-            <Select onValueChange={handleSetAno} value={ano}>
-              <SelectTrigger>
-                <SelectValue placeholder="Pesquisar por ano" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Ano</SelectLabel>
-                  {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
-                    return (
-                      <SelectItem key={index} value={String(ano)}>
-                        {ano}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Tipo</label>
-            <Select onValueChange={handleSetTipo} value={siglaTipo}>
-              <SelectTrigger>
-                <SelectValue placeholder="Pesquisar pelo tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="null">Sem Filtro</SelectItem>
-                  <SelectLabel>Tipo</SelectLabel>
-                  {useFilteredTiposProposicao(TIPOS_PROPOSICAO).map(
-                    (tipo, index) => {
-                      if (tipo.sigla) {
-                        return (
-                          <SelectItem key={index} value={tipo.sigla}>
-                            {tipo.sigla} - {tipo.nome}
-                          </SelectItem>
-                        )
-                      } else {
-                        return null
-                      }
-                    },
-                  )}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Tema</label>
-            <Select onValueChange={handleSetTema} value={codTema}>
-              <SelectTrigger>
-                <SelectValue placeholder="Pesquisar por tema" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="null">Sem Filtro</SelectItem>
-                  <SelectLabel>Tema</SelectLabel>
-                  {TEMA_PROPOSICAO.map((tema, index) => {
-                    return (
-                      <SelectItem key={index} value={tema.cod}>
-                        {tema.nome}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Ano</label>
+          <Select onValueChange={handleSetAno} value={ano}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por ano" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Ano</SelectLabel>
+                {yearsBetweenCurrentYearAnd2019().map((ano, index) => (
+                  <SelectItem key={index} value={String(ano)}>
+                    {ano}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
-        <Table.Root>
-          <Table.Header className="border-b-2 border-theme-black-50 text-base">
-            <Table.Row>
-              <Table.Head>Proposição</Table.Head>
-              <Table.Head>Ementa</Table.Head>
-              <Table.Head>Ver página</Table.Head>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {isLoading
-              ? Array.from({ length: 10 }, (_, index) => (
-                  <Table.Row key={index}>
-                    <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Skeleton className="h-14 flex-1" />
-                    </Table.Cell>
-                  </Table.Row>
-                ))
-              : proposicoes &&
-                proposicoes.data.dados.map((proposicao, index) => (
-                  <Table.Row
-                    key={index}
-                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                  >
-                    <Table.Cell>
-                      {proposicao.siglaTipo} {proposicao.numero}/
-                      {proposicao.ano}
-                    </Table.Cell>
-                    <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
-                      {proposicao.ementa}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Link href={internalRoutes.proposicaoById(proposicao.id)}>
-                        <ArrowSquareOut size={24} />
-                      </Link>
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-          </Table.Body>
-          {!isLoading && (
-            <>
-              {proposicoes && proposicoes.data.dados.length <= 0 ? (
-                <Table.Caption>
-                  <Table.DataEmpty />
-                </Table.Caption>
-              ) : (
-                <Table.Footer>
-                  <Table.Caption>
-                    {lastPage && (
-                      <PaginationList
-                        pageIndex={Number(pagina)}
-                        setPageIndex={(index) =>
-                          setFilters((prevState) => ({
-                            ...prevState,
-                            pagina: String(index),
-                          }))
-                        }
-                        lastPage={Number(lastPage[1])}
-                      />
-                    )}
-                  </Table.Caption>
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Tipo</label>
+          <Select onValueChange={handleSetTipo} value={siglaTipo}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar pelo tipo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="null">Sem Filtro</SelectItem>
+                <SelectLabel>Tipo</SelectLabel>
+                {useFilteredTiposProposicao(TIPOS_PROPOSICAO).map(
+                  (tipo, index) =>
+                    tipo.sigla && (
+                      <SelectItem key={index} value={tipo.sigla}>
+                        {tipo.sigla} - {tipo.nome}
+                      </SelectItem>
+                    ),
+                )}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-                  <Table.Caption>
-                    Listagem das proposições{' '}
-                    {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
-                    {deputado.ultimoStatus.nomeEleitoral}
-                  </Table.Caption>
-                </Table.Footer>
-              )}
-            </>
-          )}
-        </Table.Root>
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Tema</label>
+          <Select onValueChange={handleSetTema} value={codTema}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pesquisar por tema" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="null">Sem Filtro</SelectItem>
+                <SelectLabel>Tema</SelectLabel>
+                {TEMA_PROPOSICAO.map((tema, index) => (
+                  <SelectItem key={index} value={tema.cod}>
+                    {tema.nome}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-    </section>
+
+      <Table.Root>
+        <Table.Header className="border-b-2 border-theme-black-50 text-base">
+          <Table.Row>
+            <Table.Head>Proposição</Table.Head>
+            <Table.Head>Ementa</Table.Head>
+            <Table.Head>Ver página</Table.Head>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {isLoading
+            ? Array.from({ length: 10 }, (_, index) => (
+                <Table.Row key={index}>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton className="h-14 flex-1" />
+                  </Table.Cell>
+                </Table.Row>
+              ))
+            : proposicoes &&
+              proposicoes.data.dados.map((proposicao, index) => (
+                <Table.Row
+                  key={index}
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                >
+                  <Table.Cell>
+                    {proposicao.siglaTipo} {proposicao.numero}/{proposicao.ano}
+                  </Table.Cell>
+                  <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    {proposicao.ementa}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link href={internalRoutes.proposicaoById(proposicao.id)}>
+                      <ArrowSquareOut size={24} />
+                    </Link>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+        </Table.Body>
+        {!isLoading && (
+          <Table.Footer>
+            {proposicoes && proposicoes.data.dados.length <= 0 ? (
+              <Table.Caption>
+                <Table.DataEmpty />
+              </Table.Caption>
+            ) : (
+              <>
+                <Table.Caption>
+                  {lastPage && (
+                    <PaginationList
+                      pageIndex={Number(pagina)}
+                      setPageIndex={(index) =>
+                        setFilters((prevState) => ({
+                          ...prevState,
+                          pagina: String(index),
+                        }))
+                      }
+                      lastPage={Number(lastPage[1])}
+                    />
+                  )}
+                </Table.Caption>
+
+                <Table.Caption>
+                  Listagem das proposições{' '}
+                  {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
+                  {deputado.ultimoStatus.nomeEleitoral}
+                </Table.Caption>
+              </>
+            )}
+          </Table.Footer>
+        )}
+      </Table.Root>
+    </WrapperSection>
   )
 }
