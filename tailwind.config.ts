@@ -41,6 +41,10 @@ const config = {
             50: '#EDF4D3',
             100: '#C6ED37',
           },
+          red: {
+            50: '#FEF2f2',
+            100: '#DC2626',
+          },
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
