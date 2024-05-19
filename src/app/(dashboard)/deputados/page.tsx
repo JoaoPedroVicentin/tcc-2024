@@ -171,7 +171,7 @@ export default function Deputados() {
         </div>
       </div>
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
@@ -231,32 +231,27 @@ export default function Deputados() {
                 </Table.Row>
               ))}
         </Table.Body>
-        {!isLoading && (
-          <>
-            {deputados && deputados.data.dados.length <= 0 ? (
-              <Table.Caption>
-                <Table.DataEmpty />
-              </Table.Caption>
-            ) : (
-              <Table.Footer>
-                <Table.Caption>
-                  {lastPage && (
-                    <PaginationList
-                      pageIndex={Number(pagina)}
-                      setPageIndex={(index) =>
-                        setFilters((prevState) => ({
-                          ...prevState,
-                          pagina: String(index),
-                        }))
-                      }
-                      lastPage={Number(lastPage[1])}
-                    />
-                  )}
-                </Table.Caption>
-                <Table.Caption>Listagem dos Deputados</Table.Caption>
-              </Table.Footer>
-            )}
-          </>
+        <Table.Caption>
+          {lastPage && (
+            <PaginationList
+              pageIndex={Number(pagina)}
+              setPageIndex={(index) =>
+                setFilters((prevState) => ({
+                  ...prevState,
+                  pagina: String(index),
+                }))
+              }
+              lastPage={Number(lastPage[1])}
+            />
+          )}
+        </Table.Caption>
+
+        {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
+          <Table.Caption>
+            <Table.DataEmpty />
+          </Table.Caption>
+        ) : (
+          <Table.Caption>Listagem dos Deputados</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

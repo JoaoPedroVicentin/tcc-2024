@@ -188,8 +188,8 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
                 <Table.DataEmpty />
               </Table.Caption>
             ) : (
-              <Table.Footer>
-                {proposicoesPages && (
+              proposicoesPages && (
+                <>
                   <Table.Caption>
                     <PaginationList
                       pageIndex={page}
@@ -202,11 +202,11 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
                       lastPage={proposicoesPages.length}
                     />
                   </Table.Caption>
-                )}
-                <Table.Caption>
-                  Listagem das Proposições Relacionas
-                </Table.Caption>
-              </Table.Footer>
+                  <Table.Caption>
+                    Listagem das proposições relacionadas
+                  </Table.Caption>
+                </>
+              )
             )}
           </>
         )}

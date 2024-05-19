@@ -9,7 +9,7 @@ const Root = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     className={cn(
-      'relative h-fit min-h-section w-full overflow-auto pb-20',
+      'relative h-fit min-h-section w-full overflow-auto',
       className,
     )}
   >
@@ -45,7 +45,7 @@ const Footer = React.forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      'absolute bottom-0 left-0 right-0 flex flex-col items-center font-medium',
+      'absolute bottom-0 left-0 right-0 flex flex-col items-center gap-4 font-medium',
       className,
     )}
     {...props}

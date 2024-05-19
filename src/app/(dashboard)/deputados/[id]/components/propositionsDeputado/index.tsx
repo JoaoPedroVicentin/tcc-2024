@@ -197,38 +197,35 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
                 </Table.Row>
               ))}
         </Table.Body>
-        {!isLoading && (
-          <Table.Footer>
-            {proposicoes && proposicoes.data.dados.length <= 0 ? (
+        {!isLoading &&
+          (proposicoes && proposicoes.data.dados.length <= 0 ? (
+            <Table.Caption>
+              <Table.DataEmpty />
+            </Table.Caption>
+          ) : (
+            <>
               <Table.Caption>
-                <Table.DataEmpty />
+                {lastPage && (
+                  <PaginationList
+                    pageIndex={Number(pagina)}
+                    setPageIndex={(index) =>
+                      setFilters((prevState) => ({
+                        ...prevState,
+                        pagina: String(index),
+                      }))
+                    }
+                    lastPage={Number(lastPage[1])}
+                  />
+                )}
               </Table.Caption>
-            ) : (
-              <>
-                <Table.Caption>
-                  {lastPage && (
-                    <PaginationList
-                      pageIndex={Number(pagina)}
-                      setPageIndex={(index) =>
-                        setFilters((prevState) => ({
-                          ...prevState,
-                          pagina: String(index),
-                        }))
-                      }
-                      lastPage={Number(lastPage[1])}
-                    />
-                  )}
-                </Table.Caption>
 
-                <Table.Caption>
-                  Listagem das proposições{' '}
-                  {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
-                  {deputado.ultimoStatus.nomeEleitoral}
-                </Table.Caption>
-              </>
-            )}
-          </Table.Footer>
-        )}
+              <Table.Caption>
+                Listagem das proposições{' '}
+                {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
+                {deputado.ultimoStatus.nomeEleitoral}
+              </Table.Caption>
+            </>
+          ))}
       </Table.Root>
     </WrapperSection>
   )

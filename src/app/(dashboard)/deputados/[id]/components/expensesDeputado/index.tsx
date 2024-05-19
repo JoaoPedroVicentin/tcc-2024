@@ -209,7 +209,7 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
                 <Table.DataEmpty />
               </Table.Caption>
             ) : (
-              <Table.Footer>
+              <>
                 {despesasPages && (
                   <Table.Caption>
                     <PaginationList
@@ -229,7 +229,7 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
                   {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                   {deputado.ultimoStatus.nomeEleitoral}
                 </Table.Caption>
-              </Table.Footer>
+              </>
             )}
           </>
         )}

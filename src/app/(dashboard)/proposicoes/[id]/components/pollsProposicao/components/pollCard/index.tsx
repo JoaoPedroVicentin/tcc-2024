@@ -53,8 +53,6 @@ export function PollCard({ id, poll }: IPollCardProps) {
         <p>{siglaOrgao}</p>
       </div>
 
-      <p>{}</p>
-
       {hasOtherProposicao && (
         <div className="flex items-center justify-between">
           <h3>{proposicaoObjeto}</h3>

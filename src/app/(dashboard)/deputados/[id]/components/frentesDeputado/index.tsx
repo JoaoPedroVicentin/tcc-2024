@@ -143,7 +143,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                 <Table.DataEmpty />
               </Table.Caption>
             ) : (
-              <Table.Footer>
+              <>
                 {frentesPages && (
                   <Table.Caption>
                     <PaginationList
@@ -158,12 +158,13 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                     />
                   </Table.Caption>
                 )}
+
                 <Table.Caption>
                   Listagem das Frentes Parlamentares{' '}
                   {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                   {deputado.ultimoStatus.nomeEleitoral}
                 </Table.Caption>
-              </Table.Footer>
+              </>
             )}
           </>
         )}

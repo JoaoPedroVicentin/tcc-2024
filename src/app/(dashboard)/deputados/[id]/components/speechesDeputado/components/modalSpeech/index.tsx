@@ -28,17 +28,20 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
   } = speech
 
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={onClose}>
+      <Dialog.Overlay />
       <Dialog.Content className="flex flex-col">
         <Dialog.Header>
-          <Dialog.Title className="flex justify-between">
+          <div className="flex items-center justify-between">
             <Title text="Discurso" icon={MicrophoneStage} />
-            <Dialog.Close onClick={onClose}>
-              <X size={32} />
+            <Dialog.Close asChild>
+              <button onClick={onClose}>
+                <X size={32} />
+              </button>
             </Dialog.Close>
-          </Dialog.Title>
+          </div>
         </Dialog.Header>
-        <Dialog.Description className="grid h-full grid-cols-modalSpeech gap-6 overflow-hidden">
+        <div className="grid h-full grid-cols-modalSpeech gap-6 overflow-hidden">
           <div className="flex h-auto flex-col gap-4 overflow-y-scroll">
             <div className="flex items-center bg-theme-black-50 p-2 text-white">
               <p className="font-medium">{titulo}</p>
@@ -53,7 +56,6 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
               </p>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
-
             <div className="flex flex-col gap-3">
               <InfoComponent icon={CalendarBlank} label="Data" value={data} />
               <InfoComponent icon={Clock} label="Horário" value={horario} />
@@ -100,13 +102,12 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
                 />
               </>
             )}
-            <p className="h-auto overflow-y-scroll pr-2 text-sm font-normal text-black">
+            <Dialog.Description className="h-auto overflow-y-scroll pr-2 text-sm font-normal text-black">
               {transcricao}
-            </p>
+            </Dialog.Description>
           </div>
-        </Dialog.Description>
+        </div>
       </Dialog.Content>
-      <Dialog.Overlay onClick={onClose} />
     </Dialog.Root>
   )
 }

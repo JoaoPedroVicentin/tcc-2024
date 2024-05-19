@@ -55,6 +55,7 @@ export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
             alt={nome}
             width={120}
             height={120}
+            priority
           />
           <div className="flex flex-col gap-3">
             <h1>{nomeEleitoral}</h1>
