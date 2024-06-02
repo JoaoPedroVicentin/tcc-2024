@@ -22,7 +22,7 @@ export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
   const { id } = proposicao
 
   const { data: votacoes, isLoading } = useQuery({
-    queryKey: ['pollProposicao', id, filters],
+    queryKey: ['pollsProposicao', id, filters],
     queryFn: () => getVotacoesProposicao(id),
   })
 

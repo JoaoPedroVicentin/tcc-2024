@@ -1,6 +1,6 @@
 import { IGetTramitacoesProposicaoReturn } from '@/httpsRequests/proposicoes/getTramitacoesProposicao/interfaces/getTramitacoesProposicaoReturn.interface'
 
-export interface ITableProceduresProps {
+export interface IComponentProceduresProps {
   isLoading: boolean
   tramitacoes?: IGetTramitacoesProposicaoReturn
 }

@@ -167,13 +167,13 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
             ? Array.from({ length: 10 }, (_, index) => (
                 <Table.Row key={index}>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                 </Table.Row>
               ))

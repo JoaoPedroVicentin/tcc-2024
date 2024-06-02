@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { getTramitacoesProposicao } from '@/httpsRequests/proposicoes/getTramitacoesProposicao'
 import { useQuery } from '@tanstack/react-query'
 import { TableProcedures } from './components/tableProcedures'
+import { ListProcedures } from './components/listProcedures'
 
 export function ProceduresProposicao({ proposicao }: IProposicaoSectionProps) {
   const { id } = proposicao
@@ -18,11 +19,11 @@ export function ProceduresProposicao({ proposicao }: IProposicaoSectionProps) {
 
   const [typeDataVisualization, setTypeDataVisualization] = useState<
     'list' | 'table'
-  >('table')
+  >('list')
 
-  function checkButtonState(type: 'list' | 'table'): 'default' | 'ghost' {
+  function checkButtonState(type: 'list' | 'table'): 'alternative' | 'ghost' {
     if (typeDataVisualization === type) {
-      return 'default'
+      return 'alternative'
     } else {
       return 'ghost'
     }
@@ -53,7 +54,7 @@ export function ProceduresProposicao({ proposicao }: IProposicaoSectionProps) {
           tramitacoes={tramitacoes?.data}
         />
       ) : (
-        <p>Listagem</p>
+        <ListProcedures isLoading={isLoading} tramitacoes={tramitacoes?.data} />
       )}
     </WrapperSection>
   )

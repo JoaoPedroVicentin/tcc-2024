@@ -6,22 +6,25 @@ import PaginationList from '@/components/paginationList'
 import { format } from 'date-fns'
 import { useState } from 'react'
 import { ITramitacaoData } from '@/httpsRequests/proposicoes/getTramitacoesProposicao/interfaces/tramitacaoData.interface'
-import { ITableProceduresProps } from './interface/tableProceduresProps.interface'
+import { IComponentProceduresProps } from '../../interface/componentProceduresProps.interface'
+import { sortedTramitacoes } from '../../utils/sortedTramitacoes'
 
 export function TableProcedures({
   isLoading,
   tramitacoes,
-}: ITableProceduresProps) {
+}: IComponentProceduresProps) {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   function splitIntoSubarrays(
     data: ITramitacaoData[],
     maxLength: number = 10,
   ): ITramitacaoData[][] {
+    const sortedData = sortedTramitacoes(data)
+
     const result: ITramitacaoData[][] = []
 
-    for (let i = 0; i < data.length; i += maxLength) {
-      result.push(data.slice(i, i + maxLength))
+    for (let i = 0; i < sortedData.length; i += maxLength) {
+      result.push(sortedData.slice(i, i + maxLength))
     }
 
     return result
@@ -50,44 +53,42 @@ export function TableProcedures({
         <Table.Body>
           {!isLoading
             ? hasTramitacoes &&
-              tramitacoesPages[currentPage - 1]
-                .reverse()
-                .map((tramitacao, index) => (
-                  <Table.Row
-                    key={index}
-                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                  >
-                    <Table.Cell>
-                      {format(tramitacao.dataHora, 'dd/MM/yy')}
-                    </Table.Cell>
-                    <Table.Cell>{tramitacao.siglaOrgao}</Table.Cell>
-                    <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
-                      {tramitacao.despacho}
-                    </Table.Cell>
-                    <Table.Cell>
-                      {tramitacao.url ? (
-                        <Link href={tramitacao.url}>
-                          <FileSearch size={24} weight="fill" />
-                        </Link>
-                      ) : (
-                        <p>---</p>
-                      )}
-                    </Table.Cell>
-                  </Table.Row>
-                ))
+              tramitacoesPages[currentPage - 1].map((tramitacao, index) => (
+                <Table.Row
+                  key={index}
+                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                >
+                  <Table.Cell>
+                    {format(tramitacao.dataHora, 'dd/MM/yy')}
+                  </Table.Cell>
+                  <Table.Cell>{tramitacao.siglaOrgao}</Table.Cell>
+                  <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    {tramitacao.despacho}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {tramitacao.url ? (
+                      <Link href={tramitacao.url}>
+                        <FileSearch size={24} weight="fill" />
+                      </Link>
+                    ) : (
+                      <p>---</p>
+                    )}
+                  </Table.Cell>
+                </Table.Row>
+              ))
             : Array.from({ length: 10 }, (_, index) => (
                 <Table.Row key={index}>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Skeleton className="h-14 flex-1" />
+                    <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
                 </Table.Row>
               ))}
