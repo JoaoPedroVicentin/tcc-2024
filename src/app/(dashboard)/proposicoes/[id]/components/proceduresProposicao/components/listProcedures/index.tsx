@@ -81,7 +81,8 @@ export function ListProcedures({ tramitacoes }: IComponentProceduresProps) {
     return tramitesFormatted
   }
 
-  const resultTramitacoes = tramitacoes && formattedTramitacoes(tramitacoes.dados)
+  const resultTramitacoes = 
+  tramitacoes && formattedTramitacoes(tramitacoes.dados)
 
   const [isFullContent, setIsFullContent] = useState<boolean>(
     !!(resultTramitacoes && resultTramitacoes.length <= 4),
