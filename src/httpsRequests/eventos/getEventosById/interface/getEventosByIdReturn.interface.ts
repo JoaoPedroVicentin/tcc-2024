@@ -1,4 +1,6 @@
-interface Orgao {
+import { ILinksReturn } from '@/interfaces/linksReturn.interface'
+
+interface IOrgaoData {
   id: number
   uri: string
   sigla: string
@@ -10,31 +12,34 @@ interface Orgao {
   nomeResumido: string
 }
 
-interface LocalCamara {
+interface ILocalCamaraData {
   nome?: string
   predio?: string
   sala?: string
-  anda?: string
+  andar?: string
 }
 
 export interface IGetEventosByIdReturn {
-  uriDeputados?: string
-  uriConvidados?: string
-  fases?: string
-  id: number
-  uri: string
-  dataHoraInicio: string
-  dataHoraFim: string
-  situacao: string
-  descricaoTipo: string
-  descricao: string
-  localExterno?: string
-  orgaos: Orgao[]
-  requerimentos: {
-    titulo: string
+  dados: {
+    uriDeputados?: string
+    uriConvidados?: string
+    fases?: string
+    id: number
     uri: string
-  }[]
-  localCamara: LocalCamara
-  urlDocumentoPauta: string
-  urlRegistro?: string
+    dataHoraInicio: string
+    dataHoraFim: string
+    situacao: string
+    descricaoTipo: string
+    descricao: string
+    localExterno?: string
+    orgaos: IOrgaoData[]
+    requerimentos: {
+      titulo: string
+      uri: string
+    }[]
+    localCamara: ILocalCamaraData
+    urlDocumentoPauta: string
+    urlRegistro?: string
+  }
+  links: ILinksReturn[]
 }

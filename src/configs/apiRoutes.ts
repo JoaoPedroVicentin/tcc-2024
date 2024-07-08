@@ -23,8 +23,12 @@ export const apiRoutes = {
   partidoById: (id: number) => `/partidos/${id}`,
   frentesParlamentares: '/frentes',
   frenteParlamentarById: (id: number) => `/frentes/${id}`,
+
   eventos: '/eventos',
   eventoById: (id: number) => `/eventos/${id}`,
+  votacoesEvento: (id: number) => `/eventos/${id}/votacoes`,
+  deputadosEvento: (id: number) => `/eventos/${id}/deputados`,
+
   blocosPartidarios: '/blocos',
   votacoes: '/votacoes',
   votacaoById: (id: number) => `/votacoes/${id}`,

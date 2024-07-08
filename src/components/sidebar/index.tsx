@@ -4,7 +4,6 @@ import Logo from '../svgs/Logo'
 import NavItem from './components/nav-item'
 import {
   Calendar,
-  Chats,
   Files,
   Flag,
   Gavel,
@@ -61,7 +60,7 @@ export default function Sidebar() {
             icon={Ticket}
           />
           <NavItem title="Órgãos" link={internalRoutes.orgaos} icon={Gavel} />
-          <NavItem title="Fórum" link="#" icon={Chats} />
+          {/* <NavItem title="Fórum" link="#" icon={Chats} /> */}
         </ul>
       </nav>
     </aside>

@@ -1,29 +1,29 @@
 import Title from '@/components/title'
-import { IProposicaoSectionProps } from '../../interface/proposicaoSectionProps.interface'
 import { Ticket } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
 import { WrapperSection } from '@/components/wrapperSection'
-import { getVotacoesProposicao } from '@/httpsRequests/proposicoes/getVotacoesProposicao'
 import { useState } from 'react'
-import { IFilterGetVotacoesProposicaoParams } from '@/httpsRequests/proposicoes/getVotacoesProposicao/interfaces/filterGetVotacoesProposicaoParams.interface'
-import { PollCard } from './components/pollCard'
 import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IVotacaoData } from '@/httpsRequests/votacoes/getVotacoes/interfaces/votacaoData.interface'
 import PaginationList from '@/components/paginationList'
+import { IEventoSectionProps } from '../../interface/eventoSectionProps.interface'
+import { IFilterGetVotacoesEventoParams } from '@/httpsRequests/eventos/getVotacoesEvento/interfaces/filterGetVotacoesProposicaoParams.interface'
+import { getVotacoesEvento } from '@/httpsRequests/eventos/getVotacoesEvento'
+import { PollCard } from '@/app/(dashboard)/proposicoes/[id]/components/pollsProposicao/components/pollCard'
 
-export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
-  const [filters] = useState<IFilterGetVotacoesProposicaoParams>({
+export function PollsEvento({ evento }: IEventoSectionProps) {
+  const [filters] = useState<IFilterGetVotacoesEventoParams>({
     ordenarPor: 'dataHoraRegistro',
   })
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { id } = proposicao
+  const { id } = evento
 
   const { data: votacoes, isLoading } = useQuery({
-    queryKey: ['pollsProposicao', id, filters],
-    queryFn: () => getVotacoesProposicao(id),
+    queryKey: ['pollsEvento', id, filters],
+    queryFn: () => getVotacoesEvento(id),
   })
 
   function splitIntoSubarrays(
@@ -61,7 +61,7 @@ export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
                     key={votacao.id}
                     id={id}
                     poll={votacao}
-                    isEventoPage={false}
+                    isEventoPage={true}
                   />
                 )
               })

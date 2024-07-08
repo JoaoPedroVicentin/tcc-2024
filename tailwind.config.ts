@@ -9,6 +9,7 @@ const config = {
       app: 'minmax(18rem, 18rem) 1fr',
       form: 'minmax(7.5rem, 17.5rem), minmax(25rem, 1fr), minmax(0, 15rem)',
       modalSpeech: '1fr 2fr',
+      event: '2fr 5fr',
       2: 'repeat(2, minmax(0, 1fr))',
       3: 'repeat(3, minmax(0, 1fr))',
       4: 'repeat(4, minmax(0, 1fr))',
@@ -110,6 +111,10 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      lineClamp: {
+        7: '7',
+        8: '8',
       },
     },
   },

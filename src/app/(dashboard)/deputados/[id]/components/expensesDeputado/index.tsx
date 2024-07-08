@@ -95,7 +95,7 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
           <label className="font-semibold">Ano</label>
           <Select onValueChange={handleSetAno} value={ano}>
             <SelectTrigger>
-              <SelectValue placeholder="Filtra pelo ano" />
+              <SelectValue placeholder="Filtrar pelo ano" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

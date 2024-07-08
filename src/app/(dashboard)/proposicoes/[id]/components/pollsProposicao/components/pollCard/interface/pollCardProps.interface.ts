@@ -3,4 +3,5 @@ import { IVotacaoData } from '@/httpsRequests/votacoes/getVotacoes/interfaces/vo
 export interface IPollCardProps {
   id: number
   poll: IVotacaoData
+  isEventoPage: boolean
 }

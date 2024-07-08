@@ -1,11 +1,6 @@
 import React from 'react'
 import * as Pagination from '@/components/ui/pagination'
-
-interface IPaginationProps {
-  pageIndex: number
-  lastPage: number
-  setPageIndex: (index: number) => void
-}
+import { IPaginationProps } from './interface/paginationProps.interface'
 
 export default function PaginationList({
   pageIndex,

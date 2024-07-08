@@ -15,7 +15,7 @@ import { STATUS_VOTACAO } from './constant/statusVotacao.constant'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import { internalRoutes } from '@/configs/internalRoutes'
 
-export function PollCard({ id, poll }: IPollCardProps) {
+export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
   const {
     aprovacao,
     dataHoraRegistro,
@@ -23,6 +23,7 @@ export function PollCard({ id, poll }: IPollCardProps) {
     proposicaoObjeto,
     siglaOrgao,
     uriProposicaoObjeto,
+    uriEvento,
   } = poll
 
   const horario = format(dataHoraRegistro, 'HH:mm')
@@ -35,11 +36,15 @@ export function PollCard({ id, poll }: IPollCardProps) {
     VALIDATIONS_REGEX.GER_ID_FOR_URL,
   )
 
+  const idEvento = uriEvento?.match(VALIDATIONS_REGEX.GER_ID_FOR_URL)
+
   const hasOtherProposicao = !!(
     idProposicao &&
     idProposicao[1] &&
     Number(idProposicao[1]) !== id
   )
+
+  const hasEvento = !!(idEvento && idEvento[1])
 
   return (
     <div className="flex flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5">
@@ -65,8 +70,8 @@ export function PollCard({ id, poll }: IPollCardProps) {
 
       <div className="h-px w-full bg-theme-gray-50" />
 
-      <div className="flex h-full min-h-24">
-        <p className="line-clamp-4">{checkString(descricao)}</p>
+      <div className="flex min-h-24 flex-1">
+        <p className="line-clamp-[8]">{checkString(descricao)}</p>
       </div>
 
       <div className="flex gap-3">
@@ -77,13 +82,15 @@ export function PollCard({ id, poll }: IPollCardProps) {
       <div className="h-px w-full bg-theme-gray-50" />
 
       <div className="flex gap-3">
-        <LinkButton
-          href="#"
-          variant="alternative"
-          leftIcon={Calendar}
-          text="Evento"
-          className="w-full"
-        />
+        {!isEventoPage && hasEvento && (
+          <LinkButton
+            href={internalRoutes.eventoById(Number(idEvento[1]))}
+            variant="alternative"
+            leftIcon={Calendar}
+            text="Evento"
+            className="w-full"
+          />
+        )}
         <LinkButton
           href="#"
           variant="alternative"

@@ -5,7 +5,7 @@ import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import {
   Select,
   SelectContent,
@@ -20,19 +20,26 @@ import { getEventos } from '@/httpsRequests/eventos/getEventos'
 import { SITUACOES_EVENTO } from '@/constants/eventos/situacoesEvento'
 import { TIPOS_EVENTO } from '@/constants/eventos/tiposEvento'
 import Link from 'next/link'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut, Calendar } from '@phosphor-icons/react'
 import { internalRoutes } from '@/configs/internalRoutes'
+import { WrapperList } from '@/components/wrapperList'
+import { Header } from '@/components/header'
+import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
 
 export default function Eventos() {
+  const currentYear = new Date().getFullYear()
+
   const defaultFilters: IFilterGetEventosParams = {
     pagina: '1',
     itens: '10',
+    dataInicio: `${currentYear}-01-01`,
+    dataFim: `${currentYear}-12-31`,
   }
 
   const [filters, setFilters] =
     useState<IFilterGetEventosParams>(defaultFilters)
 
-  const { pagina, codSituacao, codTipoEvento } = filters
+  const { pagina, codSituacao, codTipoEvento, dataInicio } = filters
 
   const { data: eventos, isLoading } = useQuery({
     queryKey: ['eventos', filters],
@@ -75,13 +82,43 @@ export default function Eventos() {
     }
   }
 
+  function handleSetAno(value: string) {
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      dataInicio: `${value}-01-01`,
+      dataFim: `${value}-12-31`,
+    }))
+  }
+
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Eventos</h1>
-      </div>
+    <WrapperList>
+      <Header text="Eventos" icon={Calendar} />
 
       <div className="mb-4 grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Ano</label>
+          <Select
+            onValueChange={handleSetAno}
+            value={format(parseISO(dataInicio), 'yyyy')}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Filtrar pelo ano" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Ano</SelectLabel>
+                {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
+                  return (
+                    <SelectItem key={index} value={String(ano)}>
+                      {ano}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Tipo do evento</label>
           <Select onValueChange={handleSetTipoEvento} value={codTipoEvento}>
@@ -130,10 +167,10 @@ export default function Eventos() {
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Descrição</Table.Head>
-            <Table.Head>Local</Table.Head>
+            <Table.Head>Órgãos</Table.Head>
             <Table.Head>Data</Table.Head>
             <Table.Head>Início / Encerramento</Table.Head>
-            <Table.Head>Situação</Table.Head>
+            <Table.Head>Tipo</Table.Head>
             <Table.Head>Ver página</Table.Head>
           </Table.Row>
         </Table.Header>
@@ -162,35 +199,39 @@ export default function Eventos() {
                 </Table.Row>
               ))
             : eventos &&
-              eventos.data.dados.map((evento, index) => (
-                <Table.Row
-                  key={index}
-                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                >
-                  <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
-                    {evento.descricao}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {evento.localCamara.nome ? evento.localCamara.nome : '---'}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {format(evento.dataHoraInicio, 'dd/MM/yyyy')}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {format(evento.dataHoraInicio, 'HH:mm')}
-                    {' / '}
-                    {evento.dataHoraFim
-                      ? format(evento.dataHoraFim, 'HH:mm')
-                      : '---'}
-                  </Table.Cell>
-                  <Table.Cell>{evento.situacao}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={internalRoutes.eventoById(evento.id)}>
-                      <Info size={20} weight="duotone" />
-                    </Link>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+              eventos.data.dados.map((evento, index) => {
+                const orgaosList: string[] = evento.orgaos.map(
+                  (orgao) => orgao.sigla,
+                )
+
+                return (
+                  <Table.Row
+                    key={index}
+                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                  >
+                    <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                      {evento.descricao}
+                    </Table.Cell>
+                    <Table.Cell>{orgaosList}</Table.Cell>
+                    <Table.Cell>
+                      {format(evento.dataHoraInicio, 'dd/MM/yyyy')}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {format(evento.dataHoraInicio, 'HH:mm')}
+                      {' / '}
+                      {evento.dataHoraFim
+                        ? format(evento.dataHoraFim, 'HH:mm')
+                        : '---'}
+                    </Table.Cell>
+                    <Table.Cell>{evento.descricaoTipo}</Table.Cell>
+                    <Table.Cell>
+                      <Link href={internalRoutes.eventoById(evento.id)}>
+                        <ArrowSquareOut size={24} />
+                      </Link>
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              })}
         </Table.Body>
         <Table.Caption>
           {lastPage && (
@@ -214,6 +255,6 @@ export default function Eventos() {
           <Table.Caption>Listagem dos Eventos</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

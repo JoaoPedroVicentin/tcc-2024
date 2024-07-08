@@ -5,4 +5,6 @@ export interface IFilterGetEventosParams {
   codSituacao?: string
   codTipoOrgao?: string
   idOrgao?: string
+  dataInicio: string
+  dataFim: string
 }
