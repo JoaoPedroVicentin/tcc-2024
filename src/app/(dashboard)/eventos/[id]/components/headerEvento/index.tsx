@@ -86,7 +86,7 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
         </div>
       )}
 
-      <div className="grid-cols-event  grid h-fit gap-6 overflow-hidden">
+      <div className="grid h-fit grid-cols-event gap-6 overflow-hidden">
         <div className="relative">
           <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col gap-4 overflow-auto">
             <h2>{evento.descricaoTipo}</h2>
