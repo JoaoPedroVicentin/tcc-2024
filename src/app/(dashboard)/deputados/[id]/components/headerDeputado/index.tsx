@@ -51,7 +51,7 @@ export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
         <div className="flex items-center gap-6">
           <Image
             src={urlFoto}
-            className="h-auto w-32 rounded-md bg-cover"
+            className="h-auto w-32 border-l-[6px] border-theme-green-100 bg-cover"
             alt={nome}
             width={120}
             height={120}

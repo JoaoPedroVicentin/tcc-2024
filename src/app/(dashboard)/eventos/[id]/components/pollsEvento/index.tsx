@@ -70,9 +70,7 @@ export function PollsEvento({ evento }: IEventoSectionProps) {
               ))}
         </div>
       ) : (
-        <Table.Caption>
-          <Table.DataEmpty />
-        </Table.Caption>
+        <Table.DataEmpty />
       )}
       {hasVotacoes && (
         <PaginationList

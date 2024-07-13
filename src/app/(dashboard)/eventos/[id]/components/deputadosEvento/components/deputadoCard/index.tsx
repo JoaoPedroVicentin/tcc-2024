@@ -8,22 +8,23 @@ export function DeputadoCard({ deputado }: IDeputadoCardProps) {
   const { id, urlFoto, nome, siglaPartido, siglaUf } = deputado
 
   return (
-    <div className="flex w-full gap-4">
+    <Link
+      href={internalRoutes.deputadoById(id)}
+      className="group flex flex-1 items-center justify-center gap-4 border border-gray-100 bg-white p-4 hover:bg-theme-green-100"
+    >
       <Image
         src={urlFoto}
-        width={50}
-        height={50}
-        className="h-full w-auto rounded-md object-cover"
+        width={80}
+        height={80}
+        className="aspect-square h-20 w-20 border-l-[6px] border-theme-green-100 object-cover group-hover:border-theme-black-50"
         alt={nome}
         priority
       />
       <div className="flex flex-1 flex-col justify-between gap-2">
-        <h2 className="w-full">{nome}</h2>
-        <h3 className="w-full font-semibold">{`${siglaPartido} • ${siglaUf}`}</h3>
-        <Link href={internalRoutes.deputadoById(id)}>
-          <ArrowSquareOut size={28} />
-        </Link>
+        <h3 className="line-clamp-1 w-full">{nome}</h3>
+        <p className="w-full font-semibold">{`${siglaPartido} • ${siglaUf}`}</p>
+        <ArrowSquareOut size={20} />
       </div>
-    </div>
+    </Link>
   )
 }
