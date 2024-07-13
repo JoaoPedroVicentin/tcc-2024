@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { IButtonProps } from './interface/buttonProps.interface'
 import { cva } from 'class-variance-authority'
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   'relative flex w-fit h-fit items-center justify-center gap-2 transition-all text-sm font-normal hover:drop-shadow-lg after:content-[""] after:absolute after:w-full after:h-0.5 after:bottom-0',
   {
     variants: {

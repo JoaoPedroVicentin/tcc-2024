@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority'
-import { buttonVariants } from '../constant/buttonVariants.constant'
 import { IconWeight } from '@phosphor-icons/react'
+import { buttonVariants } from '..'
 
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

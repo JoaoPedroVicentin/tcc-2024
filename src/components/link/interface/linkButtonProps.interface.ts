@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority'
 import { IconWeight } from '@phosphor-icons/react'
-import { linkButtonVariants } from '../constant/linkButtonVariants.constant'
+import { linkButtonVariants } from '..'
 
 export interface ILinkButtonProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
