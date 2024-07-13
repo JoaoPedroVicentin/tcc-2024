@@ -214,7 +214,7 @@ export default function Deputados() {
                       alt={deputado.nome}
                       width={35}
                       height={35}
-                      className="h-10 w-10 rounded-md object-cover"
+                      className="h-10 w-10 object-cover"
                     />
                     {deputado.nome}
                   </Table.Cell>
@@ -247,9 +247,7 @@ export default function Deputados() {
         </Table.Caption>
 
         {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem dos Deputados</Table.Caption>
         )}

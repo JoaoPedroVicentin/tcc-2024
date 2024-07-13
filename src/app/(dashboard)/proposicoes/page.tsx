@@ -249,9 +249,7 @@ export default function Proposicoes() {
         </Table.Caption>
 
         {!isLoading && proposicoes && proposicoes.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem das Proposições</Table.Caption>
         )}

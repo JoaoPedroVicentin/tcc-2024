@@ -7,45 +7,93 @@ import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import { IFilterGetVotacoesParams } from '@/httpsRequests/votacoes/getVotacoes/interfaces/filterGetVotacoesParams.interface'
 import { getVotacoes } from '@/httpsRequests/votacoes/getVotacoes'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import Link from 'next/link'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut, Ticket } from '@phosphor-icons/react'
 import { internalRoutes } from '@/configs/internalRoutes'
+import { WrapperList } from '@/components/wrapperList'
+import { Header } from '@/components/header'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
 
 export default function Votacoes() {
+  const currentYear = new Date().getFullYear()
+
   const defaultFilters: IFilterGetVotacoesParams = {
     pagina: '1',
     itens: '10',
+    dataInicio: `${currentYear}-01-01`,
+    dataFim: `${currentYear}-12-31`,
   }
 
   const [filters, setFilters] =
     useState<IFilterGetVotacoesParams>(defaultFilters)
 
-  const { pagina } = filters
+  const { pagina, dataInicio } = filters
 
   const { data: votacoes, isLoading } = useQuery({
     queryKey: ['votacoes', filters],
     queryFn: () => getVotacoes(filters),
   })
 
+  function handleSetAno(value: string) {
+    setFilters((prevState) => ({
+      ...prevState,
+      pagina: '1',
+      dataInicio: `${value}-01-01`,
+      dataFim: `${value}-12-31`,
+    }))
+  }
+
   const lastPage = votacoes?.data.links
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Votações</h1>
+    <WrapperList>
+      <Header text="Votações" icon={Ticket} />
+
+      <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold">Ano</label>
+          <Select
+            onValueChange={handleSetAno}
+            value={format(parseISO(dataInicio), 'yyyy')}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Filtrar pelo ano" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Ano</SelectLabel>
+                {yearsBetweenCurrentYearAnd2019().map((ano, index) => {
+                  return (
+                    <SelectItem key={index} value={String(ano)}>
+                      {ano}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
-      <div className="mb-4 grid grid-cols-4 gap-6"></div>
-
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Proposição</Table.Head>
             <Table.Head>Descrição</Table.Head>
-            <Table.Head>Horário de registro</Table.Head>
+            <Table.Head>Data</Table.Head>
+            <Table.Head>Horário</Table.Head>
             <Table.Head>Órgão</Table.Head>
             <Table.Head>Ver página</Table.Head>
           </Table.Row>
@@ -54,6 +102,9 @@ export default function Votacoes() {
           {isLoading
             ? Array.from({ length: 10 }, (_, index) => (
                 <Table.Row key={index}>
+                  <Table.Cell>
+                    <Skeleton className="h-10 flex-1" />
+                  </Table.Cell>
                   <Table.Cell>
                     <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
@@ -86,14 +137,15 @@ export default function Votacoes() {
                     {votacao.descricao}
                   </Table.Cell>
                   <Table.Cell>
-                    {votacao.dataHoraRegistro
-                      ? format(votacao.dataHoraRegistro, 'dd/MM/yyyy - HH:mm')
-                      : '---'}
+                    {format(votacao.dataHoraRegistro, 'dd/MM/yyyy')}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {format(votacao.dataHoraRegistro, 'HH:mm')}
                   </Table.Cell>
                   <Table.Cell>{votacao.siglaOrgao}</Table.Cell>
                   <Table.Cell>
                     <Link href={internalRoutes.votacaoById(votacao.id)}>
-                      <Info size={20} weight="duotone" />
+                      <ArrowSquareOut size={24} />
                     </Link>
                   </Table.Cell>
                 </Table.Row>
@@ -114,13 +166,11 @@ export default function Votacoes() {
           )}
         </Table.Caption>
         {!isLoading && votacoes && votacoes.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem das Votações</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

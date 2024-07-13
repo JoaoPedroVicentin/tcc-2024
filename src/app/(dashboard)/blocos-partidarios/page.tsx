@@ -17,6 +17,9 @@ import {
 } from '@/components/ui/select'
 import { LEGISLATURAS } from '@/constants/legislaturas'
 import { IFilterGetBlocosPartidariosParams } from '@/httpsRequests/blocosPartidarios/getBlocosPartidarios/interfaces/filterGetBlocosPartidariosParams.interface'
+import { WrapperList } from '@/components/wrapperList'
+import { Header } from '@/components/header'
+import { UsersFour } from '@phosphor-icons/react'
 
 export default function BlocosPartidarios() {
   const defaultFilters: IFilterGetBlocosPartidariosParams = {
@@ -48,12 +51,10 @@ export default function BlocosPartidarios() {
   }
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Blocos Partidários</h1>
-      </div>
+    <WrapperList>
+      <Header text="Blocos Partidários" icon={UsersFour} />
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select
@@ -84,7 +85,7 @@ export default function BlocosPartidarios() {
         </div>
       </div>
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
@@ -124,13 +125,11 @@ export default function BlocosPartidarios() {
           )}
         </Table.Caption>
         {!isLoading && blocos && blocos.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem dos Blocos Partidários</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

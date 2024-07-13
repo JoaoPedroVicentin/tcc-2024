@@ -18,9 +18,11 @@ import { IFilterGetOrgaosParams } from '@/httpsRequests/orgaos/getOrgaos/interfa
 import { getOrgaos } from '@/httpsRequests/orgaos/getOrgaos'
 import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut, Gavel } from '@phosphor-icons/react'
 import { TIPOS_ORGAO } from '@/constants/orgaos/tiposOrgao'
 import { Input } from '@/components/ui/input'
+import { Header } from '@/components/header'
+import { WrapperList } from '@/components/wrapperList'
 
 export default function Orgaos() {
   const defaultFilters: IFilterGetOrgaosParams = {
@@ -66,12 +68,10 @@ export default function Orgaos() {
   }
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Órgãos</h1>
-      </div>
+    <WrapperList>
+      <Header text="Órgãos" icon={Gavel} />
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Sigla</label>
           <Input
@@ -103,7 +103,7 @@ export default function Orgaos() {
         </div>
       </div>
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
@@ -140,7 +140,7 @@ export default function Orgaos() {
                   key={index}
                   className="items-center text-base hover:bg-theme-black-50 hover:text-white"
                 >
-                  <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                  <Table.Cell className=" max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
                     {orgao.nomeResumido ? orgao.nomeResumido : orgao.nome}
                   </Table.Cell>
                   <Table.Cell>{orgao.sigla}</Table.Cell>
@@ -148,7 +148,7 @@ export default function Orgaos() {
                   <Table.Cell>{orgao.tipoOrgao}</Table.Cell>
                   <Table.Cell>
                     <Link href={internalRoutes.orgaoById(orgao.id)}>
-                      <Info size={20} weight="duotone" />
+                      <ArrowSquareOut size={24} />
                     </Link>
                   </Table.Cell>
                 </Table.Row>
@@ -169,13 +169,11 @@ export default function Orgaos() {
           )}
         </Table.Caption>
         {!isLoading && orgaos && orgaos.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem dos Órgãos</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

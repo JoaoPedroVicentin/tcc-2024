@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Info } from '@phosphor-icons/react'
+import { ArrowSquareOut, UsersThree } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import PaginationList from '@/components/paginationList'
 import { IFilterGetFrentesParlamentaresParams } from '@/httpsRequests/frentesParlamentares/getFrentesParlamentares/interfaces/filterGetFrentesParlamentaresParams.interface'
@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { LEGISLATURAS } from '@/constants/legislaturas'
+import { WrapperList } from '@/components/wrapperList'
+import { Header } from '@/components/header'
 
 export default function FrentesParlamentares() {
   const defaultFilters: IFilterGetFrentesParlamentaresParams = {
@@ -51,12 +53,10 @@ export default function FrentesParlamentares() {
   }
 
   return (
-    <div className="h-full p-section">
-      <div className="mb-6">
-        <h1 className="text-5xl font-light">Frentes Parlamentares</h1>
-      </div>
+    <WrapperList>
+      <Header text="Frentes Parlamentares" icon={UsersThree} />
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select onValueChange={handleSetLegislatura} value={idLegislatura}>
@@ -83,7 +83,7 @@ export default function FrentesParlamentares() {
           </Select>
         </div>
       </div>
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Título</Table.Head>
@@ -113,7 +113,7 @@ export default function FrentesParlamentares() {
                     <Link
                       href={internalRoutes.frenteParlamentarById(frente.id)}
                     >
-                      <Info size={20} weight="duotone" />
+                      <ArrowSquareOut size={24} />
                     </Link>
                   </Table.Cell>
                 </Table.Row>
@@ -134,13 +134,11 @@ export default function FrentesParlamentares() {
           )}
         </Table.Caption>
         {!isLoading && frentes && frentes.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem das Frentes Parlamentares</Table.Caption>
         )}
       </Table.Root>
-    </div>
+    </WrapperList>
   )
 }

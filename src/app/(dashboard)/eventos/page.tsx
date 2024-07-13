@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/select'
 import { IFilterGetEventosParams } from '@/httpsRequests/eventos/getEventos/interfaces/filterGetEventosParams.interface'
 import { getEventos } from '@/httpsRequests/eventos/getEventos'
-import { SITUACOES_EVENTO } from '@/constants/eventos/situacoesEvento'
 import { TIPOS_EVENTO } from '@/constants/eventos/tiposEvento'
 import Link from 'next/link'
 import { ArrowSquareOut, Calendar } from '@phosphor-icons/react'
@@ -25,6 +24,7 @@ import { internalRoutes } from '@/configs/internalRoutes'
 import { WrapperList } from '@/components/wrapperList'
 import { Header } from '@/components/header'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
+import { SITUACOES_EVENTO } from '@/constants/eventos/situacoesEvento'
 
 export default function Eventos() {
   const currentYear = new Date().getFullYear()
@@ -95,7 +95,7 @@ export default function Eventos() {
     <WrapperList>
       <Header text="Eventos" icon={Calendar} />
 
-      <div className="mb-4 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select
@@ -163,7 +163,7 @@ export default function Eventos() {
         </div>
       </div>
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Descrição</Table.Head>
@@ -248,9 +248,7 @@ export default function Eventos() {
           )}
         </Table.Caption>
         {!isLoading && eventos && eventos.data.dados.length <= 0 ? (
-          <Table.Caption>
-            <Table.DataEmpty />
-          </Table.Caption>
+          <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem dos Eventos</Table.Caption>
         )}
