@@ -12,6 +12,7 @@ import {
   Phone,
   PhoneDisconnect,
   Steps,
+  UsersThree,
 } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { Button } from '@/components/button'
@@ -19,6 +20,8 @@ import { LinkButton } from '@/components/link'
 import Title from '@/components/title'
 import InfoComponent from '@/components/info'
 import { hasNonNullFields } from '@/utils/haxNonNullFields'
+import { WrapperSection } from '@/components/wrapperSection'
+import { Header } from '@/components/header'
 
 export default function FrenteParlamentarById({
   params: { id },
@@ -55,10 +58,9 @@ export default function FrenteParlamentarById({
     const coordenadorValido = hasNonNullFields(coordenador)
 
     return (
-      <div className="flex h-full flex-col gap-10 p-section">
-        <div>
-          <h1 className="text-5xl font-light">{frente.data.dados.titulo}</h1>
-        </div>
+      <WrapperSection>
+        <Header text="Frente Parlamentar" icon={UsersThree} />
+        <h1>{frente.data.dados.titulo}</h1>
 
         {frente.data.dados.urlDocumento && (
           <LinkButton
@@ -136,7 +138,7 @@ export default function FrenteParlamentarById({
             )}
           </div>
         )}
-      </div>
+      </WrapperSection>
     )
   }
 }

@@ -10,8 +10,7 @@ export const STATUS_VOTACAO = {
   0: {
     icon: XCircle,
     text: 'Não aprovado',
-    className:
-      'flex items-center gap-2 border border-theme-red-100 bg-theme-red-50 px-3 py-2 text-theme-black-50',
+    className: null,
   },
   1: {
     icon: CheckCircle,

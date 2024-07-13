@@ -3,8 +3,8 @@ export interface IFilterGetVotacoesParams {
   idProposicao?: string
   idEvento?: string
   idOrgao?: string
-  dataInicio?: string
-  dataFim?: string
+  dataInicio: string
+  dataFim: string
   pagina?: string
   itens?: string
 }

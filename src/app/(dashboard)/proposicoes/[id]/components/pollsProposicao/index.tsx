@@ -13,9 +13,9 @@ import { IVotacaoData } from '@/httpsRequests/votacoes/getVotacoes/interfaces/vo
 import PaginationList from '@/components/paginationList'
 
 export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
-  const [filters] = useState<IFilterGetVotacoesProposicaoParams>({
+  const filters: IFilterGetVotacoesProposicaoParams = {
     ordenarPor: 'dataHoraRegistro',
-  })
+  }
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -70,9 +70,7 @@ export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
               ))}
         </div>
       ) : (
-        <Table.Caption>
-          <Table.DataEmpty />
-        </Table.Caption>
+        <Table.DataEmpty />
       )}
       {hasVotacoes && (
         <PaginationList

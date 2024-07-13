@@ -48,7 +48,13 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
 
   return (
     <div className="flex flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5">
-      <div className={statusVotacao.className}>
+      <div
+        className={
+          statusVotacao.className
+            ? statusVotacao.className
+            : 'flex items-center gap-2 border border-theme-red-100 bg-theme-red-50 px-3 py-2 text-theme-black-50'
+        }
+      >
         <statusVotacao.icon size={20} weight="fill" />
         <p>{statusVotacao.text}</p>
       </div>

@@ -2,7 +2,12 @@ import { Button } from '@/components/button'
 import { IComponentProceduresProps } from '../../interface/componentProceduresProps.interface'
 import { sortedTramitacoes } from '../../utils/sortedTramitacoes'
 import { ITramitacaoData } from '@/httpsRequests/proposicoes/getTramitacoesProposicao/interfaces/tramitacaoData.interface'
-import { CaretDoubleDown, CaretDoubleUp, Check } from '@phosphor-icons/react'
+import {
+  CaretDoubleDown,
+  CaretDoubleUp,
+  Check,
+  Clock,
+} from '@phosphor-icons/react'
 import { format } from 'date-fns'
 import { Fragment, useState } from 'react'
 import * as Table from '@/components/ui/table'
@@ -128,15 +133,30 @@ export function ListProcedures({ tramitacoes }: IComponentProceduresProps) {
                               return (
                                 <Fragment key={indexOrgao}>
                                   {url ? (
-                                    <Link href={url} className="w-fit">
-                                      <li className="underline decoration-solid">
-                                        {hora} - {despacho}
-                                      </li>
-                                    </Link>
+                                    <div className="flex flex-col gap-2">
+                                      <div className="flex w-fit items-center gap-1">
+                                        <Clock size={18} weight="duotone" /> -{' '}
+                                        {hora}
+                                      </div>
+                                      <Link
+                                        href={url}
+                                        className="relative w-fit before:absolute before:bottom-0 before:left-0 before:right-0 before:h-1/2 before:hover:bg-theme-green-100"
+                                      >
+                                        <li className="relative line-clamp-3 underline decoration-theme-black-50 underline-offset-4">
+                                          {despacho}
+                                        </li>
+                                      </Link>
+                                    </div>
                                   ) : (
-                                    <li>
-                                      {hora} - {despacho}
-                                    </li>
+                                    <div className="flex flex-col gap-2">
+                                      <div className="flex w-fit items-center gap-1">
+                                        <Clock size={18} weight="duotone" /> -{' '}
+                                        {hora}
+                                      </div>
+                                      <li className="line-clamp-3 ">
+                                        {despacho}
+                                      </li>
+                                    </div>
                                   )}
                                 </Fragment>
                               )
