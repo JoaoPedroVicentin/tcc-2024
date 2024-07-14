@@ -145,7 +145,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
         </div>
       ) : (
         <Table.Caption>
-          <Table.DataEmpty />
+          <Table.DataEmpty className="relative top-0" />
         </Table.Caption>
       )}
       {hasDiscursos && (

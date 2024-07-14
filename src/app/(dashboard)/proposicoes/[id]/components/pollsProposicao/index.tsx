@@ -70,7 +70,7 @@ export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
               ))}
         </div>
       ) : (
-        <Table.DataEmpty />
+        <Table.DataEmpty className="relative top-0" />
       )}
       {hasVotacoes && (
         <PaginationList

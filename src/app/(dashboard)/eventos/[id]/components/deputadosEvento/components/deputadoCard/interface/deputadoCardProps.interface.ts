@@ -2,4 +2,5 @@ import { IDeputadoData } from '@/httpsRequests/deputados/getDeputados/interfaces
 
 export interface IDeputadoCardProps {
   deputado: IDeputadoData
+  className?: string
 }

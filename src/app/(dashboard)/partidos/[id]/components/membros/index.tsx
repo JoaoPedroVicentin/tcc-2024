@@ -1,16 +1,18 @@
+'use client'
+import React, { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowSquareOut, UserList } from '@phosphor-icons/react'
 import PaginationList from '@/components/paginationList'
 import { getDeputados } from '@/httpsRequests/deputados/getDeputados'
 import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
-import { useQuery } from '@tanstack/react-query'
-import * as Table from '@/components/ui/table'
-import React, { useState } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
-import Image from 'next/image'
-import { ArrowSquareOut, UserList } from '@phosphor-icons/react'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
-import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
+import * as Table from '@/components/ui/table'
+import { Skeleton } from '@/components/ui/skeleton'
 import Title from '@/components/title'
+import { WrapperSection } from '@/components/wrapperSection'
 
 export default function MembrosPartido({
   siglaPartido,
@@ -29,7 +31,6 @@ export default function MembrosPartido({
 
   const [filters, setFilters] =
     useState<IFilterGetDeputadosParams>(defaultFilters)
-
   const { pagina } = filters
 
   const { data: deputados, isLoading } = useQuery({
@@ -42,10 +43,10 @@ export default function MembrosPartido({
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   return (
-    <>
+    <WrapperSection>
       <Title text="Membros" icon={UserList} />
 
-      <Table.Root>
+      <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
             <Table.Head>Nome</Table.Head>
@@ -84,15 +85,17 @@ export default function MembrosPartido({
                 >
                   <Table.Cell className="flex items-center gap-4">
                     <Image
-                      className="h-10 w-10 rounded-md object-cover"
                       src={deputado.urlFoto}
                       alt={deputado.nome}
                       width={35}
                       height={35}
+                      className="h-10 w-10 object-cover"
                     />
                     {deputado.nome}
                   </Table.Cell>
-                  <Table.Cell>{deputado.email}</Table.Cell>
+                  <Table.Cell>
+                    {deputado.email ? deputado.email : '---'}
+                  </Table.Cell>
                   <Table.Cell>{deputado.siglaPartido}</Table.Cell>
                   <Table.Cell>{deputado.siglaUf}</Table.Cell>
                   <Table.Cell>
@@ -117,8 +120,13 @@ export default function MembrosPartido({
             />
           )}
         </Table.Caption>
-        <Table.Caption>Listagem dos deputados federais</Table.Caption>
+
+        {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
+          <Table.DataEmpty />
+        ) : (
+          <Table.Caption>Listagem dos Deputados</Table.Caption>
+        )}
       </Table.Root>
-    </>
+    </WrapperSection>
   )
 }

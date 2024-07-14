@@ -5,23 +5,22 @@ import React from 'react'
 import { getFrenteParlamentarById } from '@/httpsRequests/frentesParlamentares/getFrenteParlamentarById'
 import { VALIDATIONS_REGEX } from '@/utils/regex'
 import {
+  Check,
   EnvelopeSimple,
   FileText,
-  Info,
   Person,
   Phone,
   PhoneDisconnect,
   Steps,
   UsersThree,
 } from '@phosphor-icons/react'
-import Image from 'next/image'
-import { Button } from '@/components/button'
 import { LinkButton } from '@/components/link'
 import Title from '@/components/title'
 import InfoComponent from '@/components/info'
 import { hasNonNullFields } from '@/utils/haxNonNullFields'
 import { WrapperSection } from '@/components/wrapperSection'
 import { Header } from '@/components/header'
+import { DeputadoCard } from '../../eventos/[id]/components/deputadosEvento/components/deputadoCard'
 
 export default function FrenteParlamentarById({
   params: { id },
@@ -57,88 +56,108 @@ export default function FrenteParlamentarById({
     const { coordenador } = frente.data.dados
     const coordenadorValido = hasNonNullFields(coordenador)
 
+    const hasContact = !!(frente.data.dados.email || frente.data.dados.telefone)
+
     return (
-      <WrapperSection>
-        <Header text="Frente Parlamentar" icon={UsersThree} />
-        <h1>{frente.data.dados.titulo}</h1>
+      <main className="flex h-full flex-col">
+        <WrapperSection>
+          <Header text="Frente Parlamentar" icon={UsersThree} />
+          <h1>{frente.data.dados.titulo}</h1>
 
-        {frente.data.dados.urlDocumento && (
-          <LinkButton
-            href={frente.data.dados.urlDocumento}
-            leftIcon={FileText}
-            text="Documento"
-            variant="alternative"
-          />
-        )}
+          {frente.data.dados.urlDocumento && (
+            <LinkButton
+              href={frente.data.dados.urlDocumento}
+              leftIcon={FileText}
+              text="Documento"
+              variant="alternative"
+            />
+          )}
+        </WrapperSection>
 
-        {coordenadorValido && (
-          <div className="flex flex-col gap-2">
-            <Title text="Coordenador" icon={Person} />
+        {!!(coordenadorValido || hasContact) && (
+          <WrapperSection
+            className="bg-theme-white-50"
+            classNameChildren="grid grid-cols-2"
+          >
+            {coordenadorValido && (
+              <div className="flex flex-col gap-4">
+                <Title text="Coordenador" icon={Person} />
 
-            <div className="flex items-end gap-2">
-              {coordenador.urlFoto && coordenador.nome && (
-                <Image
-                  className="rounded-md"
-                  src={coordenador.urlFoto}
-                  width={100}
-                  height={75}
-                  alt={coordenador.nome}
+                <DeputadoCard
+                  className="w-fit"
+                  deputado={{
+                    id: coordenador.id,
+                    email: coordenador.email ?? '',
+                    nome: coordenador.nome ?? '',
+                    idLegislatura: coordenador.idLegislatura,
+                    siglaPartido: coordenador.siglaPartido ?? '',
+                    siglaUf: coordenador.siglaUf ?? '',
+                    uri: coordenador.uri ?? '',
+                    uriPartido: coordenador.uriPartido ?? '',
+                    urlFoto: coordenador.urlFoto ?? '',
+                  }}
                 />
-              )}
-              <div className="flex h-full w-fit flex-col justify-between gap-2">
-                <p className="text-xl">{coordenador.nome}</p>
-                {coordenador.siglaPartido && coordenador.siglaUf && (
-                  <p className="text-xl">
-                    {coordenador.siglaPartido} - {coordenador.siglaUf}
-                  </p>
-                )}
-                <Button leftIcon={Info} text="Saber mais" variant="default" />
               </div>
-            </div>
-          </div>
+            )}
+
+            {hasContact && (
+              <div className="flex flex-col gap-4">
+                <Title text="Contato" icon={PhoneDisconnect} />
+                {frente.data.dados.telefone && (
+                  <InfoComponent
+                    icon={Phone}
+                    label="Telefone"
+                    value={frente.data.dados.telefone}
+                  />
+                )}
+                {frente.data.dados.email && (
+                  <InfoComponent
+                    icon={EnvelopeSimple}
+                    label="Email"
+                    value={frente.data.dados.email}
+                  />
+                )}
+              </div>
+            )}
+          </WrapperSection>
         )}
 
         {frente.data.dados.situacao && (
-          <div>
-            <div className="flex flex-col gap-2">
-              <Title text="Situação" icon={Steps} />
+          <WrapperSection>
+            <Title text="Situação" icon={Steps} />
+            <div>
               {validParts.reverse().map((parte, index) => {
+                const isLastItem = !!(
+                  validParts.length - 1 === index ||
+                  validParts.length - 2 === index
+                )
+
                 if (index % 2 === 0) {
                   return (
-                    <div
-                      key={index}
-                      className="flex flex-col gap-2 bg-zinc-50 p-base"
-                    >
-                      <p className="text-lg">{validParts[index + 1]}</p>
-                      <p>{parte}</p>
+                    <div key={index} className="relative flex gap-5">
+                      <div className="flex flex-1 gap-3">
+                        <div className="flex flex-col items-center">
+                          <div className="flex w-fit items-center justify-center rounded-full bg-theme-green-100 p-1.5">
+                            <Check size={12} />
+                          </div>
+                          {!isLastItem && (
+                            <div className="h-full w-1 bg-theme-green-100" />
+                          )}
+                        </div>
+                        <div className="mb-5 flex flex-1 flex-col gap-5 border-b border-theme-gray-100 pb-5">
+                          <li className="line-clamp-3 ">
+                            {validParts[index + 1]} {parte}
+                          </li>
+                        </div>
+                      </div>
                     </div>
                   )
                 } else return null
               })}
             </div>
-          </div>
+          </WrapperSection>
         )}
-
-        {!!(frente.data.dados.email || frente.data.dados.telefone) && (
-          <div className="flex flex-col gap-4">
-            <Title text="Contato" icon={PhoneDisconnect} />
-            {frente.data.dados.telefone && (
-              <InfoComponent
-                icon={Phone}
-                label="Telefone"
-                value={frente.data.dados.telefone}
-              />
-            )}
-            {frente.data.dados.email && (
-              <InfoComponent
-                icon={EnvelopeSimple}
-                label="Email"
-                value={frente.data.dados.email}
-              />
-            )}
-          </div>
-        )}
-      </WrapperSection>
+      </main>
     )
   }
 }

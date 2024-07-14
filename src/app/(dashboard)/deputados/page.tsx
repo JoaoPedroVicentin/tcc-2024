@@ -106,6 +106,8 @@ export default function Deputados() {
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
+  const hasData = !(!isLoading && deputados && deputados.data.dados.length <= 0)
+
   return (
     <WrapperList>
       <Header text="Deputados" icon={Users} />
@@ -246,7 +248,7 @@ export default function Deputados() {
           )}
         </Table.Caption>
 
-        {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
+        {!hasData ? (
           <Table.DataEmpty />
         ) : (
           <Table.Caption>Listagem dos Deputados</Table.Caption>

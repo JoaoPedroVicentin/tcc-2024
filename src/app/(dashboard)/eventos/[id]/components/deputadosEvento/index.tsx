@@ -58,9 +58,7 @@ export function DeputadosEvento({ evento }: IEventoSectionProps) {
               ))}
         </div>
       ) : (
-        <Table.Caption>
-          <Table.DataEmpty />
-        </Table.Caption>
+        <Table.DataEmpty className="relative top-0" />
       )}
       {hasDeputados && (
         <PaginationList

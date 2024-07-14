@@ -112,7 +112,10 @@ const DataEmpty = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div
-    className={`relative flex w-full flex-col items-center gap-1 overflow-auto ${className}`}
+    className={cn(
+      'absolute left-0 right-0 top-12 flex h-fit flex-col items-center gap-1 overflow-auto',
+      className,
+    )}
     ref={ref}
     {...props}
   >

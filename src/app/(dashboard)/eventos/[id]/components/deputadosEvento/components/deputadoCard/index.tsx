@@ -3,14 +3,18 @@ import { IDeputadoCardProps } from './interface/deputadoCardProps.interface'
 import { internalRoutes } from '@/configs/internalRoutes'
 import Link from 'next/link'
 import { ArrowSquareOut } from '@phosphor-icons/react'
+import { cn } from '@/lib/utils'
 
-export function DeputadoCard({ deputado }: IDeputadoCardProps) {
+export function DeputadoCard({ deputado, className }: IDeputadoCardProps) {
   const { id, urlFoto, nome, siglaPartido, siglaUf } = deputado
 
   return (
     <Link
       href={internalRoutes.deputadoById(id)}
-      className="group flex flex-1 items-center justify-center gap-4 border border-gray-100 bg-white p-4 hover:bg-theme-green-100"
+      className={cn(
+        'group flex flex-1 items-center justify-center gap-4 border border-gray-100 bg-white p-4 hover:bg-theme-green-100',
+        className,
+      )}
     >
       <Image
         src={urlFoto}

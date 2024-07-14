@@ -171,7 +171,7 @@ export function ListProcedures({ tramitacoes }: IComponentProceduresProps) {
             )
           })
         ) : (
-          <Table.DataEmpty />
+          <Table.DataEmpty className="relative top-0" />
         )}
       </div>
       {resultTramitacoes && resultTramitacoes.length > 4 && (

@@ -2,4 +2,5 @@ import { IWrapperListProps } from '@/components/wrapperList/interface/wrapperLis
 
 export interface IWrapperSectionProps extends IWrapperListProps {
   className?: string
+  classNameChildren?: string
 }
