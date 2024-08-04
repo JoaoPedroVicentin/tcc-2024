@@ -7,23 +7,23 @@ import * as Table from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IVotacaoData } from '@/httpsRequests/votacoes/getVotacoes/interfaces/votacaoData.interface'
 import PaginationList from '@/components/paginationList'
-import { IEventoSectionProps } from '../../interface/eventoSectionProps.interface'
-import { IFilterGetVotacoesEventoParams } from '@/httpsRequests/eventos/getVotacoesEvento/interfaces/filterGetVotacoesEventoParams.interface'
-import { getVotacoesEvento } from '@/httpsRequests/eventos/getVotacoesEvento'
+import { IOrgaoSectionProps } from '../../interface/orgaoSectionProps.interface'
+import { IFilterGetVotacoesOrgaoParams } from '@/httpsRequests/orgaos/getVotacoesOrgao/interfaces/filterGetVotacoesOrgaoParams.interface'
+import { getVotacoesOrgao } from '@/httpsRequests/orgaos/getVotacoesOrgao'
 import { PollCard } from '@/app/(dashboard)/proposicoes/[id]/components/pollsProposicao/components/pollCard'
 
-export function PollsEvento({ evento }: IEventoSectionProps) {
-  const [filters] = useState<IFilterGetVotacoesEventoParams>({
+export function PollsOrgao({ orgao }: IOrgaoSectionProps) {
+  const filters: IFilterGetVotacoesOrgaoParams = {
     ordenarPor: 'dataHoraRegistro',
-  })
+  }
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { id } = evento
+  const { id } = orgao
 
   const { data: votacoes, isLoading } = useQuery({
-    queryKey: ['pollsEvento', id, filters],
-    queryFn: () => getVotacoesEvento(id),
+    queryKey: ['pollsOrgao', id, filters],
+    queryFn: () => getVotacoesOrgao(id),
   })
 
   function splitIntoSubarrays(
@@ -48,7 +48,7 @@ export function PollsEvento({ evento }: IEventoSectionProps) {
   )
 
   return (
-    <WrapperSection>
+    <WrapperSection className="bg-theme-white-50">
       <Title text="Votações" icon={Ticket} />
 
       {isLoading || hasVotacoes ? (
@@ -61,7 +61,7 @@ export function PollsEvento({ evento }: IEventoSectionProps) {
                     key={votacao.id}
                     id={id}
                     poll={votacao}
-                    isEventoPage={true}
+                    isEventoPage={false}
                   />
                 )
               })

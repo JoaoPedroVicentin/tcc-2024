@@ -1,12 +1,12 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-import { IGetOrgaoByIdReturn } from './interface/getOrgaoByIdReturn.interface'
+import { IGetMembrosOrgaoReturn } from './interface/getDeputadosEventoReturn.interface'
 
-export async function getOrgaoById(
+export async function getMembrosOrgao(
   id: string,
-): Promise<AxiosResponse<IGetOrgaoByIdReturn>> {
-  const response = await api.get(apiRoutes.orgaoById(id))
+): Promise<AxiosResponse<IGetMembrosOrgaoReturn>> {
+  const response = await api.get(apiRoutes.membrosOrgao(id))
 
   return {
     data: response.data,

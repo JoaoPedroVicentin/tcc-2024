@@ -32,6 +32,10 @@ export const apiRoutes = {
   blocosPartidarios: '/blocos',
   votacoes: '/votacoes',
   votacaoById: (id: number) => `/votacoes/${id}`,
+
   orgaos: '/orgaos',
-  orgaoById: (id: number) => `/orgaos/${id}`,
+  orgaoById: (id: string) => `/orgaos/${id}`,
+  votacoesOrgao: (id: string) => `/orgaos/${id}/votacoes`,
+  membrosOrgao: (id: string) => `/orgaos/${id}/membros`,
+  eventosOrgao: (id: string) => `/orgaos/${id}/eventos`,
 }

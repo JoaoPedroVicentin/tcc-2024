@@ -13,5 +13,5 @@ export const internalRoutes = {
   votacoes: '/votacoes',
   votacaoById: (id: string) => `/votacoes/${id}`,
   orgaos: '/orgaos',
-  orgaoById: (id: number) => `/orgaos/${id}`,
+  orgaoById: (id: string) => `/orgaos/${id}`,
 }

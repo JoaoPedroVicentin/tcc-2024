@@ -11,7 +11,7 @@ export function HeaderProposicao({ proposicao }: IProposicaoSectionProps) {
     <WrapperSection>
       <Header text="Proposição" icon={FileText} />
       <h1>{sigla}</h1>
-      <h2>{proposicao.ementa}</h2>
+      <h2 className="line-clamp-3">{proposicao.ementa}</h2>
       {proposicao.urlInteiroTeor && (
         <LinkButton
           href={proposicao.urlInteiroTeor}

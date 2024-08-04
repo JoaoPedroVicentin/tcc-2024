@@ -65,7 +65,7 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
       </div>
 
       {hasOtherProposicao && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-1">
           <h3>{proposicaoObjeto}</h3>
           <LinkButton
             href={internalRoutes.proposicaoById(Number(idProposicao[1]))}
@@ -76,8 +76,10 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
 
       <div className="h-px w-full bg-theme-gray-50" />
 
-      <div className="flex min-h-24 flex-1">
-        <p className="line-clamp-[8]">{checkString(descricao)}</p>
+      <div className="flex flex-1">
+        <div className="flex h-fit min-h-24">
+          <p className="line-clamp-[8]">{checkString(descricao)}</p>
+        </div>
       </div>
 
       <div className="flex gap-3">

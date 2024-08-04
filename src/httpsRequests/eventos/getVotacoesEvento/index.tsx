@@ -1,8 +1,8 @@
 import { apiRoutes } from '@/configs/apiRoutes'
 import { api } from '@/lib/axios'
 import { AxiosResponse } from 'axios'
-import { IFilterGetVotacoesEventoParams } from './interfaces/filterGetVotacoesProposicaoParams.interface'
-import { IGetVotacoesEventoReturn } from './interfaces/getVotacoesProposicaoReturn.interface'
+import { IFilterGetVotacoesEventoParams } from './interfaces/filterGetVotacoesEventoParams.interface'
+import { IGetVotacoesEventoReturn } from './interfaces/getVotacoesEventoReturn.interface'
 
 export async function getVotacoesEvento(
   id: number,

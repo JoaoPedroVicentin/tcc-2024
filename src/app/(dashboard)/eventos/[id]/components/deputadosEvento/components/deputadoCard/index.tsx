@@ -20,7 +20,7 @@ export function DeputadoCard({ deputado, className }: IDeputadoCardProps) {
         src={urlFoto}
         width={80}
         height={80}
-        className="aspect-square h-20 w-20 border-l-[6px] border-theme-green-100 object-cover group-hover:border-theme-black-50"
+        className="h-20 w-20 border-l-[6px] border-theme-green-100 object-cover group-hover:border-theme-black-50"
         alt={nome}
         priority
       />
