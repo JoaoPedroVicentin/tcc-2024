@@ -1,7 +1,7 @@
 'use client'
 import { getDeputados } from '@/httpsRequests/deputados/getDeputados'
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React from 'react'
 import * as Table from '@/components/ui/table'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -19,87 +19,73 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SIGLAS_UF } from '@/constants/siglasUf'
-import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
 import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
 import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
 import { Header } from '@/components/header'
 import { WrapperList } from '@/components/wrapperList'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useDebouncedCallback } from 'use-debounce'
 
 export default function Deputados() {
-  const defaultFilters: IFilterGetDeputadosParams = {
-    nome: '',
-    siglaUf: '',
-    siglaPartido: '',
-    pagina: '1',
-    itens: '10',
-    idLegislatura: '57',
-  }
+  const router = useRouter()
 
-  const [filters, setFilters] =
-    useState<IFilterGetDeputadosParams>(defaultFilters)
+  const searchParams = useSearchParams()
 
-  const { pagina, siglaUf, siglaPartido } = filters
+  const params = new URLSearchParams(searchParams.toString())
+
+  const { nome, pagina, siglaUf, siglaPartido } = Object.fromEntries(
+    params.entries(),
+  )
 
   const { data: deputados, isLoading: isLoadingDeputados } = useQuery({
-    queryKey: ['deputados', filters],
-    queryFn: () => getDeputados(filters),
+    queryKey: ['deputados', params.toString()],
+    queryFn: () =>
+      getDeputados({
+        pagina,
+        siglaUf,
+        siglaPartido,
+        itens: '10',
+        idLegislatura: '57',
+        nome,
+      }),
   })
 
   const { data: partidos, isLoading: isLoadingPartidos } = useQuery({
-    queryKey: ['partidos', filters],
+    queryKey: ['partidos'],
     queryFn: () => getPartidos({ itens: '100' }),
   })
 
   const isLoading = !!(isLoadingDeputados || isLoadingPartidos)
 
-  function handleSetNome(value: string) {
-    const isValid = VALIDATIONS_REGEX.MIN_3_CHARACTERES.test(value)
-
-    if (isValid) {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        nome: value,
-      }))
-    } else if (value === '') {
-      setFilters((prevState) => ({
-        ...prevState,
-        nome: value,
-      }))
+  function handleSetParam(field: string, value: string) {
+    if (value && value !== 'null') {
+      params.set(field, value)
+    } else {
+      params.delete(field)
     }
+
+    params.set('pagina', '1')
+
+    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
   }
 
-  function handleSetSiglaUf(value: string) {
-    if (value === 'null') {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaUf: undefined,
-      }))
+  const handleSetParamName = useDebouncedCallback((value: string) => {
+    if (value) {
+      params.set('nome', value)
     } else {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaUf: value,
-      }))
+      params.delete('nome')
     }
-  }
 
-  function handleSetPartido(value: string) {
-    if (value === 'null') {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaPartido: undefined,
-      }))
-    } else {
-      setFilters((prevState) => ({
-        ...prevState,
-        pagina: '1',
-        siglaPartido: value,
-      }))
-    }
+    params.set('pagina', '1')
+
+    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
+  }, 500)
+
+  function handleSetPage(value: string) {
+    params.set('pagina', value)
+
+    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
   }
 
   const lastPage = deputados?.data.links
@@ -118,13 +104,16 @@ export default function Deputados() {
           <Input
             type="text"
             placeholder="Pesquisar por nome"
-            onChange={(e) => handleSetNome(e.target.value)}
+            onChange={(e) => handleSetParamName(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Partido</label>
-          <Select onValueChange={handleSetPartido} value={siglaPartido}>
+          <Select
+            onValueChange={(e) => handleSetParam('siglaPartido', e)}
+            value={siglaPartido}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Pesquisar por partidos" />
             </SelectTrigger>
@@ -152,7 +141,10 @@ export default function Deputados() {
 
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Estado</label>
-          <Select onValueChange={handleSetSiglaUf} value={siglaUf}>
+          <Select
+            onValueChange={(e) => handleSetParam('siglaUf', e)}
+            value={siglaUf}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Pesquisar por estado" />
             </SelectTrigger>
@@ -236,13 +228,8 @@ export default function Deputados() {
         <Table.Caption>
           {lastPage && (
             <PaginationList
-              pageIndex={Number(pagina)}
-              setPageIndex={(index) =>
-                setFilters((prevState) => ({
-                  ...prevState,
-                  pagina: String(index),
-                }))
-              }
+              pageIndex={pagina ? Number(pagina) : 1}
+              setPageIndex={(index) => handleSetPage(String(index))}
               lastPage={Number(lastPage[1])}
             />
           )}
