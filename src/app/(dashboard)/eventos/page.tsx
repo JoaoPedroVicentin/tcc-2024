@@ -95,7 +95,7 @@ export default function Eventos() {
     <WrapperList>
       <Header text="Eventos" icon={Calendar} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select

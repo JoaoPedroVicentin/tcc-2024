@@ -83,7 +83,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
     <WrapperSection>
       <Title text="Discursos" icon={MicrophoneStage} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select onValueChange={handleSetAno} value={ano}>
@@ -107,7 +107,7 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
       </div>
 
       {isLoading || hasDiscursos ? (
-        <div className="grid max-h-[718px] grid-cols-3 gap-6 overflow-y-scroll pr-6 2xl:grid-cols-4">
+        <div className="flex flex-wrap gap-6 overflow-y-scroll pr-6">
           {!isLoading
             ? hasDiscursos &&
               discursosPages[currentPage - 1].map((discurso, index) => {

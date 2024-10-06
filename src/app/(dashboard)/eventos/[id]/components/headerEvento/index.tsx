@@ -107,9 +107,9 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
       )}
 
       {eventHasEnded && (
-        <div className="grid h-fit grid-cols-event gap-6 overflow-hidden">
+        <div className="flex flex-col gap-6 lg:grid lg:h-fit lg:grid-cols-event lg:overflow-hidden">
           <div className="relative">
-            <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col gap-4 overflow-auto">
+            <div className="flex flex-col gap-4 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:top-0 lg:overflow-auto">
               <h2>{evento.descricaoTipo}</h2>
               <div className="flex items-center gap-2 bg-theme-black-50 px-3 py-2 text-white">
                 <Gavel size={20} weight="fill" />
@@ -147,7 +147,7 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
               <div className="h-px w-full bg-theme-gray-50" />
 
               {typeDataVisualization === 'infos' ? (
-                <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+                <div className="flex flex-1 flex-wrap gap-4 overflow-y-auto lg:flex-col">
                   <InfoComponent
                     icon={CalendarBlank}
                     label="Data"

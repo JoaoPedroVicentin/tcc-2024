@@ -8,9 +8,6 @@ import PaginationList from '@/components/paginationList'
 import { IFilterGetVotacoesParams } from '@/httpsRequests/votacoes/getVotacoes/interfaces/filterGetVotacoesParams.interface'
 import { getVotacoes } from '@/httpsRequests/votacoes/getVotacoes'
 import { format, parseISO } from 'date-fns'
-import Link from 'next/link'
-import { ArrowSquareOut, Ticket } from '@phosphor-icons/react'
-import { internalRoutes } from '@/configs/internalRoutes'
 import { WrapperList } from '@/components/wrapperList'
 import { Header } from '@/components/header'
 import {
@@ -23,6 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
+import { Ticket } from '@phosphor-icons/react'
 
 export default function Votacoes() {
   const currentYear = new Date().getFullYear()
@@ -61,7 +59,7 @@ export default function Votacoes() {
     <WrapperList>
       <Header text="Votações" icon={Ticket} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select
@@ -95,16 +93,12 @@ export default function Votacoes() {
             <Table.Head>Data</Table.Head>
             <Table.Head>Horário</Table.Head>
             <Table.Head>Órgão</Table.Head>
-            <Table.Head>Ver página</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {isLoading
             ? Array.from({ length: 10 }, (_, index) => (
                 <Table.Row key={index}>
-                  <Table.Cell>
-                    <Skeleton className="h-10 flex-1" />
-                  </Table.Cell>
                   <Table.Cell>
                     <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
@@ -143,11 +137,6 @@ export default function Votacoes() {
                     {format(votacao.dataHoraRegistro, 'HH:mm')}
                   </Table.Cell>
                   <Table.Cell>{votacao.siglaOrgao}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={internalRoutes.votacaoById(votacao.id)}>
-                      <ArrowSquareOut size={24} />
-                    </Link>
-                  </Table.Cell>
                 </Table.Row>
               ))}
         </Table.Body>

@@ -102,7 +102,7 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
     <WrapperSection>
       <Title text="Proposições relacionadas" icon={Files} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Tipo</label>
           <Select onValueChange={handleSetTipo} value={tipo}>

@@ -47,7 +47,7 @@ export function DeputadosEvento({ evento }: IEventoSectionProps) {
       <Title text="Deputados presentes" icon={UsersThree} />
 
       {isLoading || hasDeputados ? (
-        <div className="grid max-h-[718px] grid-cols-4 gap-12 overflow-y-scroll pr-6">
+        <div className="flex max-h-[718px] flex-wrap gap-12 overflow-y-scroll pr-6">
           {!isLoading
             ? hasDeputados &&
               deputadosPages[currentPage - 1].map((deputado) => {

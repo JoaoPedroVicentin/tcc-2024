@@ -56,7 +56,7 @@ export default function Partidos() {
     <WrapperList>
       <Header text="Partidos" icon={Flag} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select onValueChange={handleSetLegislatura} value={idLegislatura}>

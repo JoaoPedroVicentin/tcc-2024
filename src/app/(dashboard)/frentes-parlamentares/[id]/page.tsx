@@ -77,10 +77,10 @@ export default function FrenteParlamentarById({
         {!!(coordenadorValido || hasContact) && (
           <WrapperSection
             className="bg-theme-white-50"
-            classNameChildren="grid grid-cols-2"
+            classNameChildren="flex flex-wrap"
           >
             {coordenadorValido && (
-              <div className="flex flex-col gap-4">
+              <div className="flex w-fit flex-1 flex-col gap-4">
                 <Title text="Coordenador" icon={Person} />
 
                 <DeputadoCard
@@ -101,7 +101,7 @@ export default function FrenteParlamentarById({
             )}
 
             {hasContact && (
-              <div className="flex flex-col gap-4">
+              <div className="flex w-fit flex-1 flex-col gap-4">
                 <Title text="Contato" icon={PhoneDisconnect} />
                 {frente.data.dados.telefone && (
                   <InfoComponent

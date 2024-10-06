@@ -6,7 +6,6 @@ import {
   CalendarBlank,
   Clock,
   Gavel,
-  Ticket,
 } from '@phosphor-icons/react'
 import { IPollCardProps } from './interface/pollCardProps.interface'
 import { format } from 'date-fns'
@@ -47,7 +46,7 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
   const hasEvento = !!(idEvento && idEvento[1])
 
   return (
-    <div className="flex flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5">
+    <div className="flex w-72 flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5 lg:min-w-[325px]">
       <div
         className={
           statusVotacao.className
@@ -82,14 +81,14 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <InfoComponent icon={CalendarBlank} label="Data" value={data} />
         <InfoComponent icon={Clock} label="Horário" value={horario} />
       </div>
 
       <div className="h-px w-full bg-theme-gray-50" />
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {!isEventoPage && hasEvento && (
           <LinkButton
             href={internalRoutes.eventoById(Number(idEvento[1]))}
@@ -99,13 +98,13 @@ export function PollCard({ id, poll, isEventoPage }: IPollCardProps) {
             className="w-full"
           />
         )}
-        <LinkButton
+        {/* <LinkButton
           href="#"
           variant="alternative"
           leftIcon={Ticket}
           text="Votação"
           className="w-full"
-        />
+        /> */}
       </div>
     </div>
   )

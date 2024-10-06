@@ -68,7 +68,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
     <WrapperSection className="bg-theme-white-50">
       <Title text="Frentes parlamentares" icon={UsersThree} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select

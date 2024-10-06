@@ -40,7 +40,7 @@ const config = {
           },
           green: {
             50: '#EDF4D3',
-            100: '#C6ED37',
+            100: '#A4D300',
           },
           red: {
             50: '#FEF2F2',
@@ -87,6 +87,7 @@ const config = {
       padding: {
         base: '0.5rem 1rem',
         section: '3.25rem 3.75rem',
+        sectionMd: '1.5rem 2rem',
         button: '0.5rem 0.75rem',
         sidebar: '3.25rem 1.25rem',
       },

@@ -56,7 +56,7 @@ export default function FrentesParlamentares() {
     <WrapperList>
       <Header text="Frentes Parlamentares" icon={UsersThree} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select onValueChange={handleSetLegislatura} value={idLegislatura}>

@@ -117,7 +117,7 @@ export default function Proposicoes() {
     <WrapperList>
       <Header text="Proposições" icon={Files} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Ano</label>
           <Select onValueChange={handleSetAno} value={ano}>

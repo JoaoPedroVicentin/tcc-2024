@@ -41,8 +41,8 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
             </Dialog.Close>
           </div>
         </Dialog.Header>
-        <div className="grid h-full grid-cols-modalSpeech gap-6 overflow-hidden">
-          <div className="flex h-auto flex-col gap-4 overflow-y-scroll">
+        <div className=" flex h-full flex-col gap-6 overflow-hidden lg:grid lg:grid-cols-modalSpeech">
+          <div className="flex h-auto flex-col gap-4 lg:overflow-y-scroll">
             <div className="flex items-center bg-theme-black-50 p-2 text-white">
               <p className="font-medium">{titulo}</p>
             </div>
@@ -50,17 +50,17 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
               <h3 className="truncate">{tipoDiscurso}</h3>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
-            <div className="h-full overflow-y-scroll">
+            <div className="lg:h-full lg:overflow-y-scroll">
               <p className="pr-2 text-sm font-normal text-black">
                 {checkString(sumario)}
               </p>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
-            <div className="flex flex-col gap-3">
+            <div className="hidden gap-3 lg:flex lg:flex-col">
               <InfoComponent icon={CalendarBlank} label="Data" value={data} />
               <InfoComponent icon={Clock} label="Horário" value={horario} />
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="hidden flex-col gap-3 lg:flex">
               {urlAudio && (
                 <LinkButton
                   text="Áudio"
@@ -105,6 +105,31 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
             <Dialog.Description className="h-auto overflow-y-scroll pr-2 text-sm font-normal text-black">
               {transcricao}
             </Dialog.Description>
+          </div>
+          <div className="flex gap-3 lg:hidden lg:flex-col">
+            <InfoComponent icon={CalendarBlank} label="Data" value={data} />
+            <InfoComponent icon={Clock} label="Horário" value={horario} />
+          </div>
+          <div className="flex flex-col gap-3 lg:hidden">
+            {urlAudio && (
+              <LinkButton
+                text="Áudio"
+                href={urlAudio}
+                leftIcon={SpeakerHigh}
+                variant="alternative"
+                weight="fill"
+              />
+            )}
+            {urlTexto && (
+              <LinkButton
+                text="Ver documento"
+                href={urlTexto}
+                leftIcon={TextAlignLeft}
+                variant="alternative"
+                weight="bold"
+                className="w-auto"
+              />
+            )}
           </div>
         </div>
       </Dialog.Content>

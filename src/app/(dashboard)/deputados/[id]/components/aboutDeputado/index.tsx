@@ -54,7 +54,7 @@ export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
         <Title text="Resumo" icon={Info} />
         <div className="flex flex-col gap-4">
           <Title text="Sobre" />
-          <div className="grid grid-cols-5 gap-4">
+          <div className="flex flex-wrap gap-8">
             <InfoComponent
               icon={IdentificationCard}
               label="Nome civil"
@@ -87,7 +87,7 @@ export function AboutDeputado({ deputado }: IDeputadoSectionProps) {
         {hasContact && (
           <div className="flex flex-col gap-4">
             <Title text="Contato" />
-            <div className="grid grid-cols-5 gap-4">
+            <div className="flex flex-wrap gap-8">
               {gabineteInfo !== 'Gabinete' && (
                 <InfoComponent
                   label="Gabinete"

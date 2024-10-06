@@ -54,7 +54,7 @@ export default function BlocosPartidarios() {
     <WrapperList>
       <Header text="Blocos Partidários" icon={UsersFour} />
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Legislatura</label>
           <Select

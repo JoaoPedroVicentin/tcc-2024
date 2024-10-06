@@ -8,7 +8,10 @@ export function WrapperSection({
 }: IWrapperSectionProps) {
   return (
     <section
-      className={cn('border-b border-theme-gray-100 p-section', className)}
+      className={cn(
+        'p-sectionMd border-b border-theme-gray-100 lg:p-section',
+        className,
+      )}
     >
       <div
         className={cn(
