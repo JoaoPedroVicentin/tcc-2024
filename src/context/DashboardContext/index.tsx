@@ -4,7 +4,7 @@ import { IDashboardContextData } from './interface/dashboardContextData.interfac
 export const DashboardContext = createContext({} as IDashboardContextData)
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(true)
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
     <DashboardContext.Provider value={{ sidebarIsOpen, setSidebarIsOpen }}>
