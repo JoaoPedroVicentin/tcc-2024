@@ -8,8 +8,9 @@ export function WrapperSection({
 }: IWrapperSectionProps) {
   return (
     <section
-      className={cn(
-        'p-sectionMd border-b border-theme-gray-100 lg:p-section',
+      // eslint-disable-next-line
+    className={cn(
+        'border-b border-theme-gray-100 p-sectionMd lg:p-section',
         className,
       )}
     >
