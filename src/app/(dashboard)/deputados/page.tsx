@@ -1,7 +1,7 @@
 'use client'
 import { getDeputados } from '@/httpsRequests/deputados/getDeputados'
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useState } from 'react'
 import * as Table from '@/components/ui/table'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -18,35 +18,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useDebouncedCallback } from 'use-debounce'
 import { SIGLAS_UF } from '@/constants/siglasUf'
 import { getPartidos } from '@/httpsRequests/partidos/getPartidos'
 import Link from 'next/link'
 import { internalRoutes } from '@/configs/internalRoutes'
 import { Header } from '@/components/header'
 import { WrapperList } from '@/components/wrapperList'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useDebouncedCallback } from 'use-debounce'
+import { IFilterGetDeputadosParams } from '@/httpsRequests/deputados/getDeputados/interfaces/filterGetDeputadosParams.interface'
 
 export default function Deputados() {
-  const router = useRouter()
+  const defaultFilters: IFilterGetDeputadosParams = {
+    itens: '10',
+    idLegislatura: '57',
+    pagina: '1',
+  }
 
-  const searchParams = useSearchParams()
+  const [filters, setFilters] =
+    useState<IFilterGetDeputadosParams>(defaultFilters)
 
-  const params = new URLSearchParams(searchParams.toString())
-
-  const { nome, pagina, siglaUf, siglaPartido } = Object.fromEntries(
-    params.entries(),
-  )
+  const { pagina, idLegislatura, siglaUf, siglaPartido, itens, nome } = filters
 
   const { data: deputados, isLoading: isLoadingDeputados } = useQuery({
-    queryKey: ['deputados', params.toString()],
+    queryKey: ['deputados', filters],
     queryFn: () =>
       getDeputados({
         pagina,
         siglaUf,
         siglaPartido,
-        itens: '10',
-        idLegislatura: '57',
+        itens,
+        idLegislatura,
         nome,
       }),
   })
@@ -58,41 +59,25 @@ export default function Deputados() {
 
   const isLoading = !!(isLoadingDeputados || isLoadingPartidos)
 
-  function handleSetParam(field: string, value: string) {
-    if (value && value !== 'null') {
-      params.set(field, value)
-    } else {
-      params.delete(field)
-    }
-
-    params.set('pagina', '1')
-
-    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
-  }
-
-  const handleSetParamName = useDebouncedCallback((value: string) => {
-    if (value) {
-      params.set('nome', value)
-    } else {
-      params.delete('nome')
-    }
-
-    params.set('pagina', '1')
-
-    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
-  }, 500)
-
-  function handleSetPage(value: string) {
-    params.set('pagina', value)
-
-    router.replace(`${internalRoutes.deputados}?${params.toString()}`)
-  }
-
   const lastPage = deputados?.data.links
     .find((link) => link.rel === 'last')
     ?.href.match(VALIDATIONS_REGEX.GET_INDEX_PAGE)
 
   const hasData = !(!isLoading && deputados && deputados.data.dados.length <= 0)
+
+  const handleSetParamName = useDebouncedCallback((value: string) => {
+    if (value === '') {
+      setFilters((prevState) => ({
+        ...prevState,
+        nome: undefined,
+      }))
+    } else {
+      setFilters((prevState) => ({
+        ...prevState,
+        nome: value,
+      }))
+    }
+  }, 500)
 
   return (
     <WrapperList>
@@ -111,7 +96,19 @@ export default function Deputados() {
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Partido</label>
           <Select
-            onValueChange={(e) => handleSetParam('siglaPartido', e)}
+            onValueChange={(e) => {
+              if (e === 'null') {
+                setFilters((prevState) => ({
+                  ...prevState,
+                  siglaPartido: undefined,
+                }))
+              } else {
+                setFilters((prevState) => ({
+                  ...prevState,
+                  siglaPartido: e,
+                }))
+              }
+            }}
             value={siglaPartido}
           >
             <SelectTrigger>
@@ -142,7 +139,19 @@ export default function Deputados() {
         <div className="flex flex-col gap-2">
           <label className="font-semibold">Estado</label>
           <Select
-            onValueChange={(e) => handleSetParam('siglaUf', e)}
+            onValueChange={(e) => {
+              if (e === 'null') {
+                setFilters((prevState) => ({
+                  ...prevState,
+                  siglaUf: undefined,
+                }))
+              } else {
+                setFilters((prevState) => ({
+                  ...prevState,
+                  siglaUf: e,
+                }))
+              }
+            }}
             value={siglaUf}
           >
             <SelectTrigger>
@@ -229,7 +238,12 @@ export default function Deputados() {
           {lastPage && (
             <PaginationList
               pageIndex={pagina ? Number(pagina) : 1}
-              setPageIndex={(index) => handleSetPage(String(index))}
+              setPageIndex={(index) => {
+                setFilters((prevState) => ({
+                  ...prevState,
+                  pagina: index.toString(),
+                }))
+              }}
               lastPage={Number(lastPage[1])}
             />
           )}
