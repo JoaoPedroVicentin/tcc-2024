@@ -1,6 +1,7 @@
+import { PopoverComponent } from '../popover'
 import { ITitleProps } from './interface/titleProps.interface'
 
-export default function Title({ text, icon: Icon }: ITitleProps) {
+export default function Title({ text, icon: Icon, info }: ITitleProps) {
   return (
     <div className="flex w-fit items-center gap-2.5 text-black">
       {Icon && (
@@ -9,6 +10,7 @@ export default function Title({ text, icon: Icon }: ITitleProps) {
         </div>
       )}
       <h1 className="text-2xl font-normal">{text}</h1>
+      {info && <PopoverComponent title={text} content={info} />}
     </div>
   )
 }

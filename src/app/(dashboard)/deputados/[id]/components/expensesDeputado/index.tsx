@@ -88,7 +88,21 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
 
   return (
     <WrapperSection>
-      <Title text="Despesas" icon={HandCoins} />
+      <Title
+        text="Despesas"
+        icon={HandCoins}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, é exibida uma lista com todos os gastos realizados pelo
+            deputado utilizando sua cota parlamentar. <br /> As informações
+            exibidas para cada despesa incluem o tipo de despesa, data, valor,
+            fornecedor e, se disponível, um link para a nota fiscal eletrônica.{' '}
+            <br /> Você pode filtrar essa lista por ano e mês da despesa, e logo
+            abaixo dos filtros, é exibido o valor total dos gastos realizados
+            durante o período selecionado.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">

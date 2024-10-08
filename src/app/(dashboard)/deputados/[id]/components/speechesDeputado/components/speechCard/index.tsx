@@ -13,7 +13,7 @@ export function SpeechCard({
   onClick,
 }: ISpeechCardProps) {
   return (
-    <div className="flex min-w-72 flex-1 flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5 lg:min-w-[325px]">
+    <div className="flex w-72 flex-col gap-4 border border-theme-gray-50 bg-theme-white-50 px-4 py-5 lg:min-w-[325px]">
       <div className="flex items-center bg-theme-black-50 p-2 text-white">
         <p className="font-medium">{titulo}</p>
       </div>

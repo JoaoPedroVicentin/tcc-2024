@@ -81,7 +81,22 @@ export function SpeechesDeputado({ deputado }: IDeputadoSectionProps) {
 
   return (
     <WrapperSection>
-      <Title text="Discursos" icon={MicrophoneStage} />
+      <Title
+        text="Discursos"
+        icon={MicrophoneStage}
+        info={
+          <p className="text-sm text-black">
+            Nessa seção, são exibidos cartões com informações sobre discursos
+            realizados pelo deputado em eventos específicos na Câmara. <br /> As
+            informações contidas nos cartões incluem um breve resumo do tema
+            abordado, data e horário, além de um botão para abrir uma janela com
+            o discurso na íntegra. <br /> Se disponível, também é exibido um
+            vídeo da gravação do discurso publicado pelo canal oficial da Câmara
+            dos Deputados no YouTube. No entanto, essas gravações são raramente
+            disponibilizadas pela API
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">

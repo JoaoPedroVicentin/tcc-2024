@@ -88,7 +88,18 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
 
   return (
     <WrapperSection className="bg-theme-white-50">
-      <Title text="Proposições" icon={Files} />
+      <Title
+        text="Proposições"
+        icon={Files}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, é exibida uma lista das proposições nas quais o
+            deputado participou da elaboração. <br /> A lista, exibe a sigla,
+            ementa e um link para a página de cada proposição, permitindo também
+            filtrar por ano, tipo e tema
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">

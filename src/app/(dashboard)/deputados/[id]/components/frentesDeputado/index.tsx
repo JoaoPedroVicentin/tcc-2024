@@ -66,7 +66,18 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
 
   return (
     <WrapperSection className="bg-theme-white-50">
-      <Title text="Frentes parlamentares" icon={UsersThree} />
+      <Title
+        text="Frentes parlamentares"
+        icon={UsersThree}
+        info={
+          <p className="text-sm text-black">
+            Nessa seção, é exibida uma lista de todas as frentes parlamentares
+            das quais o deputado participa, com o título e um link para a página
+            correspondente. <br /> Você pode filtrar as frentes pela
+            legislatura, assim como na página de frentes parlamentares.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
