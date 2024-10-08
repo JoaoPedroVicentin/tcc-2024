@@ -47,7 +47,7 @@ export function HeaderDeputado({ deputado }: IDeputadoSectionProps) {
   return (
     <WrapperSection>
       <Header text="Deputado" icon={User} />
-      <div className="flex w-full justify-between">
+      <div className="flex w-full flex-wrap justify-between gap-6">
         <div className="flex items-center gap-6">
           <Image
             src={urlFoto}
