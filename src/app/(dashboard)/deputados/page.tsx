@@ -70,11 +70,13 @@ export default function Deputados() {
       setFilters((prevState) => ({
         ...prevState,
         nome: undefined,
+        pagina: '1',
       }))
     } else {
       setFilters((prevState) => ({
         ...prevState,
         nome: value,
+        pagina: '1',
       }))
     }
   }, 500)
@@ -101,11 +103,13 @@ export default function Deputados() {
                 setFilters((prevState) => ({
                   ...prevState,
                   siglaPartido: undefined,
+                  pagina: '1',
                 }))
               } else {
                 setFilters((prevState) => ({
                   ...prevState,
                   siglaPartido: e,
+                  pagina: '1',
                 }))
               }
             }}
