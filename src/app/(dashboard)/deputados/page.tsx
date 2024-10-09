@@ -83,7 +83,22 @@ export default function Deputados() {
 
   return (
     <WrapperList>
-      <Header text="Deputados" icon={Users} />
+      <Header
+        text="Deputados"
+        icon={Users}
+        info={
+          <p className="text-sm text-black">
+            A página de deputados exibe uma lista com todos os deputados em
+            exercício na legislatura atual.
+            <br /> As informações apresentadas para cada deputado incluem sua
+            foto, nome, e-mail, sigla do partido, sigla do estado de
+            representação e um link para a página do deputado, onde são
+            fornecidas informações adicionais.
+            <br /> Você pode filtrar essa lista, pesquisando o deputado desejado
+            por nome, partido e/ou estado.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -256,7 +271,7 @@ export default function Deputados() {
         {!hasData ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Deputados</Table.Caption>
+          <Table.Caption>Lista dos Deputados</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

@@ -171,7 +171,7 @@ export function FrentesDeputado({ deputado }: IDeputadoSectionProps) {
                 )}
 
                 <Table.Caption>
-                  Listagem das Frentes Parlamentares{' '}
+                  Lista das Frentes Parlamentares{' '}
                   {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                   {deputado.ultimoStatus.nomeEleitoral}
                 </Table.Caption>

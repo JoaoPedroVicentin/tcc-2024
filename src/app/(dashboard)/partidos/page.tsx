@@ -54,7 +54,20 @@ export default function Partidos() {
 
   return (
     <WrapperList>
-      <Header text="Partidos" icon={Flag} />
+      <Header
+        text="Partidos"
+        icon={Flag}
+        info={
+          <p className="text-sm text-black">
+            A página de partidos exibe uma lista com os partidos representados
+            por legislatura.
+            <br /> As informações apresentadas para cada partido incluem seu
+            nome, sigla e um link para a página do partido, onde são fornecidas
+            informações adicionais.
+            <br /> Você pode filtrar essa lista pela legislatura.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -140,7 +153,7 @@ export default function Partidos() {
         {!isLoading && partidos && partidos.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Partidos</Table.Caption>
+          <Table.Caption>Lista dos Partidos</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

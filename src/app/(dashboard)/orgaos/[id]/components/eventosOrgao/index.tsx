@@ -243,7 +243,7 @@ export function EventosOrgao({ orgao }: IOrgaoSectionProps) {
         {!isLoading && eventos && eventos.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Eventos</Table.Caption>
+          <Table.Caption>Lista dos Eventos</Table.Caption>
         )}
       </Table.Root>
     </WrapperSection>

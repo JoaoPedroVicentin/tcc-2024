@@ -16,13 +16,11 @@ import {
 } from '@/components/ui/select'
 import { IFilterGetOrgaosParams } from '@/httpsRequests/orgaos/getOrgaos/interfaces/filterGetOrgaosParams.interface'
 import { getOrgaos } from '@/httpsRequests/orgaos/getOrgaos'
-import Link from 'next/link'
-import { internalRoutes } from '@/configs/internalRoutes'
-import { ArrowSquareOut, Gavel } from '@phosphor-icons/react'
 import { TIPOS_ORGAO } from '@/constants/orgaos/tiposOrgao'
 import { Input } from '@/components/ui/input'
 import { Header } from '@/components/header'
 import { WrapperList } from '@/components/wrapperList'
+import { Gavel } from '@phosphor-icons/react'
 
 export default function Orgaos() {
   const defaultFilters: IFilterGetOrgaosParams = {
@@ -69,7 +67,18 @@ export default function Orgaos() {
 
   return (
     <WrapperList>
-      <Header text="Órgãos" icon={Gavel} />
+      <Header
+        text="Órgãos"
+        icon={Gavel}
+        info={
+          <p className="text-sm text-black">
+            A página de órgãos exibe uma lista com os órgãos da Câmara. As
+            informações apresentadas para cada órgão incluem nome, sigla,
+            apelido, e seu tipo <br />
+            Você pode filtrar essa lista por sigla e/ou tipo.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -110,7 +119,7 @@ export default function Orgaos() {
             <Table.Head>Sigla</Table.Head>
             <Table.Head>Apelido</Table.Head>
             <Table.Head>Tipo</Table.Head>
-            <Table.Head>Ver página</Table.Head>
+            {/* <Table.Head>Ver página</Table.Head> */}
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -129,9 +138,9 @@ export default function Orgaos() {
                   <Table.Cell>
                     <Skeleton className="h-10 flex-1" />
                   </Table.Cell>
-                  <Table.Cell>
+                  {/* <Table.Cell>
                     <Skeleton className="h-10 flex-1" />
-                  </Table.Cell>
+                  </Table.Cell> */}
                 </Table.Row>
               ))
             : orgaos &&
@@ -146,11 +155,11 @@ export default function Orgaos() {
                   <Table.Cell>{orgao.sigla}</Table.Cell>
                   <Table.Cell>{orgao.apelido}</Table.Cell>
                   <Table.Cell>{orgao.tipoOrgao}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={internalRoutes.orgaoById(orgao.id)}>
+                  {/* <Table.Cell>
+                    <Link href={internalRoutes.orgaoById(orgao.id.toString())}>
                       <ArrowSquareOut size={24} />
                     </Link>
-                  </Table.Cell>
+                  </Table.Cell> */}
                 </Table.Row>
               ))}
         </Table.Body>
@@ -171,7 +180,7 @@ export default function Orgaos() {
         {!isLoading && orgaos && orgaos.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Órgãos</Table.Caption>
+          <Table.Caption>Lista dos Órgãos</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

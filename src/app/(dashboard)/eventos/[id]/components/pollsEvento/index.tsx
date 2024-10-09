@@ -49,7 +49,19 @@ export function PollsEvento({ evento }: IEventoSectionProps) {
 
   return (
     <WrapperSection>
-      <Title text="Votações" icon={Ticket} />
+      <Title
+        text="Votações"
+        icon={Ticket}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, é exibida uma lista de cartões com as votações
+            realizadas durante o evento.
+            <br /> É importante ressaltar que as votações só ocorrem em eventos
+            com caráter deliberativo; caso contrário, não há informações
+            exibidas nesta seção.
+          </p>
+        }
+      />
 
       {isLoading || hasVotacoes ? (
         <div className="grid max-h-[718px] grid-cols-3 gap-6 overflow-y-scroll pr-6 2xl:grid-cols-4">

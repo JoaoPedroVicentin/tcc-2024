@@ -47,7 +47,16 @@ export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
     return (
       <WrapperSection className="bg-theme-white-50">
         <div className="flex flex-col gap-5">
-          <Title text="Sobre" />
+          <Title
+            text="Sobre"
+            info={
+              <p className="text-sm text-black">
+                Informações gerais sobre a proposição específica, como seu tipo,
+                situação atual, temas abordados, autores, e logo acima, um botão
+                que redireciona para o documento oficial completo da proposição.
+              </p>
+            }
+          />
           <InfoComponent
             label="Tipo de proposição"
             value={descricaoTipo}

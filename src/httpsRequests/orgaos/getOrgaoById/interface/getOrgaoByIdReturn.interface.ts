@@ -1,7 +1,7 @@
 import { ILinksReturn } from '@/interfaces/linksReturn.interface'
 
 export interface IOrgaoData {
-  id: string
+  id: number
   uri: string
   sigla: string
   nome: string

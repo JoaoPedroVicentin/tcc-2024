@@ -107,7 +107,7 @@ export function TableProcedures({
               lastPage={tramitacoesPages.length}
             />
           </Table.Caption>
-          <Table.Caption>Listagem das tramitações da proposição</Table.Caption>
+          <Table.Caption>Lista das tramitações da proposição</Table.Caption>
         </>
       )}
     </Table.Root>

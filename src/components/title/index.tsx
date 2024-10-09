@@ -10,7 +10,7 @@ export default function Title({ text, icon: Icon, info }: ITitleProps) {
         </div>
       )}
       <h1 className="text-2xl font-normal">{text}</h1>
-      {info && <PopoverComponent title={text} content={info} />}
+      {info && <PopoverComponent title={text} content={info} size={20} />}
     </div>
   )
 }

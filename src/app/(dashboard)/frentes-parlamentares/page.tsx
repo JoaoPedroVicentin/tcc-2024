@@ -54,7 +54,20 @@ export default function FrentesParlamentares() {
 
   return (
     <WrapperList>
-      <Header text="Frentes Parlamentares" icon={UsersThree} />
+      <Header
+        text="Frentes Parlamentares"
+        icon={UsersThree}
+        info={
+          <p className="text-sm text-black">
+            A página de frentes parlamentares exibe uma lista das frentes por
+            legislatura.
+            <br /> As informações apresentadas para cada frente incluem o título
+            e um link para a página da frente parlamentar, onde são
+            disponibilizadas informações adicionais.
+            <br /> Você pode filtrar essa lista pela legislatura.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -136,7 +149,7 @@ export default function FrentesParlamentares() {
         {!isLoading && frentes && frentes.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem das Frentes Parlamentares</Table.Caption>
+          <Table.Caption>Lista das Frentes Parlamentares</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

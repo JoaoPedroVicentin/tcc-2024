@@ -100,7 +100,25 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
 
   return (
     <WrapperSection>
-      <Title text="Proposições relacionadas" icon={Files} />
+      <Title
+        text="Proposições relacionadas"
+        icon={Files}
+        info={
+          <p className="text-sm text-black">
+            Na última seção, são exibidas proposições que possuem algum vínculo
+            com a proposição em questão.
+            <br /> <strong className="font-bold">Exemplo:</strong>
+            <br /> Se um deputado desejar que o processo de tramitação da
+            proposição seja acelerado, ele pode apresentar uma nova proposição
+            do tipo requerimento (REQ), solicitando o adiantamento do processo
+            de votação da proposição em questão, tornando-se assim uma
+            proposição relacionada.
+            <br /> Na lista, são exibidas a sigla, ementa e link de
+            redirecionamento para a página de cada proposição, com a
+            possibilidade de filtrar os dados da lista pelo tipo de proposição
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -203,7 +221,7 @@ export function RelatedProposicao({ proposicao }: IProposicaoSectionProps) {
                     />
                   </Table.Caption>
                   <Table.Caption>
-                    Listagem das proposições relacionadas
+                    Lista das proposições relacionadas
                   </Table.Caption>
                 </>
               )

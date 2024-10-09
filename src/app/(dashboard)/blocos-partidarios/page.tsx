@@ -52,7 +52,17 @@ export default function BlocosPartidarios() {
 
   return (
     <WrapperList>
-      <Header text="Blocos Partidários" icon={UsersFour} />
+      <Header
+        text="Blocos Partidários"
+        icon={UsersFour}
+        info={
+          <p className="text-sm text-black">
+            A página de blocos partidários exibe uma lista com os blocos
+            formados por legislatura.
+            <br /> Você pode filtrar essa lista pela legislatura.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -127,7 +137,7 @@ export default function BlocosPartidarios() {
         {!isLoading && blocos && blocos.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Blocos Partidários</Table.Caption>
+          <Table.Caption>Lista dos Blocos Partidários</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

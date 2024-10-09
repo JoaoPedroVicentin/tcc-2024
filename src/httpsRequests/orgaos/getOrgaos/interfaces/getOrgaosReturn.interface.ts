@@ -2,7 +2,7 @@ import { ILinksReturn } from '@/interfaces/linksReturn.interface'
 
 export interface IGetOrgaosReturn {
   dados: {
-    id: string
+    id: number
     uri: string
     sigla: string
     nome: string

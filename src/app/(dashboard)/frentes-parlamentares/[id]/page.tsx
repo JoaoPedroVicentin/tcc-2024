@@ -61,7 +61,22 @@ export default function FrenteParlamentarById({
     return (
       <main className="flex h-full flex-col">
         <WrapperSection>
-          <Header text="Frente Parlamentar" icon={UsersThree} />
+          <Header
+            text="Frente Parlamentar"
+            icon={UsersThree}
+            info={
+              <p className="text-sm text-black">
+                Na página de frente parlamentar, logo abaixo de seu nome, é
+                exibido um link para visualizar o documento completo da frente
+                parlamentar.
+                <br /> Também é mostrado o cartão do deputado que exerce o papel
+                de coordenador, junto com suas informações de contato (e-mail e
+                telefone).
+                <br /> Por fim, é apresentada a situação atual da frente, por
+                meio de uma linha do tempo com seu histórico na Câmara.
+              </p>
+            }
+          />
           <h1>{frente.data.dados.titulo}</h1>
 
           {frente.data.dados.urlDocumento && (

@@ -124,7 +124,7 @@ export default function MembrosPartido({
         {!isLoading && deputados && deputados.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Deputados</Table.Caption>
+          <Table.Caption>Lista dos Deputados</Table.Caption>
         )}
       </Table.Root>
     </WrapperSection>

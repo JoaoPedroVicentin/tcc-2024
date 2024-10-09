@@ -49,7 +49,26 @@ export function PollsProposicao({ proposicao }: IProposicaoSectionProps) {
 
   return (
     <WrapperSection>
-      <Title text="Votações" icon={Ticket} />
+      <Title
+        text="Votações"
+        icon={Ticket}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, são exibidos em cartões as votações relacionadas a essa
+            proposição.
+            <br />
+            Em cada cartão, são apresentadas a sigla do órgão que coordenou o
+            evento em que a votação foi realizada, o parecer da votação, data e
+            horário, um botão com link para a página do evento em que a votação
+            ocorreu, e o resultado final no topo do cartão (aprovado, não
+            aprovado ou não informado).
+            <br /> O cartão pode estar relacionado a uma votação não diretamente
+            ligada à proposição, mas que possa afetar sua situação; nesse caso,
+            a sigla da proposição é exibida com um link de redirecionamento para
+            a página dessa proposição.
+          </p>
+        }
+      />
 
       {isLoading || hasVotacoes ? (
         <div className="flex flex-wrap gap-6 overflow-y-scroll pr-6">

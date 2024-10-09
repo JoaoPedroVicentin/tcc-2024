@@ -44,7 +44,20 @@ export function DeputadosEvento({ evento }: IEventoSectionProps) {
 
   return (
     <WrapperSection className="bg-theme-white-50">
-      <Title text="Deputados presentes" icon={UsersThree} />
+      <Title
+        text="Deputados presentes"
+        icon={UsersThree}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, são apresentados cartões com informações dos deputados
+            que participaram do evento.
+            <br /> Em cada cartão, são exibidos a foto do deputado, seu nome,
+            sigla do partido e estado de representação.
+            <br /> Ao clicar no cartão, o usuário é redirecionado para a página
+            do deputado.
+          </p>
+        }
+      />
 
       {isLoading || hasDeputados ? (
         <div className="flex max-h-[718px] flex-wrap gap-12 overflow-y-scroll pr-6">

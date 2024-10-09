@@ -31,7 +31,22 @@ export function ProceduresProposicao({ proposicao }: IProposicaoSectionProps) {
 
   return (
     <WrapperSection className="bg-theme-white-50">
-      <Title text="Tramitações" icon={Steps} />
+      <Title
+        text="Tramitações"
+        icon={Steps}
+        info={
+          <p className="text-sm text-black">
+            Nesta seção, é exibido todo o histórico das tramitações da
+            proposição, desde sua apresentação até a situação atual.
+            <br /> No histórico, podem ser visualizados a data e o horário de
+            cada tramitação, a descrição e o órgão que realizou o despacho. As
+            tramitações podem ser vistas em dois modos: lista e timeline.
+            <br /> Se disponível, a descrição da tramitação é sublinhada para
+            indicar um link de redirecionamento para o documento correspondente
+            no modo timeline, ou através de um ícone no modo lista.
+          </p>
+        }
+      />
 
       <div className="flex gap-4">
         <Button

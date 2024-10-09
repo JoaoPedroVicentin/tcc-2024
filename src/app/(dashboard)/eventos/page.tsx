@@ -93,7 +93,23 @@ export default function Eventos() {
 
   return (
     <WrapperList>
-      <Header text="Eventos" icon={Calendar} />
+      <Header
+        text="Eventos"
+        icon={Calendar}
+        info={
+          <p className="text-sm text-black">
+            A página de eventos exibe uma lista dos eventos realizados pela
+            Câmara.
+            <br /> As informações apresentadas para cada evento incluem uma
+            descrição resumida do objetivo do evento, o órgão responsável, a
+            data, os horários de início e encerramento, o tipo de evento e um
+            link para a página do evento, onde são fornecidas informações
+            adicionais.
+            <br /> Você pode filtrar essa lista, pesquisando o evento desejado
+            por ano, tipo e/ou situação.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -250,7 +266,7 @@ export default function Eventos() {
         {!isLoading && eventos && eventos.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem dos Eventos</Table.Caption>
+          <Table.Caption>Lista dos Eventos</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

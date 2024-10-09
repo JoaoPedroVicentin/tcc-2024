@@ -1,6 +1,7 @@
+import { PopoverComponent } from '../popover'
 import { IHeaderProps } from './headerProps.interface'
 
-export function Header({ text, icon: Icon }: IHeaderProps) {
+export function Header({ text, icon: Icon, info }: IHeaderProps) {
   return (
     <header className="flex w-fit items-center gap-2.5 text-black">
       {Icon && (
@@ -9,6 +10,7 @@ export function Header({ text, icon: Icon }: IHeaderProps) {
         </div>
       )}
       <h1>{text}</h1>
+      {info && <PopoverComponent title={text} content={info} size={28} />}
     </header>
   )
 }

@@ -115,7 +115,20 @@ export default function Proposicoes() {
 
   return (
     <WrapperList>
-      <Header text="Proposições" icon={Files} />
+      <Header
+        text="Proposições"
+        icon={Files}
+        info={
+          <p className="text-sm text-black">
+            A página de proposições exibe uma lista das proposições elaboradas.
+            <br /> As informações apresentadas para cada proposição incluem sua
+            sigla, ementa e um link para a página da proposição, onde são
+            disponibilizadas informações adicionais.
+            <br /> Você pode filtrar essa lista, pesquisando a proposição
+            desejada por ano, tipo e/ou tema
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -251,7 +264,7 @@ export default function Proposicoes() {
         {!isLoading && proposicoes && proposicoes.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem das Proposições</Table.Caption>
+          <Table.Caption>Lista das Proposições</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>

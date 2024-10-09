@@ -239,7 +239,7 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
                   </Table.Caption>
                 )}
                 <Table.Caption>
-                  Listagem das Despesas{' '}
+                  Lista das Despesas{' '}
                   {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                   {deputado.ultimoStatus.nomeEleitoral}
                 </Table.Caption>

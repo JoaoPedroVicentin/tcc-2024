@@ -27,7 +27,22 @@ export default function PartidoById({ params: { id } }: IRouteByIdProps) {
     return (
       <main className="flex h-full flex-col">
         <WrapperSection>
-          <Header text="Partido" icon={Flag} />
+          <Header
+            text="Partido"
+            icon={Flag}
+            info={
+              <p className="text-sm text-black">
+                Na página de partido, são exibidos seu nome, sigla e o deputado
+                que exerce a liderança do partido, além de uma lista com todos
+                os deputados em atividade na legislatura atual que fazem parte
+                do partido.
+                <br /> As informações apresentadas para cada deputado incluem
+                sua foto, nome, e-mail, sigla do partido, sigla do estado de
+                representação e um link para a página do deputado, onde são
+                fornecidas informações adicionais.
+              </p>
+            }
+          />
           <h1 className="text-5xl font-light">
             {partido.data.dados.sigla} - {partido.data.dados.nome}
           </h1>

@@ -77,7 +77,28 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
 
   return (
     <WrapperSection>
-      <Header text="Evento" icon={Calendar} />
+      <Header
+        text="Evento"
+        icon={Calendar}
+        info={
+          <p className="text-sm text-black">
+            Na seção inicial, são apresentados um resumo das informações sobre o
+            evento, com o título representando sua descrição.
+            <br /> Logo acima, é exibida sua situação atual, como, por exemplo,
+            se já foi encerrado ou não. Também são mostrados o tipo do evento,
+            data, horário, local de realização e a sigla do órgão que coordenou
+            o evento. <br />
+            Se alguma proposição foi debatida durante o evento, o link para sua
+            página é exibido ao lado de seu título. Ao lado dessas informações,
+            há o vídeo completo do evento, disponibilizado no canal oficial da
+            Câmara dos Deputados no YouTube.
+            <br /> Além disso, há um link no canto inferior esquerdo da seção
+            que redireciona o usuário para assistir o vídeo diretamente na
+            plataforma.
+          </p>
+        }
+      />
+
       <h1>{descricaoFormatada[0]}</h1>
 
       {situacaoEvento && (
@@ -111,6 +132,7 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
           <div className="relative">
             <div className="flex flex-col gap-4 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:top-0 lg:overflow-auto">
               <h2>{evento.descricaoTipo}</h2>
+
               <div className="flex items-center gap-2 bg-theme-black-50 px-3 py-2 text-white">
                 <Gavel size={20} weight="fill" />
                 {evento.orgaos.map((orgao) => (
@@ -148,17 +170,27 @@ export function HeaderEvento({ evento }: IEventoSectionProps) {
 
               {typeDataVisualization === 'infos' ? (
                 <div className="flex flex-1 flex-wrap gap-4 overflow-y-auto lg:flex-col">
-                  <InfoComponent
-                    icon={CalendarBlank}
-                    label="Data"
-                    value={data}
-                  />
-                  <InfoComponent icon={Clock} label="Horário" value={horario} />
-                  <InfoComponent
-                    icon={Building}
-                    label="Local"
-                    value={localInfo}
-                  />
+                  <div>
+                    <InfoComponent
+                      icon={CalendarBlank}
+                      label="Data"
+                      value={data}
+                    />
+                  </div>
+                  <div>
+                    <InfoComponent
+                      icon={Clock}
+                      label="Horário"
+                      value={horario}
+                    />
+                  </div>
+                  <div>
+                    <InfoComponent
+                      icon={Building}
+                      label="Local"
+                      value={localInfo}
+                    />
+                  </div>
                 </div>
               ) : (
                 <ul className="flex flex-1 list-none flex-col gap-2 overflow-y-auto pr-2">

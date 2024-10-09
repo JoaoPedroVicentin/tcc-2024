@@ -3,12 +3,12 @@ import { Question } from '@phosphor-icons/react'
 import { IPopoverProps } from './interfaces/popoverProps.interface'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
-export function PopoverComponent({ title, content }: IPopoverProps) {
+export function PopoverComponent({ title, content, size }: IPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" className="h-fit p-2 hover:bg-theme-green-50">
-          <Question size={20} />
+          <Question size={size} />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">

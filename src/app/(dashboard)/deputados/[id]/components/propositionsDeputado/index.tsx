@@ -231,7 +231,7 @@ export function PrositionsDeputado({ deputado }: IDeputadoSectionProps) {
               </Table.Caption>
 
               <Table.Caption>
-                Listagem das proposições{' '}
+                Lista das proposições{' '}
                 {deputado.sexo === 'M' ? 'do deputado' : 'da deputada'}{' '}
                 {deputado.ultimoStatus.nomeEleitoral}
               </Table.Caption>

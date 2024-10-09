@@ -57,7 +57,19 @@ export default function Votacoes() {
 
   return (
     <WrapperList>
-      <Header text="Votações" icon={Ticket} />
+      <Header
+        text="Votações"
+        icon={Ticket}
+        info={
+          <p className="text-sm text-black">
+            A página de votações exibe uma lista das votações realizadas. As
+            informações apresentadas para cada votação incluem a proposição
+            relacionada, se houver, a descrição, data, horário e o órgão
+            responsável pela coordenação da votação.
+            <br /> Você pode filtrar essa lista por ano.
+          </p>
+        }
+      />
 
       <div className="flex flex-wrap gap-6">
         <div className="flex flex-col gap-2">
@@ -157,7 +169,7 @@ export default function Votacoes() {
         {!isLoading && votacoes && votacoes.data.dados.length <= 0 ? (
           <Table.DataEmpty />
         ) : (
-          <Table.Caption>Listagem das Votações</Table.Caption>
+          <Table.Caption>Lista das Votações</Table.Caption>
         )}
       </Table.Root>
     </WrapperList>
