@@ -23,7 +23,7 @@ export function PollsOrgao({ orgao }: IOrgaoSectionProps) {
 
   const { data: votacoes, isLoading } = useQuery({
     queryKey: ['pollsOrgao', id, filters],
-    queryFn: () => getVotacoesOrgao(id),
+    queryFn: () => getVotacoesOrgao(id.toString()),
   })
 
   function splitIntoSubarrays(
