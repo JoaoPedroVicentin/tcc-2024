@@ -42,7 +42,7 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
           </div>
         </Dialog.Header>
         <div className=" flex h-full flex-col gap-6 overflow-hidden lg:grid lg:grid-cols-modalSpeech">
-          <div className="flex h-auto flex-col gap-4 lg:overflow-y-scroll">
+          <div className="flex h-auto flex-col gap-4 lg:h-full lg:overflow-y-scroll">
             <div className="flex items-center bg-theme-black-50 p-2 text-white">
               <p className="font-medium">{titulo}</p>
             </div>
@@ -50,7 +50,7 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
               <h3 className="truncate">{tipoDiscurso}</h3>
             </div>
             <div className="h-px w-full bg-theme-gray-50" />
-            <div className="lg:h-full lg:overflow-y-scroll">
+            <div className="h-auto overflow-y-scroll max-lg:max-h-32 lg:h-full">
               <p className="pr-2 text-sm font-normal text-black">
                 {checkString(sumario)}
               </p>
@@ -82,7 +82,7 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
               )}
             </div>
           </div>
-          <div className="flex h-auto flex-col gap-4 overflow-y-scroll">
+          <div className="flex h-full flex-col gap-4 overflow-y-scroll lg:h-auto">
             {urlVideo && (
               <>
                 <iframe
@@ -102,7 +102,7 @@ export function ModalSpeech({ speech, isOpen, onClose }: IModalSpeechProps) {
                 />
               </>
             )}
-            <Dialog.Description className="h-auto overflow-y-scroll pr-2 text-sm font-normal text-black">
+            <Dialog.Description className="h-full overflow-y-scroll pr-2 text-sm font-normal text-black lg:h-auto">
               {transcricao}
             </Dialog.Description>
           </div>

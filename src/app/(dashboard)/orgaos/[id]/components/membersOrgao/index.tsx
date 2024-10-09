@@ -18,7 +18,7 @@ export function MembersOrgao({ orgao }: IOrgaoSectionProps) {
 
   const { data: deputados, isLoading } = useQuery({
     queryKey: ['membrosOrgao', id],
-    queryFn: () => getMembrosOrgao(id),
+    queryFn: () => getMembrosOrgao(id.toString()),
   })
 
   function splitIntoSubarrays(
