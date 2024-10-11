@@ -198,7 +198,10 @@ export default function Deputados() {
           <Table.Row>
             <Table.Head>Nome</Table.Head>
             <Table.Head>Email</Table.Head>
-            <Table.Head>Partido</Table.Head>
+            <Table.Head className="flex items-center gap-2">
+              Partido
+              <ArrowSquareOut size={20} />
+            </Table.Head>
             <Table.Head>UF</Table.Head>
             <Table.Head>Ver página</Table.Head>
           </Table.Row>
@@ -225,33 +228,45 @@ export default function Deputados() {
                 </Table.Row>
               ))
             : deputados &&
-              deputados.data.dados.map((deputado, index) => (
-                <Table.Row
-                  key={index}
-                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                >
-                  <Table.Cell className="flex items-center gap-4">
-                    <Image
-                      src={deputado.urlFoto}
-                      alt={deputado.nome}
-                      width={35}
-                      height={35}
-                      className="h-10 w-10 object-cover"
-                    />
-                    {deputado.nome}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {deputado.email ? deputado.email : '---'}
-                  </Table.Cell>
-                  <Table.Cell>{deputado.siglaPartido}</Table.Cell>
-                  <Table.Cell>{deputado.siglaUf}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={internalRoutes.deputadoById(deputado.id)}>
-                      <ArrowSquareOut size={24} />
-                    </Link>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+              deputados.data.dados.map((deputado, index) => {
+                const partidoDpeutado = partidos?.data.dados.find(
+                  (partido) => partido.sigla === deputado.siglaPartido,
+                )
+
+                return (
+                  <Table.Row
+                    key={index}
+                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                  >
+                    <Table.Cell className="flex items-center gap-4">
+                      <Image
+                        src={deputado.urlFoto}
+                        alt={deputado.nome}
+                        width={35}
+                        height={35}
+                        className="h-10 w-10 object-cover"
+                      />
+                      {deputado.nome}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {deputado.email ? deputado.email : '---'}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Link
+                        href={internalRoutes.partidosById(partidoDpeutado!.id)}
+                      >
+                        {deputado.siglaPartido}
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell>{deputado.siglaUf}</Table.Cell>
+                    <Table.Cell>
+                      <Link href={internalRoutes.deputadoById(deputado.id)}>
+                        <ArrowSquareOut size={24} />
+                      </Link>
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              })}
         </Table.Body>
         <Table.Caption>
           {lastPage && (

@@ -20,7 +20,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { yearsBetweenCurrentYearAnd2019 } from '@/utils/yearsBetweenCurrentYearAnd2019'
-import { Ticket } from '@phosphor-icons/react'
+import { ArrowSquareOut, Ticket } from '@phosphor-icons/react'
+import Link from 'next/link'
+import { internalRoutes } from '@/configs/internalRoutes'
 
 export default function Votacoes() {
   const currentYear = new Date().getFullYear()
@@ -30,6 +32,7 @@ export default function Votacoes() {
     itens: '10',
     dataInicio: `${currentYear}-01-01`,
     dataFim: `${currentYear}-12-31`,
+    ordenarPor: 'idProposicaoObjeto',
   }
 
   const [filters, setFilters] =
@@ -100,7 +103,10 @@ export default function Votacoes() {
       <Table.Root className="pb-0">
         <Table.Header className="border-b-2 border-theme-black-50 text-base">
           <Table.Row>
-            <Table.Head>Proposição</Table.Head>
+            <Table.Head className="flex items-center gap-2">
+              Proposição
+              <ArrowSquareOut size={20} />
+            </Table.Head>
             <Table.Head>Descrição</Table.Head>
             <Table.Head>Data</Table.Head>
             <Table.Head>Horário</Table.Head>
@@ -129,28 +135,44 @@ export default function Votacoes() {
                 </Table.Row>
               ))
             : votacoes &&
-              votacoes.data.dados.map((votacao, index) => (
-                <Table.Row
-                  key={index}
-                  className="items-center text-base hover:bg-theme-black-50 hover:text-white"
-                >
-                  <Table.Cell>
-                    {votacao.proposicaoObjeto
-                      ? votacao.proposicaoObjeto
-                      : '---'}
-                  </Table.Cell>
-                  <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
-                    {votacao.descricao}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {format(votacao.dataHoraRegistro, 'dd/MM/yyyy')}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {format(votacao.dataHoraRegistro, 'HH:mm')}
-                  </Table.Cell>
-                  <Table.Cell>{votacao.siglaOrgao}</Table.Cell>
-                </Table.Row>
-              ))}
+              votacoes.data.dados.map((votacao, index) => {
+                const idProposicao = votacao.uriProposicaoObjeto?.match(
+                  VALIDATIONS_REGEX.GER_ID_FOR_URL,
+                )
+
+                const hasProposicao = !!(idProposicao && idProposicao[1])
+                return (
+                  <Table.Row
+                    key={index}
+                    className="items-center text-base hover:bg-theme-black-50 hover:text-white"
+                  >
+                    <Table.Cell>
+                      {hasProposicao ? (
+                        <Link
+                          href={internalRoutes.proposicaoById(
+                            Number(idProposicao[1]),
+                          )}
+                          className="flex items-center"
+                        >
+                          {votacao.proposicaoObjeto}
+                        </Link>
+                      ) : (
+                        <p>{'---'}</p>
+                      )}
+                    </Table.Cell>
+                    <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">
+                      {votacao.descricao}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {format(votacao.dataHoraRegistro, 'dd/MM/yyyy')}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {format(votacao.dataHoraRegistro, 'HH:mm')}
+                    </Table.Cell>
+                    <Table.Cell>{votacao.siglaOrgao}</Table.Cell>
+                  </Table.Row>
+                )
+              })}
         </Table.Body>
         <Table.Caption>
           {lastPage && (

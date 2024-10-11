@@ -7,4 +7,5 @@ export interface IFilterGetVotacoesParams {
   dataFim: string
   pagina?: string
   itens?: string
+  ordenarPor?: string
 }
