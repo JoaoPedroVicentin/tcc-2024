@@ -60,7 +60,7 @@ export function DeputadosEvento({ evento }: IEventoSectionProps) {
       />
 
       {isLoading || hasDeputados ? (
-        <div className="flex max-h-[718px] flex-wrap gap-12 overflow-y-scroll pr-6">
+        <div className="flex flex-wrap gap-4">
           {!isLoading
             ? hasDeputados &&
               deputadosPages[currentPage - 1].map((deputado) => {

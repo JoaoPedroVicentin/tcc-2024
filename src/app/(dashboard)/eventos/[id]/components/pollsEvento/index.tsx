@@ -64,7 +64,7 @@ export function PollsEvento({ evento }: IEventoSectionProps) {
       />
 
       {isLoading || hasVotacoes ? (
-        <div className="grid max-h-[718px] grid-cols-3 gap-6 overflow-y-scroll pr-6 2xl:grid-cols-4">
+        <div className="flex flex-wrap gap-6 overflow-y-scroll pr-6">
           {!isLoading
             ? hasVotacoes &&
               votacoesPages[currentPage - 1].map((votacao) => {

@@ -8,61 +8,65 @@ export default function PaginationList({
   lastPage,
 }: IPaginationProps) {
   return (
-    <Pagination.Root className="flex-1">
-      <Pagination.Content>
-        {pageIndex > 1 && (
-          <>
-            <Pagination.Item>
-              <Pagination.Previous
-                onClick={() => setPageIndex(pageIndex - 1)}
-              />
-            </Pagination.Item>
+    <Pagination.Root>
+      <Pagination.Content className="flex w-full flex-col items-center justify-center gap-4">
+        <div className="flex flex-wrap">
+          {pageIndex > 1 && (
             <Pagination.Item>
               <Pagination.Link onClick={() => setPageIndex(1)}>
                 {1}
               </Pagination.Link>
             </Pagination.Item>
-          </>
-        )}
-        {pageIndex - 1 > 1 && (
-          <>
+          )}
+          {pageIndex - 1 > 1 && (
+            <>
+              <Pagination.Item>
+                <Pagination.Ellipsis />
+              </Pagination.Item>
+              <Pagination.Item>
+                <Pagination.Link onClick={() => setPageIndex(pageIndex - 1)}>
+                  {pageIndex - 1}
+                </Pagination.Link>
+              </Pagination.Item>
+            </>
+          )}
+          <Pagination.Item>
+            <Pagination.Link isActive>{pageIndex}</Pagination.Link>
+          </Pagination.Item>
+          {pageIndex + 1 < lastPage && (
+            <>
+              <Pagination.Item>
+                <Pagination.Link onClick={() => setPageIndex(pageIndex + 1)}>
+                  {pageIndex + 1}
+                </Pagination.Link>
+              </Pagination.Item>
+              <Pagination.Item>
+                <Pagination.Ellipsis />
+              </Pagination.Item>
+            </>
+          )}
+          {lastPage && pageIndex < lastPage && (
             <Pagination.Item>
-              <Pagination.Ellipsis />
-            </Pagination.Item>
-            <Pagination.Item>
-              <Pagination.Link onClick={() => setPageIndex(pageIndex - 1)}>
-                {pageIndex - 1}
+              <Pagination.Link onClick={() => setPageIndex(lastPage)}>
+                {lastPage}
               </Pagination.Link>
             </Pagination.Item>
-          </>
-        )}
-        <Pagination.Item>
-          <Pagination.Link isActive>{pageIndex}</Pagination.Link>
-        </Pagination.Item>
-        {pageIndex + 1 < lastPage && (
-          <>
+          )}
+        </div>
+        <div className="flex">
+          {pageIndex > 1 && (
             <Pagination.Item>
-              <Pagination.Link onClick={() => setPageIndex(pageIndex + 1)}>
-                {pageIndex + 1}
-              </Pagination.Link>
+              <Pagination.Previous
+                onClick={() => setPageIndex(pageIndex - 1)}
+              />
             </Pagination.Item>
+          )}
+          {pageIndex < lastPage && (
             <Pagination.Item>
-              <Pagination.Ellipsis />
+              <Pagination.Next onClick={() => setPageIndex(pageIndex + 1)} />
             </Pagination.Item>
-          </>
-        )}
-        {lastPage && pageIndex < lastPage && (
-          <Pagination.Item>
-            <Pagination.Link onClick={() => setPageIndex(lastPage)}>
-              {lastPage}
-            </Pagination.Link>
-          </Pagination.Item>
-        )}
-        {pageIndex < lastPage && (
-          <Pagination.Item>
-            <Pagination.Next onClick={() => setPageIndex(pageIndex + 1)} />
-          </Pagination.Item>
-        )}
+          )}
+        </div>
       </Pagination.Content>
     </Pagination.Root>
   )
