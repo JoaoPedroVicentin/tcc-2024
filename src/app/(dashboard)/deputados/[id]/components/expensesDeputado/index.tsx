@@ -26,11 +26,15 @@ import { IGetDespesasDeputadoReturn } from '@/httpsRequests/deputados/getDespesa
 import { WrapperSection } from '@/components/wrapperSection'
 
 export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
+  const currentMonth = new Date().getMonth()
+
+  const currentYear = new Date().getFullYear()
+
   const defaultFilters: IFilterGetDespesasDeputadoParams = {
     pagina: '1',
     itens: '1000',
-    ano: '2024',
-    mes: '1',
+    ano: currentYear.toString(),
+    mes: currentMonth.toString(),
   }
 
   const [filters, setFilters] =

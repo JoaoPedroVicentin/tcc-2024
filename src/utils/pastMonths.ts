@@ -24,8 +24,14 @@ export function pastMonths(year: string): { value: string; month: string }[] {
     return []
   } else {
     const monthLimit = yearNum === yearCurrent ? monthCurrent : 12
-    return Array.from({ length: monthLimit }, (_, i) => {
+    const monthsPasts = Array.from({ length: monthLimit }, (_, i) => {
       return { value: (i + 1).toString(), month: monthsNames[i] }
     })
+
+    if (yearNum === yearCurrent && monthCurrent !== 1) {
+      monthsPasts.pop()
+    }
+
+    return monthsPasts
   }
 }

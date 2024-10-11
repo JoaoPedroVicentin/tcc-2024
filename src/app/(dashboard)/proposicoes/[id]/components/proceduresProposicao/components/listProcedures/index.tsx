@@ -7,6 +7,7 @@ import {
   CaretDoubleUp,
   Check,
   Clock,
+  Gavel,
 } from '@phosphor-icons/react'
 import { format } from 'date-fns'
 import { Fragment, useState } from 'react'
@@ -127,7 +128,10 @@ export function ListProcedures({ tramitacoes }: IComponentProceduresProps) {
                           key={indexTramite}
                           className="mb-5 flex w-full flex-col gap-5 border-b border-theme-gray-100 pb-5"
                         >
-                          <h3>{siglaOrgao}</h3>
+                          <h3 className="flex items-center gap-2">
+                            <Gavel />
+                            {siglaOrgao}
+                          </h3>
                           {orgaoTramites.map(
                             ({ despacho, url, hora }, indexOrgao) => {
                               return (
