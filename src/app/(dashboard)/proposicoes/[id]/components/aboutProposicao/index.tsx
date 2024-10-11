@@ -46,7 +46,7 @@ export function AboutProposicao({ proposicao }: IProposicaoSectionProps) {
   if (!isLoading) {
     return (
       <WrapperSection className="bg-theme-white-50">
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-8">
           <div className="flex flex-1 flex-col gap-5">
             <Title
               text="Sobre"
