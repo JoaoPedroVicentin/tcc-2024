@@ -157,7 +157,7 @@ export default function Votacoes() {
                           {votacao.proposicaoObjeto}
                         </Link>
                       ) : (
-                        <p>{'---'}</p>
+                        <p>{'Não disponível'}</p>
                       )}
                     </Table.Cell>
                     <Table.Cell className="max-w-[50ch] overflow-hidden overflow-ellipsis whitespace-nowrap">

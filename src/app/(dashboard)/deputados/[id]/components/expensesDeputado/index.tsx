@@ -214,7 +214,7 @@ export function ExpensesDeputado({ deputado }: IDeputadoSectionProps) {
                         <FileMagnifyingGlass size={24} weight="fill" />
                       </Link>
                     ) : (
-                      '---'
+                      'Não disponível'
                     )}
                   </Table.Cell>
                 </Table.Row>

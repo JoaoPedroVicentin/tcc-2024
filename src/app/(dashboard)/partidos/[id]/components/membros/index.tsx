@@ -94,7 +94,7 @@ export default function MembrosPartido({
                     {deputado.nome}
                   </Table.Cell>
                   <Table.Cell>
-                    {deputado.email ? deputado.email : '---'}
+                    {deputado.email ? deputado.email : 'Não disponível'}
                   </Table.Cell>
                   <Table.Cell>{deputado.siglaPartido}</Table.Cell>
                   <Table.Cell>{deputado.siglaUf}</Table.Cell>

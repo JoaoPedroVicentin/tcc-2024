@@ -1,6 +1,6 @@
 export function checkString(value: string | null | undefined): string {
   if (value === null || value === undefined) {
-    return '---'
+    return 'Não disponível'
   } else {
     return value
   }

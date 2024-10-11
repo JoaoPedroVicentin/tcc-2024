@@ -249,7 +249,7 @@ export default function Deputados() {
                       {deputado.nome}
                     </Table.Cell>
                     <Table.Cell>
-                      {deputado.email ? deputado.email : '---'}
+                      {deputado.email ? deputado.email : 'Não disponível'}
                     </Table.Cell>
                     <Table.Cell>
                       <Link

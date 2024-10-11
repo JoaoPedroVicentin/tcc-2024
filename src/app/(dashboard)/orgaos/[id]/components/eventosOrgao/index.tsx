@@ -214,7 +214,7 @@ export function EventosOrgao({ orgao }: IOrgaoSectionProps) {
                       {' / '}
                       {evento.dataHoraFim
                         ? format(evento.dataHoraFim, 'HH:mm')
-                        : '---'}
+                        : 'Não disponível'}
                     </Table.Cell>
                     <Table.Cell>{evento.descricaoTipo}</Table.Cell>
                     <Table.Cell>
